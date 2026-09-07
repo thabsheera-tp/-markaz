@@ -50,6 +50,11 @@ router.post('/', authenticateToken, requireRole(['admin', 'editor']), upload.sin
   res.json({
     message: 'Image uploaded successfully.',
     url,
+    file: {
+      url,
+      filename: req.file.filename,
+      size: req.file.size
+    },
     filename: req.file.filename,
     size: req.file.size
   });

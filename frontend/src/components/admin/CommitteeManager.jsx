@@ -104,8 +104,13 @@ export default function CommitteeManager({ user }) {
     try {
       setUploading(true);
       const res = await api.uploadFile(file);
-      setFormData(prev => ({ ...prev, photo_url: res.file.url }));
-      showToast('Portrait photo uploaded successfully!');
+      const uploadedUrl = res?.url || res?.file?.url;
+      if (uploadedUrl) {
+        setFormData(prev => ({ ...prev, photo_url: uploadedUrl }));
+        showToast('Portrait photo uploaded successfully!');
+      } else {
+        throw new Error(res?.error || 'No photo URL returned');
+      }
     } catch (err) {
       alert('Photo upload failed: ' + err.message);
     } finally {

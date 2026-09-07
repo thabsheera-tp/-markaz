@@ -36,6 +36,60 @@ import DangerZoneView from './components/admin/DangerZoneView';
 // Restricted views accessible ONLY to Super Admin
 const ADMIN_ONLY_TABS = ['users', 'danger-zone', 'donation-settings', 'footer-settings'];
 
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+          <div className="bg-white rounded-3xl p-8 max-w-lg w-full border border-red-200 shadow-xl text-center space-y-4">
+            <div className="w-16 h-16 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mx-auto">
+              <ShieldAlert className="w-8 h-8" />
+            </div>
+            <h2 className="text-xl font-black text-slate-900">Something went wrong</h2>
+            <p className="text-xs text-slate-600">
+              An unexpected error occurred while rendering this section:
+            </p>
+            <div className="p-3 bg-slate-100 rounded-xl text-left text-xs font-mono text-red-600 break-words overflow-x-auto max-h-36">
+              {this.state.error?.message || 'Unknown error'}
+            </div>
+            <div className="flex gap-3 justify-center pt-2">
+              <button
+                onClick={() => {
+                  this.setState({ hasError: false, error: null });
+                  window.location.hash = '#admin/overview';
+                }}
+                className="bg-markaz-blue text-white text-xs font-bold px-5 py-2.5 rounded-xl hover:bg-markaz-blue-light transition-colors"
+              >
+                Go to Overview
+              </button>
+              <button
+                onClick={() => window.location.reload()}
+                className="bg-slate-200 text-slate-700 text-xs font-bold px-5 py-2.5 rounded-xl hover:bg-slate-300 transition-colors"
+              >
+                Reload Page
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 function AccessDeniedView({ user, onBackToOverview }) {
   return (
     <div className="bg-white rounded-3xl p-10 text-center border border-red-200 shadow-sm max-w-xl mx-auto my-12">
@@ -203,42 +257,44 @@ export default function App() {
     const isTabForbidden = ADMIN_ONLY_TABS.includes(adminTab) && currentUser.role !== 'admin';
 
     return (
-      <AdminLayout
-        user={currentUser}
-        currentTab={adminTab}
-        setCurrentTab={handleSelectTab}
-        onLogout={handleLogout}
-        onVisitPublic={handleBackToPublic}
-      >
-        {isTabForbidden ? (
-          <AccessDeniedView
-            user={currentUser}
-            onBackToOverview={() => handleSelectTab('overview')}
-          />
-        ) : (
-          <>
-            {adminTab === 'overview' && (
-              <OverviewView
-                user={currentUser}
-                onNavigate={(tab) => handleSelectTab(tab)}
-              />
-            )}
-            {adminTab === 'donations' && <DonationTrackerView user={currentUser} />}
-            {adminTab === 'students' && <StudentTrackerView user={currentUser} />}
-            {adminTab === 'committee' && <CommitteeManager user={currentUser} />}
-            {adminTab === 'events' && <EventsManager user={currentUser} />}
-            {adminTab === 'hero' && <HeroSliderManager user={currentUser} />}
-            {adminTab === 'about' && <AboutEditor user={currentUser} />}
-            {adminTab === 'mission' && <MissionVisionEditor user={currentUser} />}
-            {adminTab === 'institutions' && <InstitutionsManager user={currentUser} />}
-            {adminTab === 'donation-settings' && <DonationSettingsEditor user={currentUser} />}
-            {adminTab === 'footer-settings' && <FooterSettingsEditor user={currentUser} />}
-            {adminTab === 'users' && <UserManagementView currentUser={currentUser} />}
-            {adminTab === 'logs' && <ActivityLogsView user={currentUser} />}
-            {adminTab === 'danger-zone' && <DangerZoneView user={currentUser} />}
-          </>
-        )}
-      </AdminLayout>
+      <ErrorBoundary>
+        <AdminLayout
+          user={currentUser}
+          currentTab={adminTab}
+          setCurrentTab={handleSelectTab}
+          onLogout={handleLogout}
+          onVisitPublic={handleBackToPublic}
+        >
+          {isTabForbidden ? (
+            <AccessDeniedView
+              user={currentUser}
+              onBackToOverview={() => handleSelectTab('overview')}
+            />
+          ) : (
+            <>
+              {adminTab === 'overview' && (
+                <OverviewView
+                  user={currentUser}
+                  onNavigate={(tab) => handleSelectTab(tab)}
+                />
+              )}
+              {adminTab === 'donations' && <DonationTrackerView user={currentUser} />}
+              {adminTab === 'students' && <StudentTrackerView user={currentUser} />}
+              {adminTab === 'committee' && <CommitteeManager user={currentUser} />}
+              {adminTab === 'events' && <EventsManager user={currentUser} />}
+              {adminTab === 'hero' && <HeroSliderManager user={currentUser} />}
+              {adminTab === 'about' && <AboutEditor user={currentUser} />}
+              {adminTab === 'mission' && <MissionVisionEditor user={currentUser} />}
+              {adminTab === 'institutions' && <InstitutionsManager user={currentUser} />}
+              {adminTab === 'donation-settings' && <DonationSettingsEditor user={currentUser} />}
+              {adminTab === 'footer-settings' && <FooterSettingsEditor user={currentUser} />}
+              {adminTab === 'users' && <UserManagementView currentUser={currentUser} />}
+              {adminTab === 'logs' && <ActivityLogsView user={currentUser} />}
+              {adminTab === 'danger-zone' && <DangerZoneView user={currentUser} />}
+            </>
+          )}
+        </AdminLayout>
+      </ErrorBoundary>
     );
   }
 

@@ -92,8 +92,13 @@ export default function EventsManager({ user }) {
     try {
       setUploading(true);
       const res = await api.uploadFile(file);
-      setFormData(prev => ({ ...prev, image_url: res.file.url }));
-      showToast('Flyer/Photo uploaded successfully!');
+      const uploadedUrl = res?.url || res?.file?.url;
+      if (uploadedUrl) {
+        setFormData(prev => ({ ...prev, image_url: uploadedUrl }));
+        showToast('Flyer/Photo uploaded successfully!');
+      } else {
+        throw new Error(res?.error || 'No photo URL returned');
+      }
     } catch (err) {
       alert('Upload failed: ' + err.message);
     } finally {
