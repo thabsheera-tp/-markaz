@@ -4,69 +4,54 @@ This guide explains how to deploy the Full-Stack Next.js Koyyam Markaz applicati
 
 ---
 
-## Option 1: VPS Deployment (Recommended for SQLite & Local Uploads)
-Ideal for Linux VPS (Ubuntu, Debian, Hostinger, DigitalOcean, Hetzner, AWS EC2, Linode).
+## 🚀 Option 1: Vercel + Supabase (Recommended & 100% Free Tier)
 
-### Method A: Using Docker & Docker Compose (Fastest & Easiest)
-1. **Clone the repository** to your VPS:
+This architecture uses **Vercel** for hosting the Next.js frontend/serverless API and **Supabase** for the PostgreSQL database & media storage CDN.
+
+### Step 1: Push Changes to GitHub
+Commit and push all changes to your GitHub repository:
+```bash
+git add .
+git commit -m "Migrate database to Supabase PostgreSQL and Storage"
+git push origin main
+```
+
+### Step 2: Import Project to Vercel
+1. Log in to [Vercel](https://vercel.com).
+2. Click **Add New...** -> **Project**.
+3. Import your GitHub repository (`koyyam-markaz` / `-markaz`).
+4. Keep the Framework Preset as **Next.js**.
+
+### Step 3: Configure Environment Variables in Vercel
+In the Vercel project configuration page (under **Environment Variables**), add the following:
+
+| Key | Value | Description |
+| :--- | :--- | :--- |
+| `DATABASE_URL` | `postgresql://markaz_user.qlfaysbmmgspifkovyox:KoyyamMarkaz2026Secure!@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require` | Connection pooler for Serverless |
+| `DIRECT_URL` | `postgresql://markaz_user:KoyyamMarkaz2026Secure!@db.qlfaysbmmgspifkovyox.supabase.co:5432/postgres?sslmode=require` | Direct connection fallback |
+| `SUPABASE_URL` | `https://qlfaysbmmgspifkovyox.supabase.co` | Supabase project URL |
+| `SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZmF5c2JtbWdzcGlma292eW94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NDc3NDIsImV4cCI6MjEwNDQyMzc0Mn0.lYNBpav3HKenOLF3Aah6i8nkxARgUU35Z2wk9xRGNVA` | Supabase public anon key |
+| `JWT_SECRET` | `koyyam_markaz_super_secret_jwt_key_2026_production_safe` | Secure session secret key |
+| `NODE_ENV` | `production` | Production environment |
+
+### Step 4: Click Deploy
+Click **Deploy**. The build will finish cleanly with zero GLIBC errors!
+
+---
+
+## 🐳 Option 2: Linux VPS (Docker & Docker Compose)
+
+If you prefer hosting on your own Linux VPS (Hostinger, DigitalOcean, Hetzner, AWS EC2):
+
+1. **Clone the repository**:
    ```bash
    git clone <your-repo-url> markaz
    cd markaz
    ```
-2. **Configure environment variables**:
-   Create `.env.local` or edit `docker-compose.yml`:
-   ```bash
-   JWT_SECRET=generate_a_random_32_char_secret_key
-   PORT=3000
-   ```
-3. **Start the application**:
+2. **Start the application**:
    ```bash
    docker compose up -d --build
    ```
-4. **Data Persistence**:
-   - The SQLite database is automatically persisted in `./data/markaz.db`.
-   - All uploaded photos are stored in `./public/uploads/`.
-   - The app runs on port `3000`. You can put Nginx or Caddy in front with free SSL (Certbot / Let's Encrypt).
-
----
-
-### Method B: Direct Node.js + PM2 (Without Docker)
-1. **Install Node.js 20+ and PM2**:
-   ```bash
-   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-   sudo apt-get install -y nodejs
-   sudo npm install -g pm2
-   ```
-2. **Install dependencies and build**:
-   ```bash
-   npm install
-   npm run build
-   ```
-3. **Start with PM2**:
-   ```bash
-   pm2 start ecosystem.config.cjs
-   pm2 save
-   pm2 startup
-   ```
-
----
-
-## Option 2: Serverless Deployment on Vercel + Supabase
-If deploying to Vercel (where the file system is read-only and ephemeral), follow these steps:
-
-1. **Create a free Supabase Project**:
-   - Go to [supabase.com](https://supabase.com) and create a new project.
-2. **Run the Database Schema**:
-   - In your Supabase dashboard, open the **SQL Editor**.
-   - Copy and run the contents of [`supabase-schema.sql`](./supabase-schema.sql).
-3. **Media Storage**:
-   - Create a public bucket in Supabase Storage named `uploads`.
-4. **Deploy on Vercel**:
-   - Push your repository to GitHub.
-   - Import the project into Vercel.
-   - Add the following Environment Variables in Vercel settings:
-     ```env
-     JWT_SECRET=your_jwt_secret_key
-     SUPABASE_URL=https://your-project.supabase.co
-     SUPABASE_ANON_KEY=your-anon-key
-     ```
+3. **Data & Uploads**:
+   - The application runs on port `3000`.
+   - Reverse proxy with Nginx or Caddy with free SSL (Let's Encrypt).

@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
+import { existsSync } from 'fs';
+import { createClient } from '@supabase/supabase-js';
 import { verifyAuth, checkRole } from '@/lib/auth';
 
 const uploadsDir = path.resolve(process.cwd(), 'public/uploads');
@@ -30,9 +32,59 @@ export async function POST(req) {
 
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const filename = `upload-${uniqueSuffix}${ext}`;
-    const filePath = path.join(uploadsDir, filename);
-
     const buffer = Buffer.from(await file.arrayBuffer());
+
+    // 1. Try uploading to Supabase Storage if configured (Production / Vercel)
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+
+    if (supabaseUrl && supabaseKey) {
+      try {
+        const supabase = createClient(supabaseUrl, supabaseKey);
+        const mimeTypes = {
+          '.jpg': 'image/jpeg',
+          '.jpeg': 'image/jpeg',
+          '.png': 'image/png',
+          '.webp': 'image/webp',
+          '.svg': 'image/svg+xml',
+          '.gif': 'image/gif'
+        };
+
+        const { error: uploadError } = await supabase.storage
+          .from('uploads')
+          .upload(filename, buffer, {
+            contentType: mimeTypes[ext] || file.type || 'image/jpeg',
+            upsert: true,
+          });
+
+        if (!uploadError) {
+          const { data: publicData } = supabase.storage.from('uploads').getPublicUrl(filename);
+          const url = publicData.publicUrl;
+
+          return NextResponse.json({
+            message: 'Image uploaded successfully.',
+            url,
+            file: {
+              url,
+              filename,
+              size: buffer.length,
+            },
+            filename,
+            size: buffer.length,
+          });
+        } else {
+          console.warn('Supabase storage upload error, falling back to local:', uploadError.message);
+        }
+      } catch (storageErr) {
+        console.warn('Supabase storage exception, falling back to local:', storageErr);
+      }
+    }
+
+    // 2. Fallback to local disk (useful for local development)
+    if (!existsSync(uploadsDir)) {
+      await fs.mkdir(uploadsDir, { recursive: true });
+    }
+    const filePath = path.join(uploadsDir, filename);
     await fs.writeFile(filePath, buffer);
 
     const url = `/uploads/${filename}`;
@@ -43,10 +95,10 @@ export async function POST(req) {
       file: {
         url,
         filename,
-        size: buffer.length
+        size: buffer.length,
       },
       filename,
-      size: buffer.length
+      size: buffer.length,
     });
   } catch (err) {
     console.error('Upload error:', err);
