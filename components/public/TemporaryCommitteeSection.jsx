@@ -47,22 +47,22 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
     switch (roleType) {
       case 'president':
         return {
-          title: 'Hon. President',
-          malayalam: 'പ്രസിഡന്റ്',
+          title: 'Temporary President',
+          malayalam: 'താൽക്കാലിക പ്രസിഡന്റ്',
           gradient: 'from-amber-600 to-amber-700 text-amber-50',
           border: 'border-amber-400/40'
         };
       case 'secretary':
         return {
-          title: 'General Secretary',
-          malayalam: 'ജനറൽ സെക്രട്ടറി',
+          title: 'Temporary General Secretary',
+          malayalam: 'താൽക്കാലിക ജനറൽ സെക്രട്ടറി',
           gradient: 'from-emerald-700 to-teal-800 text-emerald-50',
           border: 'border-emerald-400/40'
         };
       case 'finance_secretary':
         return {
-          title: 'Finance Secretary',
-          malayalam: 'ഫിനാൻസ് സെക്രട്ടറി',
+          title: 'Temporary Finance Secretary',
+          malayalam: 'താൽക്കാലിക ഫിനാൻസ് സെക്രട്ടറി',
           gradient: 'from-blue-700 to-indigo-800 text-blue-50',
           border: 'border-blue-400/40'
         };
