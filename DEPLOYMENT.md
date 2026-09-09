@@ -55,3 +55,17 @@ If you prefer hosting on your own Linux VPS (Hostinger, DigitalOcean, Hetzner, A
 3. **Data & Uploads**:
    - The application runs on port `3000`.
    - Reverse proxy with Nginx or Caddy with free SSL (Let's Encrypt).
+
+---
+
+## 🔐 Default Admin & Editor Login Credentials
+
+Access the **Admin Portal** at `/admin` (or click **Admin Portal** in the website header):
+
+| Role | Email | Password | Permissions |
+| :--- | :--- | :--- | :--- |
+| **Super Admin** | `admin@koyyammarkaz.org` | `Admin@123` | Full access (leadership, donations, settings, user management) |
+| **Content Editor** | `editor@koyyammarkaz.org` | `Editor@123` | Edit slides, announcements, institutions, about text, etc. |
+| **Read-Only Auditor**| `viewer@koyyammarkaz.org` | `Viewer@123` | View donation logs, financial reports, students (cannot edit) |
+
+> 💡 *You can create additional staff accounts or change any password anytime from inside the Admin Portal under **Admin Portal → User Management**.*
