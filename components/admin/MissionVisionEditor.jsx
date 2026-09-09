@@ -17,7 +17,7 @@ export default function MissionVisionEditor({ user }) {
     try {
       setLoading(true);
       const res = await api.getMissionVision();
-      setItems(res.items || []);
+      setItems(res.mission_vision || []);
     } catch (err) {
       console.error('Failed to load mission/vision:', err);
     } finally {
