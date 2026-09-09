@@ -25,8 +25,9 @@ export default function AboutSection({ aboutData }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           {/* Left Column: Visual Campus Frame */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-200 border-4 border-white bg-slate-900 group">
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            {/* 100% Unobstructed Image Frame */}
+            <div className="relative rounded-3xl overflow-hidden shadow-xl border-4 border-white bg-slate-100 group">
               <img
                 src={api.getImageUrl(aboutData.image_url || '/uploads/full.jpeg')}
                 alt="Koyyam Markaz Campus"
@@ -34,38 +35,32 @@ export default function AboutSection({ aboutData }) {
                 onError={(e) => {
                   e.currentTarget.src = '/uploads/markaz.jpeg';
                 }}
-                className="w-full aspect-[4/3] sm:aspect-[16/10] lg:h-[450px] object-cover object-bottom sm:object-center transform group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-auto max-h-[460px] object-cover object-center transform group-hover:scale-102 transition-transform duration-500"
               />
-              
-              {/* Subtle bottom vignette only on large screens for desktop glass card */}
-              <div className="hidden lg:block absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-              {/* Floating Badge in Image (Desktop only so mobile photo remains 100% visible & clear) */}
-              <div className="hidden lg:block absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/40 shadow-lg text-slate-800">
-                <p className="text-xs font-semibold text-markaz-green uppercase tracking-wider">Campus Atmosphere</p>
-                <p className="text-sm font-bold text-markaz-blue mt-0.5">Spiritual Tranquility & Academic Focus</p>
-                <p className="text-xs text-slate-600 mt-1">Providing free boarding, meals, and education to deserving youth.</p>
-              </div>
             </div>
 
-            {/* Mobile View: Dedicated clean caption below the photo so image is never covered or dimmed */}
-            <div className="lg:hidden mt-3 p-4 rounded-2xl bg-white border border-slate-200/90 shadow-xs text-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-markaz-green animate-pulse"></span>
-                <p className="text-[11px] font-bold text-markaz-green uppercase tracking-wider">Campus Atmosphere</p>
+            {/* Information Card - Placed cleanly BELOW the photo so image is 100% unobstructed on mobile & desktop */}
+            <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="w-2 h-2 rounded-full bg-markaz-green"></span>
+                  <span className="text-[11px] font-bold text-markaz-green uppercase tracking-wider">Campus Atmosphere</span>
+                </div>
+                <h4 className="text-sm sm:text-base font-bold text-markaz-blue">Spiritual Tranquility & Academic Focus</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  Providing free boarding, meals, and holistic education to deserving students across Kerala.
+                </p>
               </div>
-              <p className="text-sm font-extrabold text-markaz-blue mt-1">Spiritual Tranquility & Academic Focus</p>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">Providing free boarding, meals, and comprehensive education to deserving youth.</p>
-            </div>
 
-            {/* Accent Floating Badge */}
-            <div className="hidden sm:flex absolute -top-5 -left-5 bg-markaz-green text-white p-4 rounded-2xl shadow-xl items-center gap-3 border-2 border-white">
-              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center font-bold text-lg">
-                34+
-              </div>
-              <div>
-                <p className="text-xs uppercase font-bold tracking-wider text-emerald-100">Legacy</p>
-                <p className="text-sm font-extrabold">Service Since 1992</p>
+              {/* Legacy Badge */}
+              <div className="flex items-center gap-2.5 bg-emerald-50 border border-emerald-200/80 px-3.5 py-2 rounded-xl shrink-0">
+                <div className="w-8 h-8 rounded-lg bg-markaz-green text-white flex items-center justify-center font-black text-xs shadow-xs">
+                  34+
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Legacy</p>
+                  <p className="text-xs font-black text-slate-800 whitespace-nowrap">Since 1992</p>
+                </div>
               </div>
             </div>
           </div>
