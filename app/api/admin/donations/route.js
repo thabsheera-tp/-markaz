@@ -23,8 +23,9 @@ export async function GET(req) {
 
     if (search) {
       const s = `%${search.trim()}%`;
-      sql += ' AND (donor_name LIKE ? OR upi_transaction_id LIKE ? OR donor_phone LIKE ?)';
-      countSql += ' AND (donor_name LIKE ? OR upi_transaction_id LIKE ? OR donor_phone LIKE ?)';
+      // Use ILIKE for case-insensitive search in PostgreSQL
+      sql += ' AND (donor_name ILIKE ? OR upi_transaction_id ILIKE ? OR donor_phone ILIKE ?)';
+      countSql += ' AND (donor_name ILIKE ? OR upi_transaction_id ILIKE ? OR donor_phone ILIKE ?)';
       params.push(s, s, s);
       countParams.push(s, s, s);
     }
@@ -66,7 +67,7 @@ export async function GET(req) {
 
     return NextResponse.json({
       donations,
-      total: totalRow.total,
+      total: totalRow ? Number(totalRow.total) : 0,
       page,
       limit
     });
@@ -109,6 +110,7 @@ export async function POST(req) {
 
     return NextResponse.json({ message: 'Donation recorded successfully.', id: result.lastID }, { status: 201 });
   } catch (err) {
+    console.error('Create donation error:', err);
     return NextResponse.json({ error: 'Failed to create donation record.' }, { status: 500 });
   }
 }

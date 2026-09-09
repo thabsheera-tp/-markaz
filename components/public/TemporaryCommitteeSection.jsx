@@ -10,35 +10,35 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
   const displayMembers = committee && committee.length > 0 ? committee : [
     {
       id: 1,
-      name: 'Sayyid Alavi Thangal',
-      designation: 'Temporary President (താൽക്കാലിക പ്രസിഡന്റ്)',
+      name: 'KP ABOOBAKAR MUSLIYAR PATTUVAM',
+      designation: 'President (പ്രസിഡന്റ്)',
       role_type: 'president',
       photo_url: '/uploads/full.jpeg',
-      phone: '+91 9447123456',
+      phone: '',
       email: 'president@koyyammarkaz.org',
-      term_period: 'Interim Committee 2024–Present',
-      bio: 'Leading the spiritual, institutional, and humanitarian vision of Markazu Da-wathil Islamiyya during the transitional governance period.'
+      term_period: '2024–Present',
+      bio: 'Leading the spiritual, institutional, and humanitarian vision of Markazu Da-wathil Islamiyya Koyyam.'
     },
     {
       id: 2,
-      name: 'Usthad Abdul Kareem Faizy',
-      designation: 'Temporary General Secretary (താൽക്കാലിക ജനറൽ സെക്രട്ടറി)',
+      name: 'EPM KUTTY AL MUHTHADY',
+      designation: 'General Secretary (ജനറൽ സെക്രട്ടറി)',
       role_type: 'secretary',
       photo_url: '/uploads/dars.jpeg',
       phone: '+91 9400304426',
       email: 'secretary@koyyammarkaz.org',
-      term_period: 'Interim Committee 2024–Present',
-      bio: 'Directing the academic administration, staff coordination, and daily operational affairs across all 9 institutional wings.'
+      term_period: '2024–Present',
+      bio: 'Directing the academic administration, staff coordination, and daily operational affairs across all institutional wings.'
     },
     {
       id: 3,
-      name: 'Haji K. P. Mohammed',
-      designation: 'Temporary Finance Secretary (താൽക്കാലിക ഫിനാൻസ് സെക്രട്ടറി)',
+      name: 'PMC ALI MUSLIYAR',
+      designation: 'Finance Secretary (ഫിനാൻസ് സെക്രട്ടറി)',
       role_type: 'finance_secretary',
       photo_url: '/uploads/markaz.jpeg',
       phone: '+91 9847654321',
       email: 'finance@koyyammarkaz.org',
-      term_period: 'Interim Committee 2024–Present',
+      term_period: '2024–Present',
       bio: 'Overseeing transparent financial governance, donor accountability, construction funding, and student welfare endowments.'
     }
   ];
@@ -88,7 +88,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-markaz-green text-xs font-bold uppercase tracking-wider mb-3 shadow-xs">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>Administrative Council • താൽക്കാലിക നേതൃസമിതി</span>
+            <span>Administrative Council • നേതൃസമിതി</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-markaz-blue tracking-tight">
             Institutional Leadership

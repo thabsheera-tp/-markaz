@@ -22,7 +22,8 @@ export async function GET(req) {
 
     if (search) {
       const s = `%${search.trim()}%`;
-      sql += ' AND (s.name LIKE ? OR s.email LIKE ? OR s.phone LIKE ?)';
+      // Use ILIKE for case-insensitive search in PostgreSQL
+      sql += ' AND (s.name ILIKE ? OR s.email ILIKE ? OR s.phone ILIKE ?)';
       params.push(s, s, s);
     }
     if (institution_id && institution_id !== 'all') {
@@ -38,6 +39,7 @@ export async function GET(req) {
     const students = await query.all(sql, params);
     return NextResponse.json({ students });
   } catch (err) {
+    console.error('Fetch students error:', err);
     return NextResponse.json({ error: 'Failed to fetch students.' }, { status: 500 });
   }
 }
@@ -72,6 +74,7 @@ export async function POST(req) {
 
     return NextResponse.json({ message: 'Student registered successfully.', id: result.lastID }, { status: 201 });
   } catch (err) {
+    console.error('Add student error:', err);
     return NextResponse.json({ error: 'Failed to add student.' }, { status: 500 });
   }
 }

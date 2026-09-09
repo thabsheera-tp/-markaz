@@ -4,7 +4,7 @@ import fs from 'fs';
 async function main() {
   try {
     console.log('Starting Cloudflare Tunnel via untun for port 5173...');
-    const tunnel = await startTunnel({ port: 5173 });
+    const tunnel = await startTunnel({ port: 3000 });
     const url = await tunnel.getURL();
     console.log('==============================================');
     console.log('PUBLIC TEMPORARY LINK: ' + url);

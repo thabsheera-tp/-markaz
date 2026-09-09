@@ -40,7 +40,7 @@ export async function DELETE(req, { params }) {
     const { id } = await params;
     const student = await query.get('SELECT * FROM students WHERE id = ?', [id]);
     if (student && student.institution_id) {
-      await query.run('UPDATE institutions SET enrollment_count = MAX(0, enrollment_count - 1) WHERE id = ?', [student.institution_id]);
+      await query.run('UPDATE institutions SET enrollment_count = GREATEST(0, enrollment_count - 1) WHERE id = ?', [student.institution_id]);
     }
 
     await query.run('DELETE FROM students WHERE id = ?', [id]);

@@ -51,12 +51,12 @@ export default function CommitteeManager({ user }) {
     setEditingMember(null);
     setFormData({
       name: '',
-      designation: 'Temporary President (താൽക്കാലിക പ്രസിഡന്റ്)',
+      designation: 'President (പ്രസിഡന്റ്)',
       role_type: 'president',
       photo_url: '/uploads/full.jpeg',
       phone: '',
       email: '',
-      term_period: 'Interim Committee 2024–Present',
+      term_period: '2024–Present',
       bio: '',
       order_num: committee.length + 1,
       is_active: 1
@@ -73,7 +73,7 @@ export default function CommitteeManager({ user }) {
       photo_url: m.photo_url || '',
       phone: m.phone || '',
       email: m.email || '',
-      term_period: m.term_period || 'Interim Committee 2024–Present',
+      term_period: m.term_period || '2024–Present',
       bio: m.bio || '',
       order_num: m.order_num || 1,
       is_active: m.is_active !== undefined ? m.is_active : 1
@@ -84,11 +84,11 @@ export default function CommitteeManager({ user }) {
   const handleRoleTypeChange = (newRoleType) => {
     let suggestedDesignation = formData.designation;
     if (newRoleType === 'president' && (!formData.designation || formData.designation.includes('സെക്രട്ടറി'))) {
-      suggestedDesignation = 'Temporary President (താൽക്കാലിക പ്രസിഡന്റ്)';
+      suggestedDesignation = 'President (പ്രസിഡന്റ്)';
     } else if (newRoleType === 'secretary' && (!formData.designation || formData.designation.includes('പ്രസിഡന്റ്') || formData.designation.includes('ഫിനാൻസ്'))) {
-      suggestedDesignation = 'Temporary General Secretary (താൽക്കാലിക ജനറൽ സെക്രട്ടറി)';
+      suggestedDesignation = 'General Secretary (ജനറൽ സെക്രട്ടറി)';
     } else if (newRoleType === 'finance_secretary' && (!formData.designation || formData.designation.includes('പ്രസിഡന്റ്'))) {
-      suggestedDesignation = 'Temporary Finance Secretary (താൽക്കാലിക ഫിനാൻസ് സെക്രട്ടറി)';
+      suggestedDesignation = 'Finance Secretary (ഫിനാൻസ് സെക്രട്ടറി)';
     }
 
     setFormData(prev => ({
@@ -191,7 +191,7 @@ export default function CommitteeManager({ user }) {
           </div>
           <h1 className="text-2xl font-black text-markaz-blue">Leadership Committee</h1>
           <p className="text-xs text-slate-500 mt-1">
-            Manage the Temporary President, Temporary General Secretary, and Temporary Finance Secretary displayed on the public website.
+            Manage the President, General Secretary, and Finance Secretary displayed on the public website.
           </p>
         </div>
 
@@ -215,7 +215,7 @@ export default function CommitteeManager({ user }) {
         <div className="p-12 text-center bg-white rounded-3xl border border-slate-200">
           <Shield className="w-12 h-12 text-slate-300 mx-auto mb-3" />
           <p className="font-bold text-slate-700">No Committee Members Configured</p>
-          <p className="text-xs text-slate-400 mt-1">Click "Add Committee Member" above to create records for the temporary president, secretary, or treasurer.</p>
+          <p className="text-xs text-slate-400 mt-1">Click "Add Committee Member" above to create records for the president, secretary, or treasurer.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -347,8 +347,8 @@ export default function CommitteeManager({ user }) {
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
-                    { id: 'president', label: 'Temporary President' },
-                    { id: 'secretary', label: 'Temporary Secretary' },
+                    { id: 'president', label: 'President' },
+                    { id: 'secretary', label: 'General Secretary' },
                     { id: 'finance_secretary', label: 'Finance Secretary' },
                     { id: 'other', label: 'Other Member' }
                   ].map((role) => (
@@ -393,7 +393,7 @@ export default function CommitteeManager({ user }) {
                     required
                     value={formData.designation}
                     onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                    placeholder="e.g. Temporary President (താൽക്കാലിക പ്രസിഡന്റ്)"
+                    placeholder="e.g. President (പ്രസിഡന്റ്)"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-markaz-green"
                   />
                 </div>
