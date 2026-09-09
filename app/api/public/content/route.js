@@ -25,7 +25,7 @@ export async function GET() {
     );
 
     const donationSettings = await query.get(
-      'SELECT id, preset_amounts, custom_enabled, qr_code_url, upi_id, merchant_name FROM donation_settings WHERE id = 1'
+      'SELECT id, preset_amounts, custom_enabled, qr_code_url, upi_id, merchant_name, bank_name, branch_name, account_number, ifsc_code, account_name, google_pay_number FROM donation_settings WHERE id = 1'
     );
     if (donationSettings && donationSettings.preset_amounts) {
       try {

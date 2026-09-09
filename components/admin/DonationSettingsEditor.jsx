@@ -9,7 +9,13 @@ export default function DonationSettingsEditor({ user }) {
     custom_enabled: 1,
     qr_code_url: '/uploads/koyyam_upi_qr.svg',
     upi_id: 'koyyammarkaz@upi',
-    merchant_name: 'MARKAZU DA-WATHIL ISLAMIYYA KOYYAM'
+    merchant_name: 'MARKAZU DA-WATHIL ISLAMIYYA KOYYAM',
+    bank_name: 'FEDERAL BANK',
+    branch_name: 'TALIPPARAMBA',
+    account_number: '11270100353081',
+    ifsc_code: 'FDRL0001127',
+    account_name: 'MARKAZU DA-WATHIL ISLAMIYYA, KOYYAM',
+    google_pay_number: '9656790577'
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -172,6 +178,104 @@ export default function DonationSettingsEditor({ user }) {
               <option value={1}>Enabled (Donors can type any amount)</option>
               <option value={0}>Disabled (Presets only)</option>
             </select>
+          </div>
+
+          {/* Official Bank Account Details */}
+          <div className="pt-4 border-t border-slate-100 space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-markaz-blue">
+              Official Institutional Bank Account
+            </h3>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Account Beneficiary Name *
+              </label>
+              <input
+                type="text"
+                disabled={user?.role === 'viewer'}
+                placeholder="MARKAZU DA-WATHIL ISLAMIYYA, KOYYAM"
+                value={formData.account_name || ''}
+                onChange={(e) => setFormData({ ...formData, account_name: e.target.value })}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Account Number *
+                </label>
+                <input
+                  type="text"
+                  disabled={user?.role === 'viewer'}
+                  placeholder="11270100353081"
+                  value={formData.account_number || ''}
+                  onChange={(e) => setFormData({ ...formData, account_number: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono font-bold text-slate-800 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  IFSC Code *
+                </label>
+                <input
+                  type="text"
+                  disabled={user?.role === 'viewer'}
+                  placeholder="FDRL0001127"
+                  value={formData.ifsc_code || ''}
+                  onChange={(e) => setFormData({ ...formData, ifsc_code: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono font-bold text-slate-800 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Bank Name *
+                </label>
+                <input
+                  type="text"
+                  disabled={user?.role === 'viewer'}
+                  placeholder="FEDERAL BANK"
+                  value={formData.bank_name || ''}
+                  onChange={(e) => setFormData({ ...formData, bank_name: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                  Branch Name *
+                </label>
+                <input
+                  type="text"
+                  disabled={user?.role === 'viewer'}
+                  placeholder="TALIPPARAMBA"
+                  value={formData.branch_name || ''}
+                  onChange={(e) => setFormData({ ...formData, branch_name: e.target.value })}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+                Google Pay (GP) / PhonePe Mobile Number
+              </label>
+              <input
+                type="text"
+                disabled={user?.role === 'viewer'}
+                placeholder="9656790577"
+                value={formData.google_pay_number || ''}
+                onChange={(e) => setFormData({ ...formData, google_pay_number: e.target.value })}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono font-bold text-slate-800 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+              />
+              <p className="text-[11px] text-slate-400 mt-1">
+                Direct phone number for Google Pay, PhonePe, and instant mobile donor transfers.
+              </p>
+            </div>
           </div>
 
           <div>

@@ -8,6 +8,7 @@ export default function Navbar({ onOpenDonate, onNavigateToAdmin, footerData }) 
   const navLinks = [
     { name: 'Home', href: '#hero' },
     { name: 'About Us', href: '#about' },
+    { name: 'Documentary', href: '#documentary', badge: 'Video' },
     { name: 'Leadership', href: '#leadership' },
     { name: 'Events & Notices', href: '#events', badge: 'New' },
     { name: 'Institutions', href: '#institutions' },

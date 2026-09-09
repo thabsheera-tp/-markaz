@@ -9,6 +9,7 @@ import Navbar from '@/components/public/Navbar';
 import HeroSlider from '@/components/public/HeroSlider';
 import LiveCampusReel from '@/components/public/LiveCampusReel';
 import AboutSection from '@/components/public/AboutSection';
+import DocumentarySection from '@/components/public/DocumentarySection';
 import TemporaryCommitteeSection from '@/components/public/TemporaryCommitteeSection';
 import EventsSection from '@/components/public/EventsSection';
 import MissionVisionSection from '@/components/public/MissionVisionSection';
@@ -104,7 +105,10 @@ export default function HomePage() {
         {/* About Us */}
         <AboutSection aboutData={publicData?.about} />
 
-        {/* Interim Leadership Committee */}
+        {/* Official Institutional Documentary */}
+        <DocumentarySection />
+
+        {/* Leadership Committee */}
         <TemporaryCommitteeSection committee={publicData?.temporary_committee} />
 
         {/* Mission & Vision */}
