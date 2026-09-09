@@ -62,7 +62,7 @@ export default function HomePage() {
     router.push('/admin');
   };
 
-  if (loadingPublic && !publicData) {
+  if (loadingPublic) {
     return (
       <div className="min-h-screen bg-markaz-blue flex flex-col items-center justify-center text-white">
         <div className="w-16 h-16 rounded-2xl bg-white p-2 flex items-center justify-center shadow-xl animate-pulse mb-4 border border-white/20">

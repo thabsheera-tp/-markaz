@@ -3,10 +3,26 @@ import React from 'react';
 import { Compass, Eye, Target, Sparkles } from 'lucide-react';
 
 export default function MissionVisionSection({ items = [] }) {
-  if (!items || items.length === 0) return null;
+  const fallbackItems = [
+    {
+      id: 1,
+      type: 'mission',
+      title: 'Our Sacred Mission',
+      description: 'To impart traditional Islamic and contemporary secular education that nurtures spiritual purity, intellectual vigor, moral uprightness, and dedicated leadership for society.',
+      icon: 'Compass'
+    },
+    {
+      id: 2,
+      type: 'vision',
+      title: 'Our Vision for Tomorrow',
+      description: 'To establish a world-class center of spiritual enlightenment, academic research, and philanthropic excellence, shaping generations who foster peace, ethical progress, and social justice.',
+      icon: 'Eye'
+    }
+  ];
 
-  const mission = items.find((i) => i.type === 'mission') || items[0];
-  const vision = items.find((i) => i.type === 'vision') || items[1];
+  const displayItems = items && items.length > 0 ? items : fallbackItems;
+  const mission = displayItems.find((i) => i.type === 'mission') || displayItems[0];
+  const vision = displayItems.find((i) => i.type === 'vision') || displayItems[1];
 
   return (
     <section id="mission" className="py-20 bg-white relative">
