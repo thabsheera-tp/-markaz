@@ -430,9 +430,52 @@ export const api = {
 
   // File Upload
   async uploadFile(file) {
+    const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qlfaysbmmgspifkovyox.supabase.co';
+    const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZmF5c2JtbWdzcGlma292eW94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NDc3NDIsImV4cCI6MjEwNDQyMzc0Mn0.lYNBpav3HKenOLF3Aah6i8nkxARgUU35Z2wk9xRGNVA';
+
+    // 1. Try direct upload to Supabase Storage CDN (No 4.5MB Vercel serverless size limit)
+    if (SUPABASE_URL && SUPABASE_ANON_KEY && typeof window !== 'undefined') {
+      try {
+        const ext = (file.name?.split('.').pop() || 'jpg').toLowerCase();
+        const cleanExt = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'gif'].includes(ext) ? ext : 'jpg';
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        const filename = `upload-${uniqueSuffix}.${cleanExt}`;
+
+        const uploadEndpoint = `${SUPABASE_URL}/storage/v1/object/uploads/${filename}`;
+        const directRes = await fetch(uploadEndpoint, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': file.type || 'image/jpeg'
+          },
+          body: file
+        });
+
+        if (directRes.ok) {
+          const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/uploads/${filename}`;
+          return {
+            message: 'Image uploaded successfully.',
+            url: publicUrl,
+            file: {
+              url: publicUrl,
+              filename,
+              size: file.size
+            }
+          };
+        } else {
+          const directErrText = await directRes.text().catch(() => '');
+          console.warn('Direct upload non-ok, falling back to server route:', directErrText);
+        }
+      } catch (directErr) {
+        console.warn('Direct Supabase upload exception, falling back to server route:', directErr);
+      }
+    }
+
+    // 2. Server API Route fallback (/api/upload)
     const formData = new FormData();
     formData.append('image', file);
-    const token = localStorage.getItem('markaz_token');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('markaz_token') : null;
 
     const res = await fetch(`${API_BASE}/api/upload`, {
       method: 'POST',

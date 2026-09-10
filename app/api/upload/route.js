@@ -34,9 +34,9 @@ export async function POST(req) {
     const filename = `upload-${uniqueSuffix}${ext}`;
     const buffer = Buffer.from(await file.arrayBuffer());
 
-    // 1. Try uploading to Supabase Storage if configured (Production / Vercel)
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
+    // 1. Try uploading to Supabase Storage (Production / Vercel / Cloud CDN)
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qlfaysbmmgspifkovyox.supabase.co';
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZmF5c2JtbWdzcGlma292eW94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NDc3NDIsImV4cCI6MjEwNDQyMzc0Mn0.lYNBpav3HKenOLF3Aah6i8nkxARgUU35Z2wk9xRGNVA';
 
     if (supabaseUrl && supabaseKey) {
       try {
@@ -72,15 +72,23 @@ export async function POST(req) {
             filename,
             size: buffer.length,
           });
-        } else {
-          console.warn('Supabase storage upload error, falling back to local:', uploadError.message);
+        }
+
+        console.error('Supabase storage upload error:', uploadError.message);
+
+        // On Vercel / Serverless production, local disk is read-only, so return the actual error immediately
+        if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+          return NextResponse.json({ error: `Storage upload failed: ${uploadError.message}` }, { status: 500 });
         }
       } catch (storageErr) {
-        console.warn('Supabase storage exception, falling back to local:', storageErr);
+        console.error('Supabase storage exception:', storageErr);
+        if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+          return NextResponse.json({ error: `Storage exception: ${storageErr.message}` }, { status: 500 });
+        }
       }
     }
 
-    // 2. Fallback to local disk (useful for local development)
+    // 2. Fallback to local disk (useful for local offline development only)
     if (!existsSync(uploadsDir)) {
       await fs.mkdir(uploadsDir, { recursive: true });
     }
@@ -102,6 +110,6 @@ export async function POST(req) {
     });
   } catch (err) {
     console.error('Upload error:', err);
-    return NextResponse.json({ error: 'Failed to upload image.' }, { status: 500 });
+    return NextResponse.json({ error: err.message || 'Failed to upload image.' }, { status: 500 });
   }
 }
