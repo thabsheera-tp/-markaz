@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { MapPin, Phone, Mail, MessageCircle, Shield, ArrowUp } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle, ArrowUp } from 'lucide-react';
 
 function FacebookIcon(props) {
   return (
@@ -203,15 +203,6 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               </li>
             </ul>
 
-            <div className="pt-4">
-              <button
-                onClick={onNavigateToAdmin}
-                className="w-full flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-medium py-2 rounded-xl transition-colors border border-white/10"
-              >
-                <Shield className="w-3.5 h-3.5 text-amber-300" />
-                <span>Administrator Dashboard</span>
-              </button>
-            </div>
           </div>
 
         </div>
