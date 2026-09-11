@@ -12,17 +12,17 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
 
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4500);
+    }, 5000);
 
     return () => clearInterval(timer);
   }, [slides, isPaused]);
 
   if (!slides || slides.length === 0) {
     return (
-      <section id="hero" className="relative h-[550px] bg-markaz-blue flex items-center justify-center text-white">
+      <section id="hero" className="relative h-[550px] bg-markaz-blue-deep flex items-center justify-center text-white">
         <div className="text-center p-6">
-          <h1 className="text-4xl font-bold">Koyyam Markaz</h1>
-          <p className="text-slate-300 mt-2">Loading campus presentation...</p>
+          <h1 className="text-4xl font-black tracking-tight">Koyyam Markaz</h1>
+          <p className="text-slate-300 mt-2 font-light">Loading campus presentation...</p>
         </div>
       </section>
     );
@@ -44,7 +44,7 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
   return (
     <section
       id="hero"
-      className="relative h-[620px] md:h-[680px] lg:h-[720px] overflow-hidden select-none bg-slate-900"
+      className="relative h-[640px] md:h-[700px] lg:h-[740px] overflow-hidden select-none bg-slate-950"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -56,7 +56,7 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
             idx === current ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
-          {/* Slide Background Image with subtle continuous live Ken Burns motion */}
+          {/* Slide Background Image with continuous subtle Ken Burns motion */}
           <img
             src={api.getImageUrl(s.image_url)}
             alt={s.title}
@@ -68,23 +68,23 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
               idx === current ? 'animate-kenburns' : ''
             }`}
           />
-          {/* Gradient Overlay for high-contrast typography */}
-          <div className="absolute inset-0 bg-gradient-to-r from-markaz-blue-dark/95 via-markaz-blue/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-markaz-blue-dark/90 via-transparent to-black/30" />
+          {/* Cinematic Multi-Stop Gradient Scrim */}
+          <div className="absolute inset-0 bg-gradient-to-r from-markaz-blue-deep/95 via-markaz-blue/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-black/20" />
         </div>
       ))}
 
       {/* Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center">
         <div className="max-w-2xl text-white py-12">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold tracking-wider uppercase text-amber-300 mb-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+          {/* Minimal Glass Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wider uppercase text-amber-300 mb-6 shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
             <span>Markazu Da-wathil Islamiyya</span>
           </div>
 
-          {/* Title */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-white drop-shadow-md">
+          {/* Display Title */}
+          <h1 className="text-4xl sm:text-6xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white drop-shadow-sm">
             {slide?.title}
           </h1>
 
@@ -98,7 +98,7 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
             {slide?.button_text && (
               <button
                 onClick={() => handleAction(slide.button_link)}
-                className="inline-flex items-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white px-7 py-3.5 rounded-xl font-semibold text-base shadow-lg shadow-markaz-green/30 hover:shadow-xl transition-all transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-emerald-700 hover:to-markaz-green text-white px-7 py-3.5 rounded-full font-bold text-sm sm:text-base shadow-glow-emerald hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>{slide.button_text}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -106,39 +106,39 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
             )}
             <button
               onClick={onOpenDonate}
-              className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md px-6 py-3.5 rounded-xl font-semibold text-base transition-all"
+              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-md px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base transition-all hover:-translate-y-0.5 active:translate-y-0"
             >
-              <Heart className="w-4 h-4 text-rose-400 fill-current" />
+              <Heart className="w-4 h-4 text-rose-300 fill-current" />
               <span>Support Koyyam Markaz</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Navigation Arrows */}
+      {/* Modern Minimal Navigation Arrows */}
       <button
         onClick={() => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/30 hover:bg-black/60 border border-white/20 backdrop-blur-sm text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/20 hover:bg-black/50 border border-white/15 backdrop-blur-md text-white/90 hover:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="w-6 h-6" />
+        <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/30 hover:bg-black/60 border border-white/20 backdrop-blur-sm text-white flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/20 hover:bg-black/50 border border-white/15 backdrop-blur-md text-white/90 hover:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95"
         aria-label="Next slide"
       >
-        <ChevronRight className="w-6 h-6" />
+        <ChevronRight className="w-5 h-5" />
       </button>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+      {/* Slide Indicators - Sleek Pill Lines */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
-            className={`transition-all duration-300 rounded-full ${
-              idx === current ? 'w-8 h-2.5 bg-markaz-green' : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/70'
+            className={`transition-all duration-300 rounded-full h-1.5 ${
+              idx === current ? 'w-8 bg-emerald-400' : 'w-2 bg-white/30 hover:bg-white/60'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

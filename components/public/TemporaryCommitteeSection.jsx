@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { ShieldCheck, Phone, Mail, Award, CheckCircle2, User, Sparkles, ChevronRight } from 'lucide-react';
+import { ShieldCheck, Phone, Mail, Award, CheckCircle2 } from 'lucide-react';
 import { api } from '../../services/api';
 
 export default function TemporaryCommitteeSection({ committee = [] }) {
@@ -50,50 +50,50 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
           title: 'President',
           malayalam: 'പ്രസിഡന്റ്',
           gradient: 'from-amber-600 to-amber-700 text-amber-50',
-          border: 'border-amber-400/40'
+          border: 'border-amber-400/30'
         };
       case 'secretary':
         return {
           title: 'General Secretary',
           malayalam: 'ജനറൽ സെക്രട്ടറി',
-          gradient: 'from-emerald-700 to-teal-800 text-emerald-50',
-          border: 'border-emerald-400/40'
+          gradient: 'from-emerald-600 to-teal-700 text-emerald-50',
+          border: 'border-emerald-400/30'
         };
       case 'finance_secretary':
         return {
           title: 'Finance Secretary',
           malayalam: 'ഫിനാൻസ് സെക്രട്ടറി',
-          gradient: 'from-blue-700 to-indigo-800 text-blue-50',
-          border: 'border-blue-400/40'
+          gradient: 'from-blue-600 to-indigo-700 text-blue-50',
+          border: 'border-blue-400/30'
         };
       default:
         return {
           title: 'Executive Member',
           malayalam: 'സമിതി അംഗം',
           gradient: 'from-slate-700 to-slate-800 text-slate-50',
-          border: 'border-slate-400/40'
+          border: 'border-slate-400/30'
         };
     }
   };
 
   return (
-    <section id="leadership" className="py-20 bg-gradient-to-b from-slate-50 via-white to-slate-50 border-t border-b border-slate-100 relative overflow-hidden">
-      {/* Background Decorative Ambient Shapes */}
-      <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-100/50 rounded-full blur-3xl pointer-events-none" />
+    <section id="leadership" className="py-24 sm:py-28 bg-white border-b border-slate-100 relative overflow-hidden">
+      {/* Background Decorative Ambient Blobs */}
+      <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-50 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-markaz-blue/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-markaz-green text-xs font-bold uppercase tracking-wider mb-3 shadow-xs">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/70 text-markaz-green text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
             <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>Administrative Council • നേതൃസമിതി</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-markaz-blue tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-markaz-blue tracking-tight leading-tight">
             Institutional Leadership
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base mt-3 leading-relaxed font-light">
             Directing Markazu Da-wathil Islamiyya with spiritual wisdom, transparent stewardship, and uncompromising dedication to our academic missions.
           </p>
         </div>
@@ -107,15 +107,15 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
             return (
               <div
                 key={member.id}
-                className="group relative bg-white rounded-3xl border border-slate-200/80 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1.5"
+                className="group relative bg-white rounded-3xl border border-slate-200/70 shadow-subtle hover:shadow-card-hover transition-all duration-300 flex flex-col overflow-hidden hover:-translate-y-1"
               >
                 {/* Top Accent Ribbon Bar */}
-                <div className={`h-2.5 w-full bg-gradient-to-r ${roleBadge.gradient}`} />
+                <div className={`h-2 w-full bg-gradient-to-r ${roleBadge.gradient}`} />
 
                 {/* Photo & Badge Area */}
                 <div className="relative pt-8 px-6 flex flex-col items-center">
                   <div className="relative">
-                    <div className="w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 transition-transform duration-300 bg-slate-100 ring-2 ring-slate-100">
+                    <div className="w-36 h-36 sm:w-40 sm:h-40 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-card group-hover:scale-103 transition-transform duration-500 bg-slate-100">
                       <img
                         src={photoSrc}
                         alt={member.name}
@@ -127,20 +127,20 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
                       />
                     </div>
                     {/* Official Verified Badge */}
-                    <div className="absolute -bottom-3 -right-2 bg-emerald-600 text-white p-1.5 rounded-full shadow-lg border-2 border-white" title="Verified Officer">
-                      <CheckCircle2 className="w-4 h-4" />
+                    <div className="absolute -bottom-2 -right-1 bg-emerald-600 text-white p-1 rounded-full shadow-md border-2 border-white" title="Verified Officer">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
                     </div>
                   </div>
 
                   {/* Role Pill */}
-                  <div className={`mt-5 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide shadow-xs bg-gradient-to-r ${roleBadge.gradient} ${roleBadge.border} border`}>
+                  <div className={`mt-5 px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-xs bg-gradient-to-r ${roleBadge.gradient} ${roleBadge.border} border`}>
                     {roleBadge.title} • {roleBadge.malayalam}
                   </div>
                 </div>
 
                 {/* Info & Content Body */}
                 <div className="p-6 flex-1 flex flex-col text-center">
-                  <h3 className="text-xl font-extrabold text-slate-900 group-hover:text-markaz-blue transition-colors">
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 group-hover:text-markaz-blue transition-colors tracking-tight">
                     {member.name}
                   </h3>
 
@@ -149,24 +149,24 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
                   </div>
 
                   {member.term_period && (
-                    <div className="mt-2 text-[11px] font-medium text-slate-400 bg-slate-50 py-1 px-2.5 rounded-lg inline-block self-center border border-slate-100">
+                    <div className="mt-2 text-[10px] font-semibold text-slate-500 bg-slate-50 py-0.5 px-2.5 rounded-full inline-block self-center border border-slate-200/60">
                       {member.term_period}
                     </div>
                   )}
 
                   {member.bio && (
-                    <p className="mt-4 text-xs text-slate-600 leading-relaxed line-clamp-3 italic">
+                    <p className="mt-4 text-xs text-slate-600 leading-relaxed line-clamp-3 italic font-light">
                       "{member.bio}"
                     </p>
                   )}
 
                   {/* Contact / Action Area */}
                   <div className="mt-auto pt-6 border-t border-slate-100 flex flex-col gap-2">
-                    <div className="flex items-center justify-center gap-3">
+                    <div className="flex items-center justify-center gap-2.5">
                       {member.phone && (
                         <a
                           href={`tel:${member.phone}`}
-                          className="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200/80 transition-colors"
+                          className="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 rounded-xl bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200/70 transition-colors"
                         >
                           <Phone className="w-3.5 h-3.5 text-emerald-600" />
                           <span>{member.phone}</span>
@@ -176,7 +176,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
                       {member.email && (
                         <a
                           href={`mailto:${member.email}`}
-                          className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-markaz-blue border border-slate-200/80 transition-colors"
+                          className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-markaz-blue border border-slate-200/70 transition-colors"
                           title={member.email}
                         >
                           <Mail className="w-4 h-4" />
@@ -198,19 +198,19 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
         </div>
 
         {/* Bottom Assurance Note */}
-        <div className="mt-12 bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-xs">
+        <div className="mt-12 bg-slate-50 rounded-2xl p-5 border border-slate-200/70 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-subtle">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0 border border-amber-200/70">
               <Award className="w-5 h-5" />
             </div>
             <div>
               <p className="text-xs font-bold text-slate-900">Governance & Public Inquiries</p>
-              <p className="text-[11px] text-slate-500">For official correspondence with the leadership committee, reach administrative office at Kannur.</p>
+              <p className="text-[11px] text-slate-500 font-light">For official correspondence with the leadership committee, reach administrative office at Kannur.</p>
             </div>
           </div>
           <a
             href="#contact"
-            className="text-xs font-bold text-markaz-blue hover:text-markaz-green transition-colors px-4 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 whitespace-nowrap"
+            className="text-xs font-bold text-markaz-blue hover:text-markaz-green transition-colors px-4 py-2 rounded-xl bg-white hover:bg-slate-100 border border-slate-200/80 whitespace-nowrap shadow-xs"
           >
             Contact Secretarial Desk
           </a>
@@ -220,7 +220,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
 
       {/* Member Details Modal */}
       {activeModalMember && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-md animate-in fade-in duration-200">
           <div className="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200">
             <div className="bg-markaz-blue text-white p-6 relative">
               <button
@@ -241,7 +241,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
                   <span className="text-xs text-amber-300 font-bold uppercase tracking-wider block">
                     Leadership
                   </span>
-                  <h3 className="text-xl font-extrabold">{activeModalMember.name}</h3>
+                  <h3 className="text-xl font-black">{activeModalMember.name}</h3>
                   <p className="text-xs text-slate-200">{activeModalMember.designation}</p>
                 </div>
               </div>
@@ -249,13 +249,13 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
 
             <div className="p-6 space-y-4">
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tenure & Responsibility</p>
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tenure & Responsibility</p>
                 <p className="text-sm font-semibold text-slate-800 mt-0.5">{activeModalMember.term_period || '2024–Present'}</p>
               </div>
 
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Message & Focus Areas</p>
-                <p className="text-xs text-slate-600 leading-relaxed mt-1">
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Message & Focus Areas</p>
+                <p className="text-xs text-slate-600 leading-relaxed mt-1 font-light">
                   {activeModalMember.bio || 'Serving Markazu Da-wathil Islamiyya with spiritual guidance and administrative dedication.'}
                 </p>
               </div>
@@ -282,7 +282,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
               <div className="pt-4 flex justify-end">
                 <button
                   onClick={() => setActiveModalMember(null)}
-                  className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs transition-colors"
+                  className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full font-bold text-xs transition-colors"
                 >
                   Close Profile
                 </button>

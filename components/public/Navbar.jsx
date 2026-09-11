@@ -68,7 +68,7 @@ export default function Navbar({ onOpenDonate, footerData }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all">
+    <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-xl border-b border-slate-200/60 shadow-subtle transition-all">
       {/* Top Banner - Clean, informative & uncrowded */}
       <div className="bg-markaz-blue text-white text-xs py-2 px-4 sm:px-6 lg:px-8 border-b border-white/5">
         <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">

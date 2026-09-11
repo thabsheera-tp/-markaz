@@ -28,7 +28,7 @@ function YoutubeIcon(props) {
   );
 }
 
-export default function Footer({ footerData, onNavigateToAdmin }) {
+export default function Footer({ footerData }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -40,12 +40,12 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('Assalamu Alaikum, I would like to inquire about Koyyam Markaz.')}`;
 
   return (
-    <footer id="contact" className="bg-markaz-blue-dark text-white relative">
-      {/* Top Banner Accent */}
-      <div className="h-1.5 bg-gradient-to-r from-markaz-green via-amber-400 to-markaz-red" />
+    <footer id="contact" className="bg-slate-950 text-white relative border-t border-white/10">
+      {/* Top Banner Accent Line */}
+      <div className="h-1 bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-500 opacity-80" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
           {/* Col 1: About Markaz */}
           <div className="space-y-4">
@@ -53,24 +53,24 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               <img
                 src="/markaz-logo.png"
                 alt="Koyyam Markaz Logo"
-                className="w-11 h-11 rounded-xl object-contain bg-white shadow-md p-1 border border-white/20"
+                className="w-11 h-11 rounded-xl object-contain bg-white shadow-sm p-1 border border-white/15"
               />
               <div>
-                <span className="text-lg font-bold uppercase tracking-wider block">Koyyam Markaz</span>
-                <span className="text-[10px] text-slate-400 tracking-wider uppercase block">MARKAZU DA-WATHIL ISLAMIYYA</span>
+                <span className="text-lg font-black uppercase tracking-tight block leading-tight">Koyyam Markaz</span>
+                <span className="text-[10px] text-emerald-400 font-semibold tracking-wider uppercase block">MARKAZU DA-WATHIL ISLAMIYYA</span>
               </div>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed font-light">
+            <p className="text-xs text-slate-400 leading-relaxed font-light">
               Nurturing generations with sacred Qur-anic knowledge, academic rigor, and compassionate community empowerment since 1992 in Kannur, Kerala.
             </p>
             {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-2.5 pt-2">
               {footerData?.facebook && (
                 <a
                   href={footerData.facebook}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 rounded-lg bg-white/10 hover:bg-markaz-green flex items-center justify-center transition-colors text-slate-200 hover:text-white"
+                  className="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-emerald-600 flex items-center justify-center transition-all text-slate-300 hover:text-white border border-white/10 hover:border-emerald-500"
                   aria-label="Facebook"
                 >
                   <FacebookIcon className="w-4 h-4" />
@@ -81,7 +81,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                   href={footerData.instagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 rounded-lg bg-white/10 hover:bg-markaz-green flex items-center justify-center transition-colors text-slate-200 hover:text-white"
+                  className="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-emerald-600 flex items-center justify-center transition-all text-slate-300 hover:text-white border border-white/10 hover:border-emerald-500"
                   aria-label="Instagram"
                 >
                   <InstagramIcon className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                   href={footerData.youtube}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 rounded-lg bg-white/10 hover:bg-markaz-green flex items-center justify-center transition-colors text-slate-200 hover:text-white"
+                  className="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-emerald-600 flex items-center justify-center transition-all text-slate-300 hover:text-white border border-white/10 hover:border-emerald-500"
                   aria-label="YouTube"
                 >
                   <YoutubeIcon className="w-4 h-4" />
@@ -102,7 +102,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded-lg bg-emerald-500/20 hover:bg-emerald-600 flex items-center justify-center transition-colors text-emerald-300 hover:text-white"
+                className="w-9 h-9 rounded-full bg-emerald-500/20 hover:bg-emerald-600 flex items-center justify-center transition-all text-emerald-300 hover:text-white border border-emerald-500/30"
                 aria-label="Direct WhatsApp Message"
                 title="Direct WhatsApp Message"
               >
@@ -113,10 +113,10 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
 
           {/* Col 2: Quick Links */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-4">
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-5">
               Explore Campus
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-300">
+            <ul className="space-y-3 text-xs text-slate-400 font-light">
               <li><a href="#hero" className="hover:text-white transition-colors">Home Campus</a></li>
               <li><a href="#about" className="hover:text-white transition-colors">Our Heritage & Story</a></li>
               <li><a href="#mission" className="hover:text-white transition-colors">Mission & Objectives</a></li>
@@ -127,10 +127,10 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
 
           {/* Col 3: Key Institutions */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-4">
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-5">
               Featured Programs
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-300">
+            <ul className="space-y-3 text-xs text-slate-400 font-light">
               <li>Kulliyya of Islamic Sharee'ath</li>
               <li>Tahfeezul Qur-an College</li>
               <li>Da'wa Secondary & Senior Academy</li>
@@ -142,10 +142,10 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
 
           {/* Col 4: Contact Information */}
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-4">
+            <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-5">
               Reach Our Campus
             </h4>
-            <ul className="space-y-3 text-xs text-slate-300">
+            <ul className="space-y-3.5 text-xs text-slate-400 font-light">
               <li className="flex items-start gap-2.5 group">
                 <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
@@ -172,7 +172,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
                 <a
                   href={telLink}
-                  className="font-bold hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5"
+                  className="font-semibold text-white hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5"
                   title="Direct phone call"
                 >
                   <span>{displayPhone}</span>
@@ -185,7 +185,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5"
+                  className="font-semibold text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5"
                   title="Direct WhatsApp Message"
                 >
                   <span>WhatsApp Message</span>
@@ -202,21 +202,20 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                 </a>
               </li>
             </ul>
-
           </div>
 
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="mt-16 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-light">
           <div>
             © {new Date().getFullYear()} Markazu Da-wathil Islamiyya, Koyyam. All rights reserved.
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-[11px] font-arabic text-slate-400">جَزَاكُمُ اللَّهُ خَيْرًا</span>
+            <span className="text-xs font-arabic text-slate-400">جَزَاكُمُ اللَّهُ خَيْرًا</span>
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
+              className="p-2 rounded-full bg-white/[0.06] hover:bg-white/15 text-slate-300 hover:text-white transition-colors border border-white/10"
               title="Scroll to top"
             >
               <ArrowUp className="w-4 h-4" />

@@ -155,20 +155,20 @@ export default function DonationSection({ donationSettings, preselectedCause = n
   )}`;
 
   return (
-    <section id="donate" className="py-20 sm:py-24 bg-gradient-to-b from-white via-slate-50 to-emerald-50/20 relative overflow-hidden">
+    <section id="donate" className="py-24 sm:py-28 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/60 relative overflow-hidden border-b border-slate-100">
       {/* Ambient background decoration */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-100/40 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-96 h-96 bg-markaz-blue/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-emerald-100/30 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-markaz-blue/5 blur-3xl rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 text-markaz-red text-xs font-bold uppercase tracking-wider mb-3 shadow-xs">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 text-markaz-red border border-red-200/70 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
             <Heart className="w-3.5 h-3.5 fill-current text-markaz-red" />
             <span>Sadaqah Jariyah & Philanthropy • ദാനധർമ്മം</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-markaz-blue tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-markaz-blue tracking-tight leading-tight">
             Support Sacred Education & Orphan Care
           </h2>
           <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed font-light">
@@ -180,7 +180,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* Column 1: Online Donation / Instant UPI (7 Cols) */}
-          <div className="lg:col-span-7 bg-white rounded-3xl shadow-xl shadow-slate-200/80 border border-slate-200/80 p-6 sm:p-10 relative">
+          <div className="lg:col-span-7 bg-white rounded-3xl shadow-card border border-slate-200/70 p-6 sm:p-10 relative">
             <form onSubmit={handleOpenModal} className="space-y-6">
               
               {/* 1. Choose Amount */}
@@ -198,9 +198,9 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                       key={amt}
                       type="button"
                       onClick={() => handleSelectPreset(amt)}
-                      className={`py-3 px-2 rounded-2xl font-black text-sm sm:text-base transition-all ${
+                      className={`py-3 px-2 rounded-xl font-bold text-sm sm:text-base transition-all ${
                         !isCustom && selectedAmount === amt
-                          ? 'bg-markaz-green text-white shadow-lg shadow-markaz-green/30 scale-102 border-2 border-markaz-green'
+                          ? 'bg-gradient-to-r from-markaz-green to-emerald-600 text-white shadow-glow-emerald border border-emerald-500'
                           : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200/80'
                       }`}
                     >
@@ -303,7 +303,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-markaz-green-dark hover:to-emerald-700 text-white font-extrabold text-base py-3.5 px-6 rounded-2xl shadow-xl shadow-markaz-green/25 hover:shadow-2xl transition-all transform hover:-translate-y-0.5 active:scale-95"
+                  className="flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-emerald-700 hover:to-markaz-green text-white font-bold text-sm sm:text-base py-4 px-6 rounded-full shadow-glow-emerald hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <QrCode className="w-5 h-5 text-white" />
                   <span>Donate ₹{effectiveAmount ? effectiveAmount.toLocaleString('en-IN') : '0'} via UPI</span>
@@ -313,7 +313,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 <button
                   type="button"
                   onClick={(e) => handleOpenModal(e, 'bank')}
-                  className="inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm py-3.5 px-5 rounded-2xl transition-colors border border-slate-200/80"
+                  className="inline-flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs sm:text-sm py-4 px-6 rounded-full transition-colors border border-slate-200/80"
                 >
                   <Landmark className="w-4 h-4 text-slate-600" />
                   <span>View Bank QR</span>
@@ -337,7 +337,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
           <div className="lg:col-span-5 space-y-6">
             
             {/* Main Bank Card */}
-            <div className="bg-white rounded-3xl shadow-xl shadow-slate-200/80 border-2 border-emerald-600/20 overflow-hidden relative">
+            <div className="bg-white rounded-3xl shadow-card border border-slate-200/70 overflow-hidden relative">
               
               {/* Card Header */}
               <div className="bg-gradient-to-r from-markaz-blue via-slate-900 to-markaz-blue text-white p-6 relative">

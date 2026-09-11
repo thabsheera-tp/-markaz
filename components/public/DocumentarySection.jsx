@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Play, Video, Sparkles, ExternalLink, Heart, CheckCircle2, Film } from 'lucide-react';
+import { Play, Heart, Film, ExternalLink } from 'lucide-react';
 
 function YoutubeIcon(props) {
   return (
@@ -16,25 +16,16 @@ export default function DocumentarySection() {
   const embedUrl = 'https://www.youtube-nocookie.com/embed/SuaBhNM9FHg?autoplay=1&rel=0';
 
   return (
-    <section id="documentary" className="py-20 sm:py-24 bg-gradient-to-b from-slate-900 via-markaz-blue/95 to-slate-950 text-white relative overflow-hidden">
+    <section id="documentary" className="py-24 sm:py-28 bg-gradient-to-b from-slate-950 via-markaz-blue-deep to-slate-950 text-white relative overflow-hidden">
       {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-markaz-green/15 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-amber-500/10 blur-[100px] rounded-full pointer-events-none" />
-
-      {/* Islamic geometric pattern overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 40px)`,
-          backgroundSize: '40px 40px'
-        }}
-      />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-500/10 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-sm shadow-xs">
+        <div className="text-center max-w-3xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-md shadow-xs">
             <Film className="w-3.5 h-3.5" />
             <span>Official Documentary • സമഗ്ര ഡോക്യുമെന്ററി</span>
           </div>
@@ -53,7 +44,7 @@ export default function DocumentarySection() {
 
         {/* Video Frame */}
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/80 border border-white/20 bg-slate-950 aspect-video group">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-slate-950 aspect-video group">
             
             {isPlaying ? (
               <iframe
@@ -76,25 +67,25 @@ export default function DocumentarySection() {
                 />
 
                 {/* Dark overlay for contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-black/30 group-hover:via-slate-950/30 transition-all duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-black/30 group-hover:via-slate-950/25 transition-all duration-300" />
 
                 {/* Central Play Button */}
                 <button
                   onClick={() => setIsPlaying(true)}
                   aria-label="Play Koyyam Markaz Documentary"
-                  className="absolute inset-0 m-auto w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-markaz-green to-emerald-400 text-white flex items-center justify-center shadow-2xl shadow-markaz-green/50 hover:scale-110 active:scale-95 transition-all duration-300 border-4 border-white/80 group-hover:border-white focus:outline-none"
+                  className="absolute inset-0 m-auto w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-markaz-green to-emerald-400 text-white flex items-center justify-center shadow-glow-emerald hover:scale-105 active:scale-95 transition-all duration-300 border-4 border-white/80 group-hover:border-white focus:outline-none"
                 >
-                  <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-current ml-1" />
+                  <Play className="w-8 h-8 sm:w-9 sm:h-9 fill-current ml-1" />
                 </button>
 
                 {/* Bottom Video Badge Info */}
                 <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pointer-events-none">
-                  <div className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/10">
-                    <p className="text-xs font-bold text-amber-300 uppercase tracking-wider">Official Video Presentation</p>
-                    <p className="text-sm font-extrabold text-white">Markazu Da-wathil Islamiyya, Koyyam</p>
+                  <div className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15">
+                    <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">Official Video Presentation</p>
+                    <p className="text-xs sm:text-sm font-bold text-white">Markazu Da-wathil Islamiyya, Koyyam</p>
                   </div>
 
-                  <span className="inline-flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-md">
+                  <span className="inline-flex items-center gap-1.5 bg-red-600/90 backdrop-blur-md text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-md border border-red-500/40">
                     <YoutubeIcon className="w-3.5 h-3.5" />
                     <span>Watch Full Video</span>
                   </span>
@@ -105,14 +96,14 @@ export default function DocumentarySection() {
           </div>
 
           {/* Action Row & External Link */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center border border-red-500/30 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-red-500/15 text-red-400 flex items-center justify-center border border-red-500/25 shrink-0">
                 <YoutubeIcon className="w-5 h-5 text-red-500" />
               </div>
               <div>
                 <p className="text-xs font-bold text-white">Prefer watching directly on YouTube?</p>
-                <p className="text-[11px] text-slate-400">Share with family, friends, and community members.</p>
+                <p className="text-[11px] text-slate-400 font-light">Share with family, friends, and community members.</p>
               </div>
             </div>
 
@@ -121,7 +112,7 @@ export default function DocumentarySection() {
                 href={youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-lg shadow-red-600/30 transition-all hover:scale-105"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all hover:scale-102 active:scale-95"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>Open in YouTube</span>
@@ -129,7 +120,7 @@ export default function DocumentarySection() {
 
               <a
                 href="#donate"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-all hover:scale-105"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 backdrop-blur-md transition-all hover:scale-102 active:scale-95"
               >
                 <Heart className="w-3.5 h-3.5 text-rose-400 fill-current" />
                 <span>Support Our Mission</span>

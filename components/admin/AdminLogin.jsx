@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Lock, Mail, ArrowRight, ArrowLeft, ShieldCheck, UserCheck } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ArrowLeft, UserCheck } from 'lucide-react';
 import { api } from '../../services/api';
 
 export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
@@ -33,13 +33,15 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background patterns */}
-      <div className="absolute top-0 left-0 w-full h-64 bg-markaz-blue" />
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-500/10 blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-[400px] h-[300px] bg-markaz-blue/20 blur-[120px] pointer-events-none" />
+
       <div className="absolute top-6 left-6 z-10">
         <button
           onClick={onBackToPublic}
-          className="inline-flex items-center gap-2 text-white/80 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-colors"
+          className="inline-flex items-center gap-2 text-white/80 hover:text-white text-xs font-semibold px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/10 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Public Website</span>
@@ -48,34 +50,34 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
 
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
         {/* Brand Crest */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center mb-3">
+        <div className="text-center mb-7">
+          <div className="inline-flex items-center justify-center mb-4">
             <img
               src="/markaz-logo.png"
               alt="Koyyam Markaz Logo"
-              className="w-20 h-20 rounded-2xl object-contain bg-white shadow-xl shadow-slate-900/10 p-2 border border-slate-100"
+              className="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl object-contain bg-white shadow-xl p-2 border border-white/20"
             />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
             Koyyam Markaz Portal
           </h2>
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-1">
+          <p className="text-xs font-semibold text-emerald-400 uppercase tracking-widest mt-1.5">
             Institutional Administration & Tracker
           </p>
         </div>
 
         {/* Login Box */}
-        <div className="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-slate-200/80 rounded-3xl border border-slate-200">
+        <div className="bg-white/[0.04] backdrop-blur-xl py-8 px-6 sm:px-10 shadow-2xl rounded-3xl border border-white/10">
           
           <form onSubmit={handleLogin} className="space-y-5">
             {error && (
-              <div className="p-3.5 rounded-2xl bg-red-50 text-red-700 text-xs font-medium border border-red-200 animate-in fade-in duration-200">
+              <div className="p-3.5 rounded-2xl bg-red-500/15 text-red-200 text-xs font-medium border border-red-500/30 animate-in fade-in duration-200">
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
                 Admin Email Address
               </label>
               <div className="relative rounded-2xl">
@@ -88,13 +90,13 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
                   placeholder="admin@koyyammarkaz.org"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-markaz-blue focus:outline-none text-sm text-slate-800"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/80 border border-white/15 focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
                 Password
               </label>
               <div className="relative rounded-2xl">
@@ -107,7 +109,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-markaz-blue focus:outline-none text-sm text-slate-800"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/80 border border-white/15 focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-all"
                 />
               </div>
             </div>
@@ -115,7 +117,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-markaz-blue hover:bg-markaz-blue-light text-white font-bold py-3.5 rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 disabled:opacity-50 text-sm"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-emerald-700 hover:to-markaz-green text-white font-bold py-3.5 rounded-full transition-all shadow-glow-emerald hover:shadow-lg active:scale-95 disabled:opacity-50 text-sm"
             >
               {loading ? (
                 <span>Authenticating...</span>
@@ -129,50 +131,46 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
           </form>
 
           {/* Quick Demo Credentials */}
-          <div className="mt-8 pt-6 border-t border-slate-100">
+          <div className="mt-8 pt-6 border-t border-white/10">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-600 uppercase tracking-wider">
-                <UserCheck className="w-3.5 h-3.5 text-markaz-green" />
-                <span>Test & Demo Environment Logins</span>
+              <div className="flex items-center gap-1.5 text-xs font-bold text-slate-300 uppercase tracking-wider">
+                <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Quick Test Logins</span>
               </div>
-              <span className="text-[10px] font-semibold text-slate-400">Isolated Roles</span>
+              <span className="text-[10px] font-semibold text-slate-400">Click to load</span>
             </div>
 
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickFill('testadmin@koyyammarkaz.org', 'TestAdmin@123')}
-                className="p-2.5 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-400 text-left transition-all group shadow-xs"
+                className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/40 text-left transition-all group"
               >
-                <div className="text-[11px] font-black text-slate-800 group-hover:text-emerald-800">TEST ADMIN</div>
-                <div className="text-[9px] text-emerald-600 font-bold uppercase mt-0.5">Full Admin</div>
+                <div className="text-[11px] font-black text-white group-hover:text-emerald-300">ADMIN</div>
+                <div className="text-[9px] text-emerald-400 font-bold uppercase mt-0.5">Super Admin</div>
                 <div className="text-[9px] text-slate-400 truncate">testadmin@...</div>
               </button>
               
               <button
                 type="button"
                 onClick={() => handleQuickFill('testeditor@koyyammarkaz.org', 'TestEditor@123')}
-                className="p-2.5 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-400 text-left transition-all group shadow-xs"
+                className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-blue-500/10 border border-white/10 hover:border-blue-500/40 text-left transition-all group"
               >
-                <div className="text-[11px] font-black text-slate-800 group-hover:text-blue-800">TEST EDITOR</div>
-                <div className="text-[9px] text-blue-600 font-bold uppercase mt-0.5">Content Editor</div>
+                <div className="text-[11px] font-black text-white group-hover:text-blue-300">EDITOR</div>
+                <div className="text-[9px] text-blue-400 font-bold uppercase mt-0.5">Content Editor</div>
                 <div className="text-[9px] text-slate-400 truncate">testeditor@...</div>
               </button>
 
               <button
                 type="button"
                 onClick={() => handleQuickFill('testviewer@koyyammarkaz.org', 'TestViewer@123')}
-                className="p-2.5 rounded-xl bg-slate-50 hover:bg-amber-50 border border-slate-200 hover:border-amber-400 text-left transition-all group shadow-xs"
+                className="p-2.5 rounded-xl bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 text-left transition-all group"
               >
-                <div className="text-[11px] font-black text-slate-800 group-hover:text-amber-800">TEST VIEWER</div>
-                <div className="text-[9px] text-amber-600 font-bold uppercase mt-0.5">Read-Only</div>
+                <div className="text-[11px] font-black text-white group-hover:text-amber-300">VIEWER</div>
+                <div className="text-[9px] text-amber-400 font-bold uppercase mt-0.5">Read-Only</div>
                 <div className="text-[9px] text-slate-400 truncate">testviewer@...</div>
               </button>
             </div>
-            
-            <p className="text-[10px] text-slate-400 mt-3 text-center leading-relaxed">
-              Click any role above to automatically load test credentials into the fields.
-            </p>
           </div>
 
         </div>

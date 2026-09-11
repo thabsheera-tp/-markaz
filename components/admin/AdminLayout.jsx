@@ -48,9 +48,9 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
   ];
 
   const roleColors = {
-    admin: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-    editor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-    viewer: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+    admin: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
+    editor: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
+    viewer: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
   };
 
   const handleNav = (tabId) => {
@@ -59,35 +59,35 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-slate-50/70 flex flex-col lg:flex-row font-sans">
       
       {/* Sidebar for Desktop */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-markaz-blue-dark text-white border-r border-slate-800 shrink-0">
+      <aside className="hidden lg:flex lg:flex-col lg:w-64 bg-slate-950 text-white border-r border-white/10 shrink-0">
         
         {/* Brand Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center gap-3">
+        <div className="p-5 border-b border-white/10 flex items-center gap-3">
           <img
             src="/markaz-logo.png"
             alt="Koyyam Markaz Logo"
-            className="w-11 h-11 rounded-xl object-contain bg-white shadow-md p-1 border border-white/10"
+            className="w-10 h-10 rounded-xl object-contain bg-white shadow-sm p-1 border border-white/10"
           />
           <div>
-            <span className="font-extrabold text-sm uppercase tracking-wider block leading-tight">
+            <span className="font-black text-sm uppercase tracking-tight block leading-tight">
               Koyyam Markaz
             </span>
-            <span className="text-[10px] font-semibold text-emerald-400 tracking-wider uppercase block">
+            <span className="text-[10px] font-semibold text-emerald-400 tracking-wider uppercase block mt-0.5">
               Admin & Tracker Portal
             </span>
           </div>
         </div>
 
         {/* User Card */}
-        <div className="p-4 mx-3 my-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
+        <div className="p-3.5 mx-3 my-3 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-between">
           <div className="min-w-0 flex-1 mr-2">
             <div className="text-xs font-bold text-white truncate">{user?.name}</div>
-            <div className="text-[10px] text-slate-400 truncate">{user?.email}</div>
+            <div className="text-[10px] text-slate-400 truncate font-light">{user?.email}</div>
           </div>
-          <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-wider border ${roleColors[user?.role] || 'bg-slate-700 text-slate-200'}`}>
+          <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider border ${roleColors[user?.role] || 'bg-slate-800 text-slate-200'}`}>
             {user?.role}
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
             return (
               <React.Fragment key={item.id}>
                 {showSection && (
-                  <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-3 pt-3 pb-1">
+                  <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-3 pt-3 pb-1">
                     {item.section}
                   </div>
                 )}
@@ -110,8 +110,8 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
                   onClick={() => handleNav(item.id)}
                   className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-medium transition-all ${
                     active
-                      ? 'bg-markaz-green text-white font-bold shadow-md shadow-markaz-green/20'
-                      : 'text-slate-300 hover:text-white hover:bg-white/10'
+                      ? 'bg-gradient-to-r from-markaz-green to-emerald-600 text-white font-bold shadow-glow-emerald'
+                      : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
                   <Icon className={`w-4 h-4 ${active ? 'text-white' : 'text-slate-400'}`} />
@@ -123,17 +123,17 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
         </nav>
 
         {/* Bottom Actions */}
-        <div className="p-4 border-t border-slate-800 space-y-2">
+        <div className="p-4 border-t border-white/10 space-y-2">
           <button
             onClick={onVisitPublic}
-            className="w-full flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs font-medium py-2 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-white/[0.06] hover:bg-white/10 text-white text-xs font-medium py-2.5 rounded-xl border border-white/10 transition-colors"
           >
             <ExternalLink className="w-3.5 h-3.5" />
             <span>Visit Public Site</span>
           </button>
           <button
             onClick={onLogout}
-            className="w-full flex items-center justify-center gap-2 text-rose-300 hover:text-rose-100 hover:bg-rose-900/30 text-xs font-medium py-2 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center gap-2 text-rose-300 hover:text-rose-100 hover:bg-rose-950/40 text-xs font-medium py-2.5 rounded-xl border border-rose-900/30 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>
@@ -142,7 +142,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
       </aside>
 
       {/* Mobile Top Header */}
-      <div className="lg:hidden bg-markaz-blue-dark text-white px-4 py-3 flex items-center justify-between shadow-md">
+      <div className="lg:hidden bg-slate-950 text-white px-4 py-3 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -161,7 +161,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
           <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${roleColors[user?.role]}`}>
             {user?.role}
           </span>
-          <button onClick={onLogout} className="p-1 text-slate-300 hover:text-rose-400">
+          <button onClick={onLogout} className="p-1 text-slate-400 hover:text-rose-400">
             <LogOut className="w-4 h-4" />
           </button>
         </div>
@@ -169,7 +169,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
 
       {/* Mobile Menu Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden bg-markaz-blue-dark text-white px-4 py-3 space-y-1 border-b border-slate-800 animate-in slide-in-from-top duration-200">
+        <div className="lg:hidden bg-slate-950 text-white px-4 py-3 space-y-1 border-b border-white/10 animate-in slide-in-from-top duration-200">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = currentTab === item.id;
@@ -186,7 +186,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
               </button>
             );
           })}
-          <div className="pt-2 border-t border-slate-800 flex gap-2">
+          <div className="pt-2 border-t border-white/10 flex gap-2">
             <button
               onClick={onVisitPublic}
               className="flex-1 bg-white/10 text-white text-xs py-2 rounded-lg"
@@ -207,16 +207,16 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         
         {/* Top Breadcrumb Bar */}
-        <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+        <div className="bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-6 py-4 flex items-center justify-between shadow-subtle">
           <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
             <span>Admin Portal</span>
             <span>/</span>
-            <span className="capitalize font-bold text-slate-800">{currentTab.replace('-', ' ')}</span>
+            <span className="capitalize font-bold text-slate-900">{currentTab.replace('-', ' ')}</span>
           </div>
           <div className="hidden sm:flex items-center gap-3">
             <button
               onClick={onVisitPublic}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-markaz-blue px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-markaz-blue px-3.5 py-1.5 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors shadow-subtle"
             >
               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
               <span>Live Website</span>
@@ -226,7 +226,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
 
         {/* Role Notice Banner for Viewer */}
         {user?.role === 'viewer' && (
-          <div className="bg-amber-100 text-amber-900 px-6 py-2.5 text-xs font-semibold flex items-center justify-between border-b border-amber-200">
+          <div className="bg-amber-50 text-amber-900 px-6 py-2.5 text-xs font-semibold flex items-center justify-between border-b border-amber-200/60">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-amber-700 shrink-0" />
               <span>

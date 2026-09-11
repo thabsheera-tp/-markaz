@@ -37,21 +37,15 @@ export default function MissionVisionSection({ items = [] }) {
   ];
 
   return (
-    <section id="mission" className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-markaz-blue to-slate-900" />
-      <div className="absolute inset-0 opacity-10"
+    <section id="mission" className="py-28 relative overflow-hidden bg-slate-950 text-white">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-markaz-blue-deep to-slate-950" />
+      <div
+        className="absolute inset-0 opacity-15"
         style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, #2d8b46 0%, transparent 50%),
-                            radial-gradient(circle at 80% 20%, #c59b27 0%, transparent 40%),
-                            radial-gradient(circle at 60% 80%, #164a73 0%, transparent 50%)`
-        }}
-      />
-      {/* Islamic geometric pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)`,
-          backgroundSize: '20px 20px'
+          backgroundImage: `radial-gradient(circle at 20% 50%, #059669 0%, transparent 50%),
+                            radial-gradient(circle at 80% 20%, #d97706 0%, transparent 40%),
+                            radial-gradient(circle at 60% 80%, #144c77 0%, transparent 50%)`
         }}
       />
 
@@ -59,13 +53,13 @@ export default function MissionVisionSection({ items = [] }) {
 
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-md shadow-xs">
             <Target className="w-3.5 h-3.5" />
             <span>Guiding Principles • ലക്ഷ്യബോധം</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
             Our Sacred{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-amber-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-amber-400">
               Mission & Vision
             </span>
           </h2>
@@ -80,27 +74,26 @@ export default function MissionVisionSection({ items = [] }) {
           {/* Mission Card */}
           {mission && (
             <div className="group relative">
-              {/* Glow effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-markaz-green to-emerald-400 rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-10 h-full flex flex-col hover:bg-white/8 transition-all duration-300">
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-markaz-green to-emerald-400 rounded-3xl blur opacity-15 group-hover:opacity-30 transition-opacity duration-500" />
+              <div className="relative bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 h-full flex flex-col hover:bg-white/[0.06] transition-all duration-300">
 
                 {/* Icon header */}
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-markaz-green to-emerald-600 flex items-center justify-center shadow-xl shadow-markaz-green/30 shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <Compass className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-markaz-green to-emerald-600 flex items-center justify-center shadow-glow-emerald shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Compass className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-widest text-markaz-green mb-1">
+                    <div className="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-1">
                       Foundational Purpose • ദൗത്യം
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight tracking-tight">
                       {mission.title}
                     </h3>
                   </div>
                 </div>
 
                 {/* Divider */}
-                <div className="w-full h-px bg-gradient-to-r from-markaz-green/60 via-transparent to-transparent mb-8" />
+                <div className="w-full h-px bg-gradient-to-r from-emerald-500/40 via-transparent to-transparent mb-8" />
 
                 {/* Description */}
                 <p className="text-slate-200 leading-relaxed text-base sm:text-lg font-light flex-1 mb-8">
@@ -110,9 +103,9 @@ export default function MissionVisionSection({ items = [] }) {
                 {/* Highlights */}
                 <div className="space-y-3">
                   {missionHighlights.map((h, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
-                      <div className="w-7 h-7 rounded-lg bg-markaz-green/20 border border-markaz-green/30 flex items-center justify-center shrink-0">
-                        <h.icon className="w-3.5 h-3.5 text-markaz-green" />
+                    <div key={i} className="flex items-center gap-3 text-sm text-slate-300 font-light">
+                      <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/25 flex items-center justify-center shrink-0">
+                        <h.icon className="w-3.5 h-3.5 text-emerald-400" />
                       </div>
                       <span>{h.text}</span>
                     </div>
@@ -131,27 +124,26 @@ export default function MissionVisionSection({ items = [] }) {
           {/* Vision Card */}
           {vision && (
             <div className="group relative">
-              {/* Glow effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-amber-400 to-markaz-blue rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-              <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 sm:p-10 h-full flex flex-col hover:bg-white/8 transition-all duration-300">
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-amber-400 to-markaz-blue rounded-3xl blur opacity-15 group-hover:opacity-30 transition-opacity duration-500" />
+              <div className="relative bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 h-full flex flex-col hover:bg-white/[0.06] transition-all duration-300">
 
                 {/* Icon header */}
                 <div className="flex items-start gap-5 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-xl shadow-amber-500/30 shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <Eye className="w-8 h-8 text-white" />
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-xl shadow-amber-500/20 shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <Eye className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <div className="text-xs font-bold uppercase tracking-widest text-amber-400 mb-1">
                       The Future We Envision • ദർശനം
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight">
+                    <h3 className="text-2xl sm:text-3xl font-black text-white leading-tight tracking-tight">
                       {vision.title}
                     </h3>
                   </div>
                 </div>
 
                 {/* Divider */}
-                <div className="w-full h-px bg-gradient-to-r from-amber-400/60 via-transparent to-transparent mb-8" />
+                <div className="w-full h-px bg-gradient-to-r from-amber-400/40 via-transparent to-transparent mb-8" />
 
                 {/* Description */}
                 <p className="text-slate-200 leading-relaxed text-base sm:text-lg font-light flex-1 mb-8">
@@ -161,8 +153,8 @@ export default function MissionVisionSection({ items = [] }) {
                 {/* Highlights */}
                 <div className="space-y-3">
                   {visionHighlights.map((h, i) => (
-                    <div key={i} className="flex items-center gap-3 text-sm text-slate-300">
-                      <div className="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-400/30 flex items-center justify-center shrink-0">
+                    <div key={i} className="flex items-center gap-3 text-sm text-slate-300 font-light">
+                      <div className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-400/25 flex items-center justify-center shrink-0">
                         <h.icon className="w-3.5 h-3.5 text-amber-400" />
                       </div>
                       <span>{h.text}</span>
@@ -182,15 +174,14 @@ export default function MissionVisionSection({ items = [] }) {
 
         {/* Bottom Quranic Quote Banner */}
         <div className="mt-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-markaz-green/20 via-amber-500/10 to-markaz-green/20 rounded-3xl blur-sm" />
-          <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-8 text-center">
+          <div className="relative bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-8 text-center">
             <p className="text-2xl sm:text-3xl font-arabic text-amber-200 leading-loose mb-3" dir="rtl">
               ﴿ اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ﴾
             </p>
-            <p className="text-slate-300 text-sm sm:text-base font-light italic">
+            <p className="text-slate-200 text-sm sm:text-base font-light italic">
               "Read in the name of your Lord who created" — Surah Al-Alaq 96:1
             </p>
-            <p className="text-slate-400 text-xs mt-2">
+            <p className="text-slate-400 text-xs mt-2 font-light">
               The first divine commandment — the foundation of every educational institution built in the name of Allah
             </p>
           </div>
