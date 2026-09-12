@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Play, Heart, Film, ExternalLink } from 'lucide-react';
+import { Play, Heart, Film, ExternalLink, GraduationCap, X } from 'lucide-react';
 
 function YoutubeIcon(props) {
   return (
@@ -11,42 +11,142 @@ function YoutubeIcon(props) {
 }
 
 export default function DocumentarySection() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const youtubeUrl = 'https://youtu.be/SuaBhNM9FHg?si=oW2mTVbSKv8FG5G0';
   const embedUrl = 'https://www.youtube-nocookie.com/embed/SuaBhNM9FHg?autoplay=1&rel=0';
 
+  const scrollToDonate = () => {
+    const el = document.getElementById('donate');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <section id="documentary" className="py-24 sm:py-28 bg-gradient-to-b from-slate-950 via-markaz-blue-deep to-slate-950 text-white relative overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-emerald-500/10 blur-[140px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="documentary" className="py-20 sm:py-24 bg-white border-b border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
+        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-amber-300 text-xs font-bold uppercase tracking-widest mb-4 backdrop-blur-md shadow-xs">
-            <Film className="w-3.5 h-3.5" />
-            <span>Official Documentary • സമഗ്ര ഡോക്യുമെന്ററി</span>
-          </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
-            Journey of Faith, Knowledge &{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-emerald-300 to-amber-400">
-              Humanitarian Service
-            </span>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-2 font-sans">
+            Special Highlights
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-serif font-academic font-bold text-[#061726] tracking-tight">
+            Campus Tour & Philanthropic Initiatives
           </h2>
-
-          <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-light">
-            Step inside Koyyam Markaz through our official documentary. Explore three decades of spiritual education, destitute care, and academic excellence nurtured under dedicated leadership.
+          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-4 mb-4" />
+          <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed">
+            Experience our 34-year legacy firsthand through our official documentary, or extend a helping hand to support student education and orphan welfare.
           </p>
         </div>
 
-        {/* Video Frame */}
-        <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/15 bg-slate-950 aspect-video group">
-            
-            {isPlaying ? (
+        {/* Dual Promo Cards (Matching Columbia Reference Layout) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          
+          {/* Promo Card 1: Official Campus Documentary */}
+          <div className="bg-[#f8fafc] border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group">
+            <div className="relative h-64 sm:h-72 overflow-hidden bg-slate-900">
+              <img
+                src="https://img.youtube.com/vi/SuaBhNM9FHg/maxresdefault.jpg"
+                alt="Koyyam Markaz Documentary"
+                onError={(e) => {
+                  e.currentTarget.src = 'https://img.youtube.com/vi/SuaBhNM9FHg/hqdefault.jpg';
+                }}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              
+              {/* Play Overlay Button */}
+              <button
+                onClick={() => setIsVideoOpen(true)}
+                className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-[#002B49]/90 hover:bg-[#004B87] text-white flex items-center justify-center border-2 border-white transition-transform hover:scale-110 shadow-lg"
+                aria-label="Play documentary video"
+              >
+                <Play className="w-6 h-6 fill-white ml-0.5" />
+              </button>
+
+              <div className="absolute top-3 left-3">
+                <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white flex items-center gap-1">
+                  <YoutubeIcon className="w-3 h-3" />
+                  <span>Official Video</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-serif font-academic font-bold text-[#061726] mb-2 leading-tight">
+                  Journey of Faith & Service: The Official Documentary
+                </h3>
+                <p className="text-slate-600 text-xs sm:text-sm font-light leading-relaxed">
+                  A comprehensive visual presentation depicting life at Koyyam Markaz, student assemblies, classical Dars circles, and community empowerment.
+                </p>
+              </div>
+
+              <div className="mt-6">
+                <button
+                  onClick={() => setIsVideoOpen(true)}
+                  className="w-full bg-[#002B49] hover:bg-[#004B87] text-white py-3 text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-xs"
+                >
+                  Watch Campus Tour
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Promo Card 2: Student Welfare & Orphan Care */}
+          <div className="bg-[#f8fafc] border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group">
+            <div className="relative h-64 sm:h-72 overflow-hidden bg-slate-900">
+              <img
+                src="/uploads/hifz.jpeg"
+                alt="Student Welfare & Tahfeezul Qur-an"
+                onError={(e) => {
+                  e.currentTarget.src = '/uploads/markaz.jpeg';
+                }}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              
+              <div className="absolute top-3 left-3">
+                <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#d97706] text-white">
+                  Philanthropy & Endowment
+                </span>
+              </div>
+            </div>
+
+            <div className="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 className="text-xl font-serif font-academic font-bold text-[#061726] mb-2 leading-tight">
+                  Sponsor a Student: Invest in Sacred Knowledge
+                </h3>
+                <p className="text-slate-600 text-xs sm:text-sm font-light leading-relaxed">
+                  Support the full boarding, meals, textbooks, and health care of an orphan or destitute scholar through perpetual Sadaqah Jariyah.
+                </p>
+              </div>
+
+              <div className="mt-6">
+                <button
+                  onClick={scrollToDonate}
+                  className="w-full bg-[#d97706] hover:bg-[#b45309] text-white py-3 text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-xs flex items-center justify-center gap-2"
+                >
+                  <Heart className="w-4 h-4 fill-white" />
+                  <span>Support a Student Today</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Video Lightbox Modal */}
+        {isVideoOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="relative w-full max-w-4xl bg-black border border-white/20 shadow-2xl overflow-hidden aspect-video">
+              <button
+                onClick={() => setIsVideoOpen(false)}
+                className="absolute top-3 right-3 z-10 p-2 bg-black/70 text-white rounded-full hover:bg-red-600 transition-colors"
+                aria-label="Close video"
+              >
+                <X className="w-5 h-5" />
+              </button>
               <iframe
                 src={embedUrl}
                 title="Markazu Da-wathil Islamiyya Koyyam Official Documentary"
@@ -54,81 +154,9 @@ export default function DocumentarySection() {
                 allowFullScreen
                 className="w-full h-full border-0"
               />
-            ) : (
-              <div className="relative w-full h-full">
-                {/* High-res YouTube thumbnail with fallback */}
-                <img
-                  src="https://img.youtube.com/vi/SuaBhNM9FHg/maxresdefault.jpg"
-                  alt="Koyyam Markaz Documentary Preview"
-                  onError={(e) => {
-                    e.currentTarget.src = 'https://img.youtube.com/vi/SuaBhNM9FHg/hqdefault.jpg';
-                  }}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                />
-
-                {/* Dark overlay for contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-black/30 group-hover:via-slate-950/25 transition-all duration-300" />
-
-                {/* Central Play Button */}
-                <button
-                  onClick={() => setIsPlaying(true)}
-                  aria-label="Play Koyyam Markaz Documentary"
-                  className="absolute inset-0 m-auto w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-markaz-green to-emerald-400 text-white flex items-center justify-center shadow-glow-emerald hover:scale-105 active:scale-95 transition-all duration-300 border-4 border-white/80 group-hover:border-white focus:outline-none"
-                >
-                  <Play className="w-8 h-8 sm:w-9 sm:h-9 fill-current ml-1" />
-                </button>
-
-                {/* Bottom Video Badge Info */}
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pointer-events-none">
-                  <div className="bg-black/60 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/15">
-                    <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">Official Video Presentation</p>
-                    <p className="text-xs sm:text-sm font-bold text-white">Markazu Da-wathil Islamiyya, Koyyam</p>
-                  </div>
-
-                  <span className="inline-flex items-center gap-1.5 bg-red-600/90 backdrop-blur-md text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow-md border border-red-500/40">
-                    <YoutubeIcon className="w-3.5 h-3.5" />
-                    <span>Watch Full Video</span>
-                  </span>
-                </div>
-              </div>
-            )}
-
-          </div>
-
-          {/* Action Row & External Link */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-red-500/15 text-red-400 flex items-center justify-center border border-red-500/25 shrink-0">
-                <YoutubeIcon className="w-5 h-5 text-red-500" />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-white">Prefer watching directly on YouTube?</p>
-                <p className="text-[11px] text-slate-400 font-light">Share with family, friends, and community members.</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <a
-                href={youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all hover:scale-102 active:scale-95"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>Open in YouTube</span>
-              </a>
-
-              <a
-                href="#donate"
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 backdrop-blur-md transition-all hover:scale-102 active:scale-95"
-              >
-                <Heart className="w-3.5 h-3.5 text-rose-400 fill-current" />
-                <span>Support Our Mission</span>
-              </a>
             </div>
           </div>
-
-        </div>
+        )}
 
       </div>
     </section>

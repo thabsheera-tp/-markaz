@@ -65,16 +65,23 @@ export default function HomePage() {
 
   if (loadingPublic) {
     return (
-      <div className="min-h-screen bg-markaz-blue flex flex-col items-center justify-center text-white">
-        <div className="w-16 h-16 rounded-2xl bg-white p-2 flex items-center justify-center shadow-xl animate-pulse mb-4 border border-white/20">
-          <img
-            src="/markaz-logo.png"
-            alt="Koyyam Markaz Logo"
-            className="w-full h-full object-contain"
-          />
+      <div className="min-h-screen bg-markaz-blue flex flex-col items-center justify-center text-white relative overflow-hidden">
+        {/* Soft background glow */}
+        <div className="absolute w-96 h-96 bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none" />
+        <div className="relative z-10 flex flex-col items-center">
+          <div className="w-16 h-16 rounded-3xl bg-white/95 backdrop-blur-xl p-2.5 flex items-center justify-center shadow-glass animate-pulse mb-4 border border-white/30">
+            <img
+              src="/markaz-logo.png"
+              alt="Koyyam Markaz Logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <h2 className="text-xl font-black tracking-tight text-white">Koyyam Markaz</h2>
+          <div className="flex items-center gap-2 mt-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <p className="text-xs text-slate-300 font-light">Connecting to live institutional database...</p>
+          </div>
         </div>
-        <h2 className="text-xl font-bold tracking-tight">Koyyam Markaz</h2>
-        <p className="text-xs text-slate-300 mt-1">Connecting to live institutional database...</p>
       </div>
     );
   }
@@ -90,43 +97,43 @@ export default function HomePage() {
 
       {/* Main Sections */}
       <main className="flex-1">
-        {/* Hero Slider with continuous Ken Burns motion */}
+        {/* 1. Hero Showcase */}
         <HeroSlider
           slides={publicData?.hero_slides}
           onOpenDonate={handleOpenDonate}
         />
 
-        {/* Live Continuous Auto-Moving Campus Gallery Reel */}
-        <LiveCampusReel />
-
-        {/* Events & Official Circulars */}
-        <EventsSection announcements={publicData?.announcements} />
-
-        {/* About Us */}
-        <AboutSection aboutData={publicData?.about} />
-
-        {/* Official Institutional Documentary */}
-        <DocumentarySection />
-
-        {/* Leadership Committee */}
-        <TemporaryCommitteeSection committee={publicData?.temporary_committee} />
-
-        {/* Mission & Vision */}
-        <MissionVisionSection items={publicData?.mission_vision} />
-
-        {/* 9 Institutions & Wings Grid */}
+        {/* 2. Iconic 6-Card Academic & Welfare Wings Gateway Grid */}
         <InstitutionsSection
           institutions={publicData?.institutions}
           onSelectInstitutionForDonate={handleSelectInstitutionForDonate}
         />
 
-        {/* Dynamic Donation Section with UPI Modal */}
+        {/* 3. Visual Campus News & Stories Mosaic (Reel) */}
+        <LiveCampusReel />
+
+        {/* 4. Institutional Heritage & Discovery Spotlight */}
+        <AboutSection aboutData={publicData?.about} />
+
+        {/* 5. Official Circulars & Events Bulletin Board (Tabbed Widget) */}
+        <EventsSection announcements={publicData?.announcements} />
+
+        {/* 6. Core Pillars & Guiding Purpose (4-Icon Grid) */}
+        <MissionVisionSection items={publicData?.mission_vision} />
+
+        {/* 7. Dual Action Promos (Campus Documentary Tour & Sponsor a Student) */}
+        <DocumentarySection />
+
+        {/* 8. Governing Leadership & Scholarly Board */}
+        <TemporaryCommitteeSection committee={publicData?.temporary_committee} />
+
+        {/* 9. Institutional Endowment & UPI Giving */}
         <DonationSection
           donationSettings={publicData?.donation_settings}
           preselectedCause={preselectedCause}
         />
 
-        {/* Campus Location & Navigation Section */}
+        {/* 10. Campus Location & Transit Navigation */}
         <CampusLocationSection footerData={publicData?.footer} />
       </main>
 

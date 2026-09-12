@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, Heart, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, Heart, Sparkles, Compass } from 'lucide-react';
 import { api } from '../../services/api';
 
 export default function HeroSlider({ slides = [], onOpenDonate }) {
@@ -12,17 +12,21 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
 
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(timer);
   }, [slides, isPaused]);
 
   if (!slides || slides.length === 0) {
     return (
-      <section id="hero" className="relative h-[550px] bg-markaz-blue-deep flex items-center justify-center text-white">
-        <div className="text-center p-6">
-          <h1 className="text-4xl font-black tracking-tight">Koyyam Markaz</h1>
-          <p className="text-slate-300 mt-2 font-light">Loading campus presentation...</p>
+      <section id="hero" className="relative h-[560px] bg-[#072135] flex items-center justify-center text-white overflow-hidden">
+        <div className="absolute inset-0 bg-[#061726]/80" />
+        <div className="relative z-10 text-center p-6 max-w-xl">
+          <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mx-auto mb-4">
+            <Sparkles className="w-6 h-6 text-amber-300" />
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-serif tracking-tight font-academic">Markazu Da-wathil Islamiyya</h1>
+          <p className="text-slate-300 mt-2 font-light text-sm">Koyyam, Kannur, Kerala • Loading presentation...</p>
         </div>
       </section>
     );
@@ -44,7 +48,7 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
   return (
     <section
       id="hero"
-      className="relative h-[640px] md:h-[700px] lg:h-[740px] overflow-hidden select-none bg-slate-950"
+      className="relative h-[580px] sm:h-[640px] lg:h-[700px] overflow-hidden select-none bg-[#061726]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
@@ -56,7 +60,7 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
             idx === current ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         >
-          {/* Slide Background Image with continuous subtle Ken Burns motion */}
+          {/* Slide Background Image with subtle Ken Burns motion */}
           <img
             src={api.getImageUrl(s.image_url)}
             alt={s.title}
@@ -68,37 +72,38 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
               idx === current ? 'animate-kenburns' : ''
             }`}
           />
-          {/* Cinematic Multi-Stop Gradient Scrim */}
-          <div className="absolute inset-0 bg-gradient-to-r from-markaz-blue-deep/95 via-markaz-blue/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-black/20" />
+          {/* University Style Tint & Scrim */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#061726]/95 via-[#0a2e4a]/75 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#061726] via-transparent to-black/30" />
         </div>
       ))}
 
       {/* Content Container */}
       <div className="relative z-10 max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center">
         <div className="max-w-2xl text-white py-12">
-          {/* Minimal Glass Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-semibold tracking-wider uppercase text-amber-300 mb-6 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>Markazu Da-wathil Islamiyya</span>
+          
+          {/* Classical Academic Sub-headline */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded bg-[#0a2e4a]/85 border border-white/20 text-xs font-semibold tracking-widest uppercase text-amber-300 mb-5">
+            <Compass className="w-3.5 h-3.5 text-amber-300" />
+            <span>Center of Islamic Excellence • Est. 1992</span>
           </div>
 
-          {/* Display Title */}
-          <h1 className="text-4xl sm:text-6xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white drop-shadow-sm">
+          {/* Academic Serif Display Title */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-academic font-bold tracking-tight leading-[1.15] text-white drop-shadow-md">
             {slide?.title}
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-5 text-base sm:text-lg lg:text-xl text-slate-200 font-light leading-relaxed max-w-xl">
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-slate-200 font-light leading-relaxed max-w-xl">
             {slide?.subtitle}
           </p>
 
           {/* Call to Actions */}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-3.5">
             {slide?.button_text && (
               <button
                 onClick={() => handleAction(slide.button_link)}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-emerald-700 hover:to-markaz-green text-white px-7 py-3.5 rounded-full font-bold text-sm sm:text-base shadow-glow-emerald hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 bg-[#004B87] hover:bg-[#003865] text-white px-6 py-3 rounded font-bold text-xs uppercase tracking-wider shadow-lg transition-all duration-200 hover:-translate-y-0.5 border border-blue-400/30"
               >
                 <span>{slide.button_text}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -106,39 +111,39 @@ export default function HeroSlider({ slides = [], onOpenDonate }) {
             )}
             <button
               onClick={onOpenDonate}
-              className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 backdrop-blur-md px-7 py-3.5 rounded-full font-semibold text-sm sm:text-base transition-all hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white px-6 py-3 rounded font-bold text-xs uppercase tracking-wider shadow-lg transition-all duration-200 hover:-translate-y-0.5 border border-amber-300/30"
             >
-              <Heart className="w-4 h-4 text-rose-300 fill-current" />
-              <span>Support Koyyam Markaz</span>
+              <Heart className="w-4 h-4 fill-white" />
+              <span>Sadaqah & Giving</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Modern Minimal Navigation Arrows */}
+      {/* Navigation Arrows */}
       <button
         onClick={() => setCurrent((prev) => (prev - 1 + slides.length) % slides.length)}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/20 hover:bg-black/50 border border-white/15 backdrop-blur-md text-white/90 hover:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+        className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         onClick={() => setCurrent((prev) => (prev + 1) % slides.length)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-black/20 hover:bg-black/50 border border-white/15 backdrop-blur-md text-white/90 hover:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+        className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 border border-white/20 text-white flex items-center justify-center transition-all"
         aria-label="Next slide"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
 
-      {/* Slide Indicators - Sleek Pill Lines */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+      {/* Slide Indicators */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
             className={`transition-all duration-300 rounded-full h-1.5 ${
-              idx === current ? 'w-8 bg-emerald-400' : 'w-2 bg-white/30 hover:bg-white/60'
+              idx === current ? 'w-8 bg-amber-400' : 'w-2 bg-white/40 hover:bg-white/70'
             }`}
             aria-label={`Go to slide ${idx + 1}`}
           />

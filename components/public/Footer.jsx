@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { MapPin, Phone, Mail, MessageCircle, ArrowUp } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle, ArrowUp, Compass } from 'lucide-react';
 
 function FacebookIcon(props) {
   return (
@@ -28,7 +28,7 @@ function YoutubeIcon(props) {
   );
 }
 
-export default function Footer({ footerData }) {
+export default function Footer({ footerData, onNavigateToAdmin }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -40,165 +40,151 @@ export default function Footer({ footerData }) {
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('Assalamu Alaikum, I would like to inquire about Koyyam Markaz.')}`;
 
   return (
-    <footer id="contact" className="bg-slate-950 text-white relative border-t border-white/10">
-      {/* Top Banner Accent Line */}
-      <div className="h-1 bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-500 opacity-80" />
+    <footer id="contact" className="bg-[#002B49] text-white relative border-t-4 border-[#004B87]">
+      
+      {/* Social Media Follow Ribbon (Matching Columbia Model) */}
+      <div className="bg-[#061726] border-b border-white/10 py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span className="text-xs font-serif font-academic font-bold uppercase tracking-widest text-slate-300">
+            Connect With Markazu Da-wathil Islamiyya
+          </span>
+          <div className="flex items-center gap-3">
+            {footerData?.facebook && (
+              <a
+                href={footerData.facebook}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded bg-white/10 hover:bg-[#004B87] flex items-center justify-center transition-colors text-white"
+                aria-label="Facebook"
+              >
+                <FacebookIcon className="w-4 h-4" />
+              </a>
+            )}
+            {footerData?.instagram && (
+              <a
+                href={footerData.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded bg-white/10 hover:bg-[#004B87] flex items-center justify-center transition-colors text-white"
+                aria-label="Instagram"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+            )}
+            {footerData?.youtube && (
+              <a
+                href={footerData.youtube}
+                target="_blank"
+                rel="noreferrer"
+                className="w-8 h-8 rounded bg-white/10 hover:bg-[#004B87] flex items-center justify-center transition-colors text-white"
+                aria-label="YouTube"
+              >
+                <YoutubeIcon className="w-4 h-4" />
+              </a>
+            )}
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded bg-[#059669] hover:bg-[#047857] flex items-center justify-center transition-colors text-white"
+              aria-label="WhatsApp"
+              title="Direct WhatsApp"
+            >
+              <MessageCircle className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      {/* Main Multi-Column Sitemap (Columbia Mega-Footer) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12">
           
-          {/* Col 1: About Markaz */}
+          {/* Col 1: Crest & About */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <img
                 src="/markaz-logo.png"
-                alt="Koyyam Markaz Logo"
-                className="w-11 h-11 rounded-xl object-contain bg-white shadow-sm p-1 border border-white/15"
+                alt="Koyyam Markaz Crest"
+                className="w-12 h-12 rounded object-contain bg-white p-1 shadow-sm"
               />
               <div>
-                <span className="text-lg font-black uppercase tracking-tight block leading-tight">Koyyam Markaz</span>
-                <span className="text-[10px] text-emerald-400 font-semibold tracking-wider uppercase block">MARKAZU DA-WATHIL ISLAMIYYA</span>
+                <span className="text-base font-serif font-academic font-bold uppercase tracking-wider block leading-tight">
+                  Koyyam Markaz
+                </span>
+                <span className="text-[10px] text-emerald-300 font-semibold tracking-wider uppercase block">
+                  MARKAZU DA-WATHIL ISLAMIYYA
+                </span>
               </div>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed font-light">
-              Nurturing generations with sacred Qur-anic knowledge, academic rigor, and compassionate community empowerment since 1992 in Kannur, Kerala.
+            <p className="text-xs text-slate-300 leading-relaxed font-light">
+              Nurturing generations with authentic Islamic scholarship, academic competence, and philanthropic care in Kannur, Kerala since 1992.
             </p>
-            {/* Social Icons */}
-            <div className="flex items-center gap-2.5 pt-2">
-              {footerData?.facebook && (
-                <a
-                  href={footerData.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-emerald-600 flex items-center justify-center transition-all text-slate-300 hover:text-white border border-white/10 hover:border-emerald-500"
-                  aria-label="Facebook"
-                >
-                  <FacebookIcon className="w-4 h-4" />
-                </a>
-              )}
-              {footerData?.instagram && (
-                <a
-                  href={footerData.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-emerald-600 flex items-center justify-center transition-all text-slate-300 hover:text-white border border-white/10 hover:border-emerald-500"
-                  aria-label="Instagram"
-                >
-                  <InstagramIcon className="w-4 h-4" />
-                </a>
-              )}
-              {footerData?.youtube && (
-                <a
-                  href={footerData.youtube}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/[0.06] hover:bg-emerald-600 flex items-center justify-center transition-all text-slate-300 hover:text-white border border-white/10 hover:border-emerald-500"
-                  aria-label="YouTube"
-                >
-                  <YoutubeIcon className="w-4 h-4" />
-                </a>
-              )}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="w-9 h-9 rounded-full bg-emerald-500/20 hover:bg-emerald-600 flex items-center justify-center transition-all text-emerald-300 hover:text-white border border-emerald-500/30"
-                aria-label="Direct WhatsApp Message"
-                title="Direct WhatsApp Message"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
+            <div className="pt-2">
+              <span className="text-[11px] text-blue-200 font-arabic block">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+              </span>
             </div>
           </div>
 
-          {/* Col 2: Quick Links */}
+          {/* Col 2: Academic Wings */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-5">
-              Explore Campus
+            <h4 className="text-xs font-serif font-academic font-bold uppercase tracking-widest text-amber-300 mb-4 pb-2 border-b border-white/10">
+              Academic Wings & Colleges
             </h4>
-            <ul className="space-y-3 text-xs text-slate-400 font-light">
-              <li><a href="#hero" className="hover:text-white transition-colors">Home Campus</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors">Our Heritage & Story</a></li>
-              <li><a href="#mission" className="hover:text-white transition-colors">Mission & Objectives</a></li>
-              <li><a href="#institutions" className="hover:text-white transition-colors">9 Institutions & Wings</a></li>
-              <li><a href="#donate" className="hover:text-white transition-colors">Sadaqah & Donations</a></li>
+            <ul className="space-y-2.5 text-xs text-slate-300 font-light">
+              <li><a href="#institutions" className="hover:text-white transition-colors">Kulliyya of Sharee'ath</a></li>
+              <li><a href="#institutions" className="hover:text-white transition-colors">Tahfeezul Qur-an College</a></li>
+              <li><a href="#institutions" className="hover:text-white transition-colors">Hadiya Women's Academy</a></li>
+              <li><a href="#institutions" className="hover:text-white transition-colors">Da'wa Senior Academy</a></li>
+              <li><a href="#institutions" className="hover:text-white transition-colors">College of Arts & Commerce</a></li>
+              <li><a href="#institutions" className="hover:text-white transition-colors">Orphan & Destitute Welfare</a></li>
             </ul>
           </div>
 
-          {/* Col 3: Key Institutions */}
+          {/* Col 3: Institutional Links */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-5">
-              Featured Programs
+            <h4 className="text-xs font-serif font-academic font-bold uppercase tracking-widest text-amber-300 mb-4 pb-2 border-b border-white/10">
+              Campus & Governance
             </h4>
-            <ul className="space-y-3 text-xs text-slate-400 font-light">
-              <li>Kulliyya of Islamic Sharee'ath</li>
-              <li>Tahfeezul Qur-an College</li>
-              <li>Da'wa Secondary & Senior Academy</li>
-              <li>Hadiya Women's Academy</li>
-              <li>College of Arts, Science & Commerce</li>
-              <li>Technical & Vocational Skills Wing</li>
+            <ul className="space-y-2.5 text-xs text-slate-300 font-light">
+              <li><a href="#about" className="hover:text-white transition-colors">History & Heritage</a></li>
+              <li><a href="#mission" className="hover:text-white transition-colors">Mission & Guiding Pillars</a></li>
+              <li><a href="#leadership" className="hover:text-white transition-colors">Governing Committee</a></li>
+              <li><a href="#events" className="hover:text-white transition-colors">Circulars & Announcements</a></li>
+              <li><a href="#documentary" className="hover:text-white transition-colors">Campus Documentary</a></li>
+              <li><a href="#location" className="hover:text-white transition-colors">Visit & Transit Directions</a></li>
             </ul>
           </div>
 
-          {/* Col 4: Contact Information */}
+          {/* Col 4: Official Contact */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-widest text-emerald-400 mb-5">
-              Reach Our Campus
+            <h4 className="text-xs font-serif font-academic font-bold uppercase tracking-widest text-amber-300 mb-4 pb-2 border-b border-white/10">
+              Campus Headquarters
             </h4>
-            <ul className="space-y-3.5 text-xs text-slate-400 font-light">
-              <li className="flex items-start gap-2.5 group">
-                <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=Koyyam+Markaz+Kannur+Kerala+670142"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="leading-relaxed hover:text-white transition-colors block"
-                    title="Get directions on Google Maps"
-                  >
-                    {footerData?.address || 'Markazu Da-wathil Islamiyya, Koyyam P.O., Kannur District, Kerala - 670142'}
-                  </a>
-                  <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=Koyyam+Markaz+Kannur+Kerala+670142"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold inline-flex items-center gap-1 mt-0.5"
-                  >
-                    <span>Get Google Maps Directions &rarr;</span>
-                  </a>
-                </div>
+            <ul className="space-y-3 text-xs text-slate-300 font-light">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-blue-300 shrink-0 mt-0.5" />
+                <span>{footerData?.address || 'Markazu Da-wathil Islamiyya, Koyyam P.O., Kannur District, Kerala - 670142'}</span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a
-                  href={telLink}
-                  className="font-semibold text-white hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5"
-                  title="Direct phone call"
-                >
-                  <span>{displayPhone}</span>
-                  <span className="text-[10px] bg-white/10 text-emerald-300 px-1.5 py-0.5 rounded font-normal">Call</span>
+                <Phone className="w-4 h-4 text-blue-300 shrink-0" />
+                <a href={telLink} className="hover:text-white transition-colors">
+                  {displayPhone}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-semibold text-emerald-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-1.5"
-                  title="Direct WhatsApp Message"
-                >
-                  <span>WhatsApp Message</span>
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-normal">Direct</span>
-                </a>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-emerald-400 shrink-0" />
-                <a
-                  href={`mailto:${footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}`}
-                  className="truncate hover:text-white transition-colors"
-                >
+                <Mail className="w-4 h-4 text-blue-300 shrink-0" />
+                <a href={`mailto:${footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}`} className="hover:text-white transition-colors">
                   {footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}
+                </a>
+              </li>
+              <li className="pt-2">
+                <a
+                  href="#donate"
+                  className="inline-block bg-[#d97706] hover:bg-[#b45309] text-white px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors"
+                >
+                  Online Endowment & Sadaqah
                 </a>
               </li>
             </ul>
@@ -206,19 +192,31 @@ export default function Footer({ footerData }) {
 
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-light">
-          <div>
-            © {new Date().getFullYear()} Markazu Da-wathil Islamiyya, Koyyam. All rights reserved.
+        {/* Columbia Style Wordmark Sub-Footer */}
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-light">
+          <div className="flex items-center gap-2">
+            <span className="font-serif font-academic uppercase text-white font-bold tracking-wider">
+              Markazu Da-wathil Islamiyya
+            </span>
+            <span>• Koyyam, Kannur</span>
           </div>
+
           <div className="flex items-center gap-4">
-            <span className="text-xs font-arabic text-slate-400">جَزَاكُمُ اللَّهُ خَيْرًا</span>
+            <span>© {new Date().getFullYear()} All rights reserved.</span>
+            {onNavigateToAdmin && (
+              <button
+                onClick={onNavigateToAdmin}
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                Portal
+              </button>
+            )}
             <button
               onClick={scrollToTop}
-              className="p-2 rounded-full bg-white/[0.06] hover:bg-white/15 text-slate-300 hover:text-white transition-colors border border-white/10"
-              title="Scroll to top"
+              className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white transition-colors"
+              title="Back to top"
             >
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>

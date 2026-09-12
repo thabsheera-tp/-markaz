@@ -25,7 +25,7 @@ data/*.db-shm
 *.db-journal
 *.db-wal
 *.db-shm
-
+g
 # Dynamic uploads (exclude runtime uploads, keep static defaults)
 public/uploads/upload-*
 

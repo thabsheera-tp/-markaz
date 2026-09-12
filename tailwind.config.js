@@ -43,11 +43,15 @@ module.exports = {
         }
       },
       boxShadow: {
-        'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.03), 0 1px 2px -1px rgba(0, 0, 0, 0.02)',
-        'card': '0 4px 20px -2px rgba(10, 46, 74, 0.05), 0 2px 6px -1px rgba(10, 46, 74, 0.03)',
-        'card-hover': '0 16px 36px -4px rgba(10, 46, 74, 0.10), 0 6px 16px -2px rgba(10, 46, 74, 0.04)',
-        'glow-emerald': '0 10px 25px -3px rgba(5, 150, 105, 0.25)',
-        'glow-blue': '0 10px 25px -3px rgba(10, 46, 74, 0.25)',
+        'subtle': '0 1px 3px 0 rgba(10, 46, 74, 0.03), 0 1px 2px -1px rgba(10, 46, 74, 0.02)',
+        'card': '0 4px 24px -2px rgba(10, 46, 74, 0.06), 0 2px 8px -1px rgba(10, 46, 74, 0.03)',
+        'card-hover': '0 20px 40px -4px rgba(10, 46, 74, 0.12), 0 8px 16px -2px rgba(10, 46, 74, 0.05)',
+        'bento': '0 10px 30px -5px rgba(10, 46, 74, 0.05), 0 4px 12px -2px rgba(10, 46, 74, 0.03)',
+        'glass': '0 8px 32px 0 rgba(10, 46, 74, 0.08)',
+        'glow-emerald': '0 10px 30px -3px rgba(5, 150, 105, 0.30)',
+        'glow-emerald-lg': '0 16px 40px -4px rgba(5, 150, 105, 0.40)',
+        'glow-blue': '0 10px 30px -3px rgba(10, 46, 74, 0.25)',
+        'glow-gold': '0 10px 25px -3px rgba(217, 119, 6, 0.25)',
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'sans-serif'],

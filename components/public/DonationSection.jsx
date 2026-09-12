@@ -11,11 +11,8 @@ import {
   Sparkles,
   Printer,
   Landmark,
-  Building2,
   Smartphone,
-  ExternalLink,
-  CheckCircle2,
-  Share2
+  CheckCircle2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { api } from '../../services/api';
@@ -155,24 +152,20 @@ export default function DonationSection({ donationSettings, preselectedCause = n
   )}`;
 
   return (
-    <section id="donate" className="py-24 sm:py-28 bg-gradient-to-b from-slate-50/60 via-white to-slate-50/60 relative overflow-hidden border-b border-slate-100">
-      {/* Ambient background decoration */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-emerald-100/30 blur-3xl rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-markaz-blue/5 blur-3xl rounded-full pointer-events-none" />
-
+    <section id="donate" className="py-20 sm:py-24 bg-[#f8fafc] relative border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
+        {/* Academic Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 text-markaz-red border border-red-200/70 text-xs font-bold uppercase tracking-wider mb-4 shadow-xs">
-            <Heart className="w-3.5 h-3.5 fill-current text-markaz-red" />
-            <span>Sadaqah Jariyah & Philanthropy • ദാനധർമ്മം</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-markaz-blue tracking-tight leading-tight">
-            Support Sacred Education & Orphan Care
+          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-2 font-sans">
+            Institutional Endowment & Sadaqah Jariyah
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-serif font-academic font-bold text-[#061726] tracking-tight">
+            Support Sacred Education & Student Welfare
           </h2>
-          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed font-light">
-            "The likeness of those who spend their wealth in the Way of Allah, is as the likeness of a grain that grows seven ears, in every ear a hundred grains." (Al-Baqarah: 261)
+          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-4 mb-4" />
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
+            "The likeness of those who spend their wealth in the Way of Allah is as the likeness of a grain that sprouts seven ears, in every ear a hundred grains." (Al-Qur'an 2:261)
           </p>
         </div>
 
@@ -180,7 +173,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* Column 1: Online Donation / Instant UPI (7 Cols) */}
-          <div className="lg:col-span-7 bg-white rounded-3xl shadow-card border border-slate-200/70 p-6 sm:p-10 relative">
+          <div className="lg:col-span-7 bg-white rounded-3xl shadow-card border border-slate-200/80 p-6 sm:p-10 relative">
             <form onSubmit={handleOpenModal} className="space-y-6">
               
               {/* 1. Choose Amount */}
@@ -198,9 +191,9 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                       key={amt}
                       type="button"
                       onClick={() => handleSelectPreset(amt)}
-                      className={`py-3 px-2 rounded-xl font-bold text-sm sm:text-base transition-all ${
+                      className={`py-3 px-2 rounded-2xl font-bold text-sm sm:text-base transition-all ${
                         !isCustom && selectedAmount === amt
-                          ? 'bg-gradient-to-r from-markaz-green to-emerald-600 text-white shadow-glow-emerald border border-emerald-500'
+                          ? 'bg-gradient-to-r from-markaz-green to-emerald-600 text-white shadow-glow-emerald border border-emerald-500 scale-102'
                           : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200/80'
                       }`}
                     >
@@ -221,7 +214,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                       placeholder="Or enter any custom amount (e.g. 15,000)"
                       value={customAmount}
                       onChange={handleCustomChange}
-                      className={`w-full pl-9 pr-4 py-3 rounded-xl border text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-markaz-green ${
+                      className={`w-full pl-9 pr-4 py-3.5 rounded-2xl border text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green ${
                         isCustom
                           ? 'border-markaz-green ring-2 ring-markaz-green/20 bg-emerald-50/20'
                           : 'border-slate-200 bg-white'
@@ -239,7 +232,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 <select
                   value={cause}
                   onChange={(e) => setCause(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-medium focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                  className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 bg-white text-slate-700 text-sm font-medium focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green focus:outline-none"
                 >
                   <option value="General Markaz Welfare Fund">General Markaz Welfare Fund (പൊതു ഫണ്ട്)</option>
                   <option value="Student Education & Welfare Fund">Student Education & Boarding Fund</option>
@@ -261,7 +254,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     placeholder="e.g. Haji Muhammad Kunhi"
                     value={donorName}
                     onChange={(e) => setDonorName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-markaz-green focus:outline-none text-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green focus:outline-none text-slate-800 text-sm"
                   />
                 </div>
 
@@ -274,7 +267,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     placeholder="e.g. +91 9400000000"
                     value={donorPhone}
                     onChange={(e) => setDonorPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-markaz-green focus:outline-none text-slate-800 text-sm"
+                    className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green focus:outline-none text-slate-800 text-sm"
                   />
                 </div>
               </div>
@@ -289,12 +282,12 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   placeholder="Share any prayer intentions to be remembered during congregational campus Duas..."
                   value={prayerRequest}
                   onChange={(e) => setPrayerRequest(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-markaz-green focus:outline-none text-slate-800 text-xs sm:text-sm"
+                  className="w-full px-4 py-3 rounded-2xl border border-slate-200 focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green focus:outline-none text-slate-800 text-xs sm:text-sm"
                 />
               </div>
 
               {errorMsg && (
-                <div className="p-3.5 rounded-xl bg-red-50 text-red-700 text-xs font-medium border border-red-200">
+                <div className="p-4 rounded-2xl bg-red-50 text-red-700 text-xs font-medium border border-red-200">
                   {errorMsg}
                 </div>
               )}
@@ -303,11 +296,11 @@ export default function DonationSection({ donationSettings, preselectedCause = n
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-emerald-700 hover:to-markaz-green text-white font-bold text-sm sm:text-base py-4 px-6 rounded-full shadow-glow-emerald hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                  className="flex-1 flex items-center justify-center gap-2.5 bg-gradient-to-r from-markaz-green to-emerald-600 hover:from-emerald-700 hover:to-markaz-green text-white font-bold text-sm sm:text-base py-4 px-6 rounded-full shadow-glow-emerald hover:shadow-glow-emerald-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0 group"
                 >
                   <QrCode className="w-5 h-5 text-white" />
                   <span>Donate ₹{effectiveAmount ? effectiveAmount.toLocaleString('en-IN') : '0'} via UPI</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
 
                 <button
@@ -322,7 +315,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
 
               {/* Trust Badge */}
               <div className="flex items-center justify-center gap-4 text-xs text-slate-500 pt-2 font-medium">
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   <span>100% Tax Compliant Institution</span>
                 </span>
@@ -337,7 +330,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
           <div className="lg:col-span-5 space-y-6">
             
             {/* Main Bank Card */}
-            <div className="bg-white rounded-3xl shadow-card border border-slate-200/70 overflow-hidden relative">
+            <div className="bg-white rounded-3xl shadow-card border border-slate-200/80 overflow-hidden relative">
               
               {/* Card Header */}
               <div className="bg-gradient-to-r from-markaz-blue via-slate-900 to-markaz-blue text-white p-6 relative">
@@ -351,7 +344,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 <h3 className="text-xl font-extrabold text-white mt-3">
                   Direct Bank Transfer (NEFT / IMPS / RTGS)
                 </h3>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-slate-300 mt-1 font-light">
                   Transfer directly from any net banking app or branch to our verified institutional account.
                 </p>
               </div>
@@ -360,7 +353,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
               <div className="p-6 space-y-4 text-slate-800">
                 
                 {/* Account Name */}
-                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Account Beneficiary Name</p>
                   <p className="text-sm font-black text-markaz-blue mt-0.5 tracking-tight">
                     {bankDetails.accountName}
@@ -368,7 +361,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 </div>
 
                 {/* Account Number */}
-                <div className="p-3.5 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 flex items-center justify-between gap-3">
+                <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 flex items-center justify-between gap-3">
                   <div>
                     <p className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Account Number</p>
                     <p className="text-lg font-mono font-black text-slate-900 mt-0.5 tracking-wider">
@@ -378,7 +371,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   <button
                     type="button"
                     onClick={() => copyText(bankDetails.accountNumber, 'acc')}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-100 text-emerald-700 font-bold text-xs border border-emerald-300 shadow-xs transition-all active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-emerald-100 text-emerald-700 font-bold text-xs border border-emerald-300 shadow-xs transition-all active:scale-95"
                   >
                     {copiedField === 'acc' ? (
                       <>
@@ -396,7 +389,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
 
                 {/* IFSC & Branch in Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2">
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">IFSC Code</p>
                       <p className="text-sm font-mono font-bold text-slate-900 mt-0.5">
@@ -413,7 +406,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     </button>
                   </div>
 
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-200/80">
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
                     <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Bank & Branch</p>
                     <p className="text-xs font-extrabold text-slate-800 mt-0.5">
                       {bankDetails.bankName}
@@ -443,7 +436,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   <button
                     type="button"
                     onClick={() => copyText(bankDetails.googlePayNumber, 'gp')}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all active:scale-95"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition-all active:scale-95"
                   >
                     {copiedField === 'gp' ? (
                       <>
@@ -463,7 +456,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 <button
                   type="button"
                   onClick={copyAllBankDetails}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all shadow-md active:scale-95"
+                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all shadow-md active:scale-95"
                 >
                   {copiedField === 'all' ? (
                     <>
@@ -484,7 +477,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     href={whatsappReceiptUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs border border-emerald-200 transition-colors"
+                    className="w-full flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-bold text-xs border border-emerald-200 transition-colors"
                   >
                     <span>Send Screenshot on WhatsApp after transfer →</span>
                   </a>
@@ -501,8 +494,8 @@ export default function DonationSection({ donationSettings, preselectedCause = n
 
       {/* ================= UPI QR CODE MODAL ================= */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-5 sm:p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 my-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 overflow-y-auto animate-in fade-in duration-200">
+          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative animate-in zoom-in-95 duration-200 my-auto border border-slate-200">
             
             {/* Close Button */}
             <button
@@ -535,7 +528,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 </div>
 
                 {/* Tab Switcher: QR vs Bank Transfer */}
-                <div className="flex bg-slate-100 p-1 rounded-2xl mb-5">
+                <div className="flex bg-slate-100 p-1.5 rounded-2xl mb-5">
                   <button
                     type="button"
                     onClick={() => setModalTab('upi')}
@@ -566,20 +559,20 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                         onError={(e) => {
                           e.currentTarget.src = '/uploads/koyyam_upi_qr.svg';
                         }}
-                        className="w-48 h-48 sm:w-52 sm:h-52 object-contain rounded-xl bg-white p-2 shadow-sm border border-slate-100"
+                        className="w-48 h-48 sm:w-52 sm:h-52 object-contain rounded-2xl bg-white p-2 shadow-sm border border-slate-100"
                       />
-                      <p className="text-xs text-slate-500 mt-2 text-center">
+                      <p className="text-xs text-slate-500 mt-2 text-center font-light">
                         Scan with Google Pay, PhonePe, Paytm, or BHIM
                       </p>
                     </div>
 
                     {/* UPI ID Copy Bar */}
-                    <div className="flex items-center justify-between bg-slate-100 px-3.5 py-2.5 rounded-xl text-xs font-mono text-slate-800 mb-3">
+                    <div className="flex items-center justify-between bg-slate-100 px-4 py-3 rounded-2xl text-xs font-mono text-slate-800 mb-3">
                       <span className="truncate">{upiId}</span>
                       <button
                         type="button"
                         onClick={copyUpiId}
-                        className="flex items-center gap-1 bg-white hover:bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg border border-slate-200 text-[11px] font-sans font-semibold transition-all active:scale-95"
+                        className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 px-3 py-1 rounded-xl border border-slate-200 text-[11px] font-sans font-semibold transition-all active:scale-95 shadow-xs"
                       >
                         {copiedUpi ? (
                           <>
@@ -599,7 +592,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     <div className="mb-4">
                       <a
                         href={upiIntentUrl}
-                        className="w-full flex items-center justify-center gap-2 bg-markaz-blue hover:bg-markaz-blue-light text-white py-2.5 rounded-xl text-xs font-bold transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-markaz-blue hover:bg-markaz-blue-light text-white py-3 rounded-2xl text-xs font-bold transition-colors shadow-sm"
                       >
                         <span>Open in Installed UPI App</span>
                       </a>
@@ -607,12 +600,12 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   </>
                 ) : (
                   /* Bank Details View inside Modal */
-                  <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-5 space-y-3 text-xs">
+                  <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 mb-5 space-y-3.5 text-xs">
                     <div>
                       <span className="text-slate-400 font-bold block text-[10px] uppercase">Beneficiary</span>
                       <span className="font-extrabold text-slate-800">{bankDetails.accountName}</span>
                     </div>
-                    <div className="flex justify-between items-center bg-white p-2.5 rounded-xl border border-slate-200">
+                    <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200">
                       <div>
                         <span className="text-slate-400 block text-[10px] uppercase font-bold">Account Number</span>
                         <span className="font-mono font-black text-sm text-slate-900">{bankDetails.accountNumber}</span>
@@ -625,7 +618,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                         {copiedField === 'acc' ? 'Copied!' : 'Copy'}
                       </button>
                     </div>
-                    <div className="flex justify-between items-center bg-white p-2.5 rounded-xl border border-slate-200">
+                    <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200">
                       <div>
                         <span className="text-slate-400 block text-[10px] uppercase font-bold">IFSC Code</span>
                         <span className="font-mono font-bold text-slate-900">{bankDetails.ifscCode}</span>
@@ -660,7 +653,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                       placeholder="e.g. 423874928174 or leave blank"
                       value={upiRefId}
                       onChange={(e) => setUpiRefId(e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                      className="w-full px-4 py-3 text-sm rounded-2xl border border-slate-200 focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green focus:outline-none"
                     />
                   </div>
 
@@ -668,7 +661,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     type="button"
                     disabled={isSubmitting}
                     onClick={handleConfirmDonation}
-                    className="w-full flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-3 rounded-xl transition-all shadow-md active:scale-95 disabled:opacity-50"
+                    className="w-full flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-3.5 rounded-full transition-all shadow-glow-emerald active:scale-95 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span>Recording Contribution...</span>
@@ -691,18 +684,18 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-xs">
                   <Check className="w-6 h-6 stroke-[3]" />
                 </div>
                 <h3 className="text-2xl font-black text-markaz-blue">
                   Jazakallah Khairan!
                 </h3>
-                <p className="text-sm text-slate-600 mt-1">
+                <p className="text-sm text-slate-600 mt-1 font-light">
                   Your noble contribution has been recorded in the Koyyam Markaz ledger.
                 </p>
 
                 {/* Receipt Card */}
-                <div className="mt-6 bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left space-y-2 text-xs">
+                <div className="mt-6 bg-slate-50 p-5 rounded-2xl border border-slate-200 text-left space-y-2.5 text-xs">
                   <div className="flex justify-between pb-2 border-b border-slate-200">
                     <span className="text-slate-500 font-semibold">Receipt Number:</span>
                     <span className="font-mono font-bold text-slate-800">#KM-{receipt.id}</span>
@@ -721,7 +714,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-500">Status:</span>
-                    <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                    <span className="font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                       {receipt.status}
                     </span>
                   </div>
@@ -734,14 +727,14 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                 <div className="mt-6 flex gap-3">
                   <button
                     onClick={() => window.print()}
-                    className="flex-1 flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-3 rounded-full text-xs transition-colors"
                   >
                     <Printer className="w-3.5 h-3.5" />
                     <span>Print Receipt</span>
                   </button>
                   <button
                     onClick={resetForm}
-                    className="flex-1 bg-markaz-blue hover:bg-markaz-blue-light text-white font-semibold py-2.5 rounded-xl text-xs transition-colors"
+                    className="flex-1 bg-markaz-blue hover:bg-markaz-blue-light text-white font-semibold py-3 rounded-full text-xs transition-colors shadow-sm"
                   >
                     Close
                   </button>
