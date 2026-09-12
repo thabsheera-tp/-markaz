@@ -122,16 +122,6 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
               <MapPin className="w-3 h-3 text-amber-300 shrink-0" />
               <span>Directions</span>
             </a>
-            {onNavigateToAdmin && (
-              <button
-                onClick={onNavigateToAdmin}
-                className="inline-flex items-center gap-1 text-slate-400 hover:text-white transition-colors py-0.5 px-1.5 rounded hover:bg-white/10 ml-1 border border-white/10"
-                title="Management Portal"
-              >
-                <ShieldCheck className="w-3 h-3 text-slate-400" />
-                <span className="text-[10px] tracking-wider uppercase font-semibold">Portal</span>
-              </button>
-            )}
           </div>
         </div>
       </div>
@@ -437,7 +427,7 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
             </a>
           </div>
 
-          <div className="pt-3 border-t border-white/10 space-y-2">
+          <div className="pt-3 border-t border-white/10">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
@@ -448,18 +438,6 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
               <Heart className="w-4 h-4 fill-white" />
               <span>Support & Donate (UPI)</span>
             </button>
-            {onNavigateToAdmin && (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigateToAdmin();
-                }}
-                className="w-full bg-white/5 hover:bg-white/10 text-slate-300 py-2 px-4 rounded text-xs flex items-center justify-center gap-1.5 border border-white/10"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 text-slate-400" />
-                <span>Portal Management Login</span>
-              </button>
-            )}
           </div>
         </div>
       )}

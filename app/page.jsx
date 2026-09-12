@@ -24,11 +24,22 @@ export default function HomePage() {
   const [loadingPublic, setLoadingPublic] = useState(true);
   const [preselectedCause, setPreselectedCause] = useState(null);
 
-  // If user visits /#admin, redirect cleanly to /admin
+  // Secret Access: If user visits /#admin or presses Ctrl+Shift+A, open /admin
   useEffect(() => {
     if (typeof window !== 'undefined' && window.location.hash.startsWith('#admin')) {
       router.push('/admin');
     }
+
+    const handleKeyDown = (e) => {
+      // Shortcut: Ctrl + Shift + A or Alt + A
+      if ((e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') || (e.altKey && e.key.toLowerCase() === 'a')) {
+        e.preventDefault();
+        router.push('/admin');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [router]);
 
   useEffect(() => {

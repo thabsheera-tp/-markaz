@@ -203,14 +203,6 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
 
           <div className="flex items-center gap-4">
             <span>© {new Date().getFullYear()} All rights reserved.</span>
-            {onNavigateToAdmin && (
-              <button
-                onClick={onNavigateToAdmin}
-                className="text-slate-400 hover:text-white transition-colors"
-              >
-                Portal
-              </button>
-            )}
             <button
               onClick={scrollToTop}
               className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white transition-colors"
