@@ -21,29 +21,29 @@ export default function DocumentarySection() {
   };
 
   return (
-    <section id="documentary" className="py-20 sm:py-24 bg-white border-b border-slate-200">
+    <section id="documentary" className="w-full max-w-full overflow-hidden py-12 sm:py-20 lg:py-24 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-2 font-sans">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-1.5 font-sans">
             Special Highlights
           </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-academic font-bold text-[#061726] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-serif font-academic font-bold text-[#061726] tracking-tight">
             Campus Tour & Philanthropic Initiatives
           </h2>
-          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-4 mb-4" />
-          <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed">
+          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-3 sm:mt-4 mb-3 sm:mb-4" />
+          <p className="text-slate-600 text-xs sm:text-base font-light leading-relaxed">
             Experience our 34-year legacy firsthand through our official documentary, or extend a helping hand to support student education and orphan welfare.
           </p>
         </div>
 
-        {/* Dual Promo Cards (Matching Columbia Reference Layout) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {/* Dual Promo Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
           
           {/* Promo Card 1: Official Campus Documentary */}
-          <div className="bg-[#f8fafc] border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group">
-            <div className="relative h-64 sm:h-72 overflow-hidden bg-slate-900">
+          <div className="bg-[#f8fafc] border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group rounded-xl sm:rounded-none">
+            <div className="relative h-52 sm:h-72 overflow-hidden bg-slate-900">
               <img
                 src="https://img.youtube.com/vi/SuaBhNM9FHg/maxresdefault.jpg"
                 alt="Koyyam Markaz Documentary"
@@ -54,26 +54,26 @@ export default function DocumentarySection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               
-              {/* Play Overlay Button */}
+              {/* Play Overlay Button (min 56x56 touch target) */}
               <button
                 onClick={() => setIsVideoOpen(true)}
-                className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-[#002B49]/90 hover:bg-[#004B87] text-white flex items-center justify-center border-2 border-white transition-transform hover:scale-110 shadow-lg"
+                className="absolute inset-0 m-auto w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#002B49]/90 hover:bg-[#004B87] active:scale-95 text-white flex items-center justify-center border-2 border-white transition-transform hover:scale-110 shadow-lg"
                 aria-label="Play documentary video"
               >
                 <Play className="w-6 h-6 fill-white ml-0.5" />
               </button>
 
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white flex items-center gap-1">
+                <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white flex items-center gap-1 rounded-xs">
                   <YoutubeIcon className="w-3 h-3" />
                   <span>Official Video</span>
                 </span>
               </div>
             </div>
 
-            <div className="p-6 flex-1 flex flex-col justify-between">
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-serif font-academic font-bold text-[#061726] mb-2 leading-tight">
+                <h3 className="text-lg sm:text-xl font-serif font-academic font-bold text-[#061726] mb-2 leading-tight">
                   Journey of Faith & Service: The Official Documentary
                 </h3>
                 <p className="text-slate-600 text-xs sm:text-sm font-light leading-relaxed">
@@ -81,10 +81,10 @@ export default function DocumentarySection() {
                 </p>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-5 sm:mt-6">
                 <button
                   onClick={() => setIsVideoOpen(true)}
-                  className="w-full bg-[#002B49] hover:bg-[#004B87] text-white py-3 text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-xs"
+                  className="w-full bg-[#002B49] hover:bg-[#004B87] active:scale-98 text-white py-3.5 sm:py-3 text-xs font-bold uppercase tracking-wider text-center transition-all shadow-xs rounded-xl sm:rounded-none min-h-[44px]"
                 >
                   Watch Campus Tour
                 </button>
@@ -93,8 +93,8 @@ export default function DocumentarySection() {
           </div>
 
           {/* Promo Card 2: Student Welfare & Orphan Care */}
-          <div className="bg-[#f8fafc] border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group">
-            <div className="relative h-64 sm:h-72 overflow-hidden bg-slate-900">
+          <div className="bg-[#f8fafc] border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300 flex flex-col group rounded-xl sm:rounded-none">
+            <div className="relative h-52 sm:h-72 overflow-hidden bg-slate-900">
               <img
                 src="/uploads/hifz.jpeg"
                 alt="Student Welfare & Tahfeezul Qur-an"
@@ -106,15 +106,15 @@ export default function DocumentarySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               
               <div className="absolute top-3 left-3">
-                <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#d97706] text-white">
+                <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#d97706] text-white rounded-xs">
                   Philanthropy & Endowment
                 </span>
               </div>
             </div>
 
-            <div className="p-6 flex-1 flex flex-col justify-between">
+            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-serif font-academic font-bold text-[#061726] mb-2 leading-tight">
+                <h3 className="text-lg sm:text-xl font-serif font-academic font-bold text-[#061726] mb-2 leading-tight">
                   Sponsor a Student: Invest in Sacred Knowledge
                 </h3>
                 <p className="text-slate-600 text-xs sm:text-sm font-light leading-relaxed">
@@ -122,10 +122,10 @@ export default function DocumentarySection() {
                 </p>
               </div>
 
-              <div className="mt-6">
+              <div className="mt-5 sm:mt-6">
                 <button
                   onClick={scrollToDonate}
-                  className="w-full bg-[#d97706] hover:bg-[#b45309] text-white py-3 text-xs font-bold uppercase tracking-wider text-center transition-colors shadow-xs flex items-center justify-center gap-2"
+                  className="w-full bg-[#d97706] hover:bg-[#b45309] active:scale-98 text-white py-3.5 sm:py-3 text-xs font-bold uppercase tracking-wider text-center transition-all shadow-xs flex items-center justify-center gap-2 rounded-xl sm:rounded-none min-h-[44px]"
                 >
                   <Heart className="w-4 h-4 fill-white" />
                   <span>Support a Student Today</span>
@@ -138,11 +138,11 @@ export default function DocumentarySection() {
 
         {/* Video Lightbox Modal */}
         {isVideoOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="relative w-full max-w-4xl bg-black border border-white/20 shadow-2xl overflow-hidden aspect-video">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+            <div className="relative w-full max-w-4xl bg-black border border-white/20 shadow-2xl overflow-hidden aspect-video rounded-xl sm:rounded-none">
               <button
                 onClick={() => setIsVideoOpen(false)}
-                className="absolute top-3 right-3 z-10 p-2 bg-black/70 text-white rounded-full hover:bg-red-600 transition-colors"
+                className="absolute top-3 right-3 z-10 w-10 h-10 bg-black/70 text-white rounded-full hover:bg-red-600 transition-colors flex items-center justify-center"
                 aria-label="Close video"
               >
                 <X className="w-5 h-5" />

@@ -40,21 +40,21 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent('Assalamu Alaikum, I would like to inquire about Koyyam Markaz.')}`;
 
   return (
-    <footer id="contact" className="bg-[#002B49] text-white relative border-t-4 border-[#004B87]">
+    <footer id="contact" className="w-full max-w-full overflow-hidden bg-[#002B49] text-white relative border-t-4 border-[#004B87]">
       
-      {/* Social Media Follow Ribbon (Matching Columbia Model) */}
-      <div className="bg-[#061726] border-b border-white/10 py-5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="text-xs font-serif font-academic font-bold uppercase tracking-widest text-slate-300">
+      {/* Social Media Follow Ribbon */}
+      <div className="bg-[#061726] border-b border-white/10 py-4 sm:py-5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+          <span className="text-xs font-serif font-academic font-bold uppercase tracking-widest text-slate-300 text-center sm:text-left">
             Connect With Markazu Da-wathil Islamiyya
           </span>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             {footerData?.facebook && (
               <a
                 href={footerData.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded bg-white/10 hover:bg-[#004B87] flex items-center justify-center transition-colors text-white"
+                className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-white/10 hover:bg-[#004B87] active:scale-95 flex items-center justify-center transition-all text-white touch-manipulation"
                 aria-label="Facebook"
               >
                 <FacebookIcon className="w-4 h-4" />
@@ -65,7 +65,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                 href={footerData.instagram}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded bg-white/10 hover:bg-[#004B87] flex items-center justify-center transition-colors text-white"
+                className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-white/10 hover:bg-[#004B87] active:scale-95 flex items-center justify-center transition-all text-white touch-manipulation"
                 aria-label="Instagram"
               >
                 <InstagramIcon className="w-4 h-4" />
@@ -76,7 +76,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
                 href={footerData.youtube}
                 target="_blank"
                 rel="noreferrer"
-                className="w-8 h-8 rounded bg-white/10 hover:bg-[#004B87] flex items-center justify-center transition-colors text-white"
+                className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-white/10 hover:bg-[#004B87] active:scale-95 flex items-center justify-center transition-all text-white touch-manipulation"
                 aria-label="YouTube"
               >
                 <YoutubeIcon className="w-4 h-4" />
@@ -86,7 +86,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="w-8 h-8 rounded bg-[#059669] hover:bg-[#047857] flex items-center justify-center transition-colors text-white"
+              className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg bg-[#059669] hover:bg-[#047857] active:scale-95 flex items-center justify-center transition-all text-white touch-manipulation"
               aria-label="WhatsApp"
               title="Direct WhatsApp"
             >
@@ -96,9 +96,9 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
         </div>
       </div>
 
-      {/* Main Multi-Column Sitemap (Columbia Mega-Footer) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12">
+      {/* Main Multi-Column Sitemap */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
           
           {/* Col 1: Crest & About */}
           <div className="space-y-4">
@@ -106,7 +106,7 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               <img
                 src="/markaz-logo.png"
                 alt="Koyyam Markaz Crest"
-                className="w-12 h-12 rounded object-contain bg-white p-1 shadow-sm"
+                className="w-12 h-12 rounded object-contain bg-white p-1 shadow-sm shrink-0"
               />
               <div>
                 <span className="text-base font-serif font-academic font-bold uppercase tracking-wider block leading-tight">
@@ -133,12 +133,12 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               Academic Wings & Colleges
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-300 font-light">
-              <li><a href="#institutions" className="hover:text-white transition-colors">Kulliyya of Sharee'ath</a></li>
-              <li><a href="#institutions" className="hover:text-white transition-colors">Tahfeezul Qur-an College</a></li>
-              <li><a href="#institutions" className="hover:text-white transition-colors">Hadiya Women's Academy</a></li>
-              <li><a href="#institutions" className="hover:text-white transition-colors">Da'wa Senior Academy</a></li>
-              <li><a href="#institutions" className="hover:text-white transition-colors">College of Arts & Commerce</a></li>
-              <li><a href="#institutions" className="hover:text-white transition-colors">Orphan & Destitute Welfare</a></li>
+              <li><a href="#institutions" className="inline-block py-1 hover:text-white transition-colors">Kulliyya of Sharee'ath</a></li>
+              <li><a href="#institutions" className="inline-block py-1 hover:text-white transition-colors">Tahfeezul Qur-an College</a></li>
+              <li><a href="#institutions" className="inline-block py-1 hover:text-white transition-colors">Hadiya Women's Academy</a></li>
+              <li><a href="#institutions" className="inline-block py-1 hover:text-white transition-colors">Da'wa Senior Academy</a></li>
+              <li><a href="#institutions" className="inline-block py-1 hover:text-white transition-colors">College of Arts & Commerce</a></li>
+              <li><a href="#institutions" className="inline-block py-1 hover:text-white transition-colors">Orphan & Destitute Welfare</a></li>
             </ul>
           </div>
 
@@ -148,12 +148,23 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               Campus & Governance
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-300 font-light">
-              <li><a href="#about" className="hover:text-white transition-colors">History & Heritage</a></li>
-              <li><a href="#mission" className="hover:text-white transition-colors">Mission & Guiding Pillars</a></li>
-              <li><a href="#leadership" className="hover:text-white transition-colors">Governing Committee</a></li>
-              <li><a href="#events" className="hover:text-white transition-colors">Circulars & Announcements</a></li>
-              <li><a href="#documentary" className="hover:text-white transition-colors">Campus Documentary</a></li>
-              <li><a href="#location" className="hover:text-white transition-colors">Visit & Transit Directions</a></li>
+              <li><a href="#about" className="inline-block py-1 hover:text-white transition-colors">History & Heritage</a></li>
+              <li><a href="#mission" className="inline-block py-1 hover:text-white transition-colors">Mission & Guiding Pillars</a></li>
+              <li><a href="#leadership" className="inline-block py-1 hover:text-white transition-colors">Governing Committee</a></li>
+              <li><a href="#events" className="inline-block py-1 hover:text-white transition-colors">Circulars & Announcements</a></li>
+              <li><a href="#documentary" className="inline-block py-1 hover:text-white transition-colors">Campus Documentary</a></li>
+              <li><a href="#location" className="inline-block py-1 hover:text-white transition-colors">Visit & Transit Directions</a></li>
+              {onNavigateToAdmin && (
+                <li className="pt-1">
+                  <button 
+                    onClick={onNavigateToAdmin}
+                    className="inline-flex items-center gap-1.5 text-xs text-amber-300 hover:text-amber-200 py-1 font-medium transition-colors"
+                  >
+                    <span>Staff & Admin Portal</span>
+                    <span>&rarr;</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -165,24 +176,24 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
             <ul className="space-y-3 text-xs text-slate-300 font-light">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-blue-300 shrink-0 mt-0.5" />
-                <span>{footerData?.address || 'Markazu Da-wathil Islamiyya, Koyyam P.O., Kannur District, Kerala - 670142'}</span>
+                <span className="leading-relaxed">{footerData?.address || 'Markazu Da-wathil Islamiyya, Koyyam P.O., Kannur District, Kerala - 670142'}</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-blue-300 shrink-0" />
-                <a href={telLink} className="hover:text-white transition-colors">
+                <a href={telLink} className="py-1 hover:text-white transition-colors font-medium">
                   {displayPhone}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-blue-300 shrink-0" />
-                <a href={`mailto:${footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}`} className="hover:text-white transition-colors">
+                <a href={`mailto:${footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}`} className="py-1 hover:text-white transition-colors truncate">
                   {footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}
                 </a>
               </li>
               <li className="pt-2">
                 <a
                   href="#donate"
-                  className="inline-block bg-[#d97706] hover:bg-[#b45309] text-white px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors"
+                  className="inline-flex items-center justify-center min-h-[44px] bg-[#d97706] hover:bg-[#b45309] text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all rounded shadow-sm w-full sm:w-auto text-center"
                 >
                   Online Endowment & Sadaqah
                 </a>
@@ -192,23 +203,25 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
 
         </div>
 
-        {/* Columbia Style Wordmark Sub-Footer */}
-        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-light">
-          <div className="flex items-center gap-2">
+        {/* Wordmark Sub-Footer */}
+        <div className="mt-12 sm:mt-14 pt-6 sm:pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-light text-center sm:text-left">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span className="font-serif font-academic uppercase text-white font-bold tracking-wider">
               Markazu Da-wathil Islamiyya
             </span>
-            <span>• Koyyam, Kannur</span>
+            <span className="hidden sm:inline">•</span>
+            <span>Koyyam, Kannur</span>
           </div>
 
           <div className="flex items-center gap-4">
             <span>© {new Date().getFullYear()} All rights reserved.</span>
             <button
               onClick={scrollToTop}
-              className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white transition-colors"
+              className="w-10 h-10 sm:w-8 sm:h-8 rounded bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-all flex items-center justify-center touch-manipulation"
               title="Back to top"
+              aria-label="Scroll back to top"
             >
-              <ArrowUp className="w-3.5 h-3.5" />
+              <ArrowUp className="w-4 h-4" />
             </button>
           </div>
         </div>

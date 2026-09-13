@@ -152,7 +152,7 @@ export default function EventsManager({ user }) {
   });
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-6">
+    <div className="space-y-6">
       
       {/* Toast */}
       {toastMessage && (
@@ -163,13 +163,13 @@ export default function EventsManager({ user }) {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider mb-2">
             <Megaphone className="w-3.5 h-3.5" />
             <span>Notice Board & Programs</span>
           </div>
-          <h1 className="text-2xl font-black text-markaz-blue">Events & Announcements Manager</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-markaz-blue">Events & Announcements Manager</h1>
           <p className="text-xs text-slate-500 mt-1">
             Publish conferences, admission circulars, official circulars, and community Ramadan programs.
           </p>
@@ -178,7 +178,7 @@ export default function EventsManager({ user }) {
         {user?.role !== 'viewer' && (
           <button
             onClick={handleOpenAdd}
-            className="flex items-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-markaz-green/20 transition-all self-start sm:self-auto"
+            className="flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark active:scale-95 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-markaz-green/20 transition-all w-full sm:w-auto min-h-[44px] touch-manipulation"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Publish New Event / Notice</span>
@@ -187,12 +187,12 @@ export default function EventsManager({ user }) {
       </div>
 
       {/* Filter Tabs */}
-      <div className="flex items-center gap-2 bg-white p-2 rounded-2xl border border-slate-200/80 w-fit">
+      <div className="flex items-center gap-1.5 sm:gap-2 bg-white p-1.5 sm:p-2 rounded-2xl border border-slate-200/80 overflow-x-auto no-scrollbar touch-pan-x w-full sm:w-fit">
         {['All', 'Event', 'Announcement', 'Notice'].map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
-            className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-colors ${
+            className={`px-3.5 sm:px-4 py-2 sm:py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 min-h-[36px] sm:min-h-0 touch-manipulation active:scale-95 ${
               filter === cat
                 ? 'bg-markaz-blue text-white shadow-xs'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'

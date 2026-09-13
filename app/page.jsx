@@ -98,7 +98,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 flex flex-col selection:bg-markaz-green selection:text-white">
+    <div className="min-h-screen bg-white text-slate-800 flex flex-col selection:bg-markaz-green selection:text-white w-full max-w-full overflow-x-hidden">
       {/* Sticky Header */}
       <Navbar
         onOpenDonate={handleOpenDonate}
@@ -107,7 +107,7 @@ export default function HomePage() {
       />
 
       {/* Main Sections */}
-      <main className="flex-1">
+      <main className="flex-1 w-full max-w-full overflow-x-hidden">
         {/* 1. Hero Showcase */}
         <HeroSlider
           slides={publicData?.hero_slides}

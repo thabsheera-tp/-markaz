@@ -164,25 +164,25 @@ export default function DonationTrackerView({ user }) {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             Donation Tracker & Financial Analytics
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Real-time monitoring of online and offline contributions across all Koyyam Markaz wings.
           </p>
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
           <button
             onClick={handleExportCsv}
-            className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold px-4 py-2.5 rounded-xl border border-slate-200 text-xs shadow-sm transition-all active:scale-95"
+            className="inline-flex items-center justify-center gap-1.5 bg-white hover:bg-slate-50 active:scale-95 text-slate-700 font-semibold px-4 py-2.5 rounded-xl border border-slate-200 text-xs shadow-sm transition-all min-h-[44px] touch-manipulation"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-4 h-4 text-slate-500" />
             <span>Export CSV</span>
           </button>
           {user?.role !== 'viewer' && (
             <button
               onClick={() => setShowAddModal(true)}
-              className="inline-flex items-center gap-1.5 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-markaz-green/20 transition-all active:scale-95"
+              className="inline-flex items-center justify-center gap-1.5 bg-markaz-green hover:bg-markaz-green-dark active:scale-95 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-markaz-green/20 transition-all min-h-[44px] touch-manipulation"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Record Donation</span>
@@ -192,10 +192,10 @@ export default function DonationTrackerView({ user }) {
       </div>
 
       {/* 4 Financial KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">All-Time Total</span>
-          <div className="mt-2 text-2xl font-black text-slate-900">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">All-Time Total</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-slate-900">
             ₹{kpis.total_collected?.toLocaleString('en-IN') || 0}
           </div>
           <div className="mt-1 text-xs text-slate-500 font-medium">
@@ -203,9 +203,9 @@ export default function DonationTrackerView({ user }) {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">This Month</span>
-          <div className="mt-2 text-2xl font-black text-markaz-green">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">This Month</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-markaz-green">
             ₹{kpis.this_month?.toLocaleString('en-IN') || 0}
           </div>
           <div className="mt-1 text-xs text-slate-500 font-medium">
@@ -213,9 +213,9 @@ export default function DonationTrackerView({ user }) {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Today's Intake</span>
-          <div className="mt-2 text-2xl font-black text-markaz-blue">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Today's Intake</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-markaz-blue">
             ₹{kpis.today?.toLocaleString('en-IN') || 0}
           </div>
           <div className="mt-1 text-xs text-slate-500 font-medium">
@@ -223,9 +223,9 @@ export default function DonationTrackerView({ user }) {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Average Contribution</span>
-          <div className="mt-2 text-2xl font-black text-slate-900">
+        <div className="bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Average Contribution</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-slate-900">
             ₹{kpis.avg_donation?.toLocaleString('en-IN') || 0}
           </div>
           <div className="mt-1 text-xs text-slate-500 font-medium">
@@ -235,24 +235,24 @@ export default function DonationTrackerView({ user }) {
       </div>
 
       {/* Analytics Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
         
         {/* Monthly Donation Trend Chart (8 cols) */}
-        <div className="lg:col-span-8 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
               <div>
-                <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">
                   Donation Trends (Last 6 Months)
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">Aggregate INR collections per month</p>
+                <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">Aggregate INR collections per month</p>
               </div>
             </div>
 
-            <div className="h-64 w-full">
+            <div className="h-56 sm:h-64 w-full">
               {monthlyTrends.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={monthlyTrends} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                  <AreaChart data={monthlyTrends} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                     <defs>
                       <linearGradient id="donationGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#2d8b46" stopOpacity={0.4} />
@@ -260,8 +260,8 @@ export default function DonationTrackerView({ user }) {
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                    <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000}k`} />
+                    <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v / 1000}k`} />
                     <Tooltip
                       formatter={(val) => [`₹${Number(val).toLocaleString('en-IN')}`, 'Total Collected']}
                       contentStyle={{ backgroundColor: '#0a2e4a', borderRadius: '12px', color: '#fff', fontSize: '12px', border: 'none' }}
@@ -279,14 +279,14 @@ export default function DonationTrackerView({ user }) {
         </div>
 
         {/* Donation Sources Pie Chart (4 cols) */}
-        <div className="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">
               Payment Channels
             </h3>
-            <p className="text-xs text-slate-400 mb-4">Distribution by payment method</p>
+            <p className="text-[11px] sm:text-xs text-slate-400 mb-3 sm:mb-4">Distribution by payment method</p>
 
-            <div className="h-64 w-full">
+            <div className="h-56 sm:h-64 w-full">
               {sources.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -295,9 +295,9 @@ export default function DonationTrackerView({ user }) {
                       dataKey="total_amount"
                       nameKey="payment_method"
                       cx="50%"
-                      cy="50%"
-                      innerRadius={55}
-                      outerRadius={80}
+                      cy="48%"
+                      innerRadius={50}
+                      outerRadius={75}
                       paddingAngle={4}
                     >
                       {sources.map((entry, index) => (
@@ -311,7 +311,7 @@ export default function DonationTrackerView({ user }) {
                     <Legend
                       verticalAlign="bottom"
                       height={36}
-                      formatter={(value, entry) => <span className="text-xs font-medium text-slate-700">{value}</span>}
+                      formatter={(value) => <span className="text-xs font-medium text-slate-700">{value}</span>}
                     />
                   </PieChart>
                 </ResponsiveContainer>
@@ -327,18 +327,18 @@ export default function DonationTrackerView({ user }) {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm space-y-3">
+        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-3">
           
           {/* Search Box */}
-          <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <div className="relative sm:col-span-2">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
-              placeholder="Search donor name, phone, or UPI ref..."
+              placeholder="Search donor, phone, or UPI ref..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
             />
           </div>
 
@@ -347,7 +347,7 @@ export default function DonationTrackerView({ user }) {
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none font-medium text-slate-700"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none font-medium text-slate-700 min-h-[44px]"
             >
               <option value="all">All Statuses</option>
               <option value="Completed">Completed</option>
@@ -361,7 +361,7 @@ export default function DonationTrackerView({ user }) {
             <select
               value={method}
               onChange={(e) => setMethod(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none font-medium text-slate-700"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none font-medium text-slate-700 min-h-[44px]"
             >
               <option value="all">All Payment Methods</option>
               <option value="UPI">UPI</option>
@@ -374,7 +374,7 @@ export default function DonationTrackerView({ user }) {
           <div>
             <button
               type="submit"
-              className="w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
+              className="w-full bg-slate-900 hover:bg-black active:scale-95 text-white text-xs font-bold py-2.5 rounded-xl transition-all min-h-[44px] flex items-center justify-center touch-manipulation"
             >
               Apply Filter
             </button>
@@ -384,14 +384,17 @@ export default function DonationTrackerView({ user }) {
       </div>
 
       {/* Donations Data Table */}
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
           <div className="text-xs font-bold text-slate-800 uppercase tracking-wider">
             Showing {donations.length} of {total} Donation Records
           </div>
+          <span className="sm:hidden text-[10px] text-slate-400 font-medium italic">
+            Scroll table horizontally &rarr;
+          </span>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto touch-pan-x overscroll-x-contain">
           <table className="w-full min-w-[700px] text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
               <tr>
@@ -430,7 +433,7 @@ export default function DonationTrackerView({ user }) {
                       value={d.status}
                       disabled={user?.role === 'viewer'}
                       onChange={(e) => handleStatusChange(d.id, e.target.value)}
-                      className={`text-[11px] font-bold px-2 py-1 rounded-lg border focus:outline-none cursor-pointer ${
+                      className={`text-[11px] font-bold px-2 py-1.5 rounded-lg border focus:outline-none cursor-pointer min-h-[36px] ${
                         d.status === 'Completed'
                           ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                           : (d.status === 'Pending' ? 'bg-amber-50 text-amber-700 border-amber-200' : 'bg-red-50 text-red-700 border-red-200')
@@ -446,8 +449,9 @@ export default function DonationTrackerView({ user }) {
                     {user?.role === 'admin' && (
                       <button
                         onClick={() => handleDeleteDonation(d.id)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+                        className="w-8 h-8 rounded-lg inline-flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 active:scale-95 transition-all touch-manipulation"
                         title="Delete record"
+                        aria-label="Delete record"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -470,20 +474,21 @@ export default function DonationTrackerView({ user }) {
 
       {/* ================= RECORD MANUAL DONATION MODAL ================= */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3.5 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 shadow-2xl relative my-6 animate-in fade-in zoom-in-95 duration-200 max-h-[92vh] overflow-y-auto">
             
             <button
               onClick={() => setShowAddModal(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center touch-manipulation"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-1">Record Donation Entry</h3>
-            <p className="text-xs text-slate-500 mb-6">Manually log offline cash, direct bank deposit, or UPI donations.</p>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 pr-10">Record Donation Entry</h3>
+            <p className="text-xs text-slate-500 mb-5">Manually log offline cash, direct bank deposit, or UPI donations.</p>
 
-            <form onSubmit={handleCreateDonation} className="space-y-4">
+            <form onSubmit={handleCreateDonation} className="space-y-3.5 sm:space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                   Donor Full Name
@@ -493,11 +498,11 @@ export default function DonationTrackerView({ user }) {
                   placeholder="e.g. Haji Muhammad Kunhi"
                   value={newDonor.donor_name}
                   onChange={(e) => setNewDonor({ ...newDonor, donor_name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Amount (INR ₹) *
@@ -509,7 +514,7 @@ export default function DonationTrackerView({ user }) {
                     placeholder="e.g. 5000"
                     value={newDonor.amount}
                     onChange={(e) => setNewDonor({ ...newDonor, amount: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-markaz-green focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-bold text-markaz-green focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                   />
                 </div>
 
@@ -520,7 +525,7 @@ export default function DonationTrackerView({ user }) {
                   <select
                     value={newDonor.payment_method}
                     onChange={(e) => setNewDonor({ ...newDonor, payment_method: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-700 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-medium text-slate-700 focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                   >
                     <option value="UPI">UPI</option>
                     <option value="Bank Transfer">Bank Transfer</option>
@@ -529,7 +534,7 @@ export default function DonationTrackerView({ user }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Transaction / Ref ID
@@ -539,7 +544,7 @@ export default function DonationTrackerView({ user }) {
                     placeholder="e.g. UPI49382109"
                     value={newDonor.upi_transaction_id}
                     onChange={(e) => setNewDonor({ ...newDonor, upi_transaction_id: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-mono focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-mono focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                   />
                 </div>
 
@@ -550,7 +555,7 @@ export default function DonationTrackerView({ user }) {
                   <select
                     value={newDonor.status}
                     onChange={(e) => setNewDonor({ ...newDonor, status: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-bold text-slate-700 focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                   >
                     <option value="Completed">Completed</option>
                     <option value="Pending">Pending</option>
@@ -568,7 +573,7 @@ export default function DonationTrackerView({ user }) {
                   placeholder="+91 9447000000"
                   value={newDonor.donor_phone}
                   onChange={(e) => setNewDonor({ ...newDonor, donor_phone: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                 />
               </div>
 
@@ -581,22 +586,22 @@ export default function DonationTrackerView({ user }) {
                   placeholder="e.g. Dua for deceased mother"
                   value={newDonor.prayer_request}
                   onChange={(e) => setNewDonor({ ...newDonor, prayer_request: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                 />
               </div>
 
-              <div className="pt-4 flex gap-3">
+              <div className="pt-3 flex gap-3">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs"
+                  className="flex-1 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-semibold py-3 rounded-xl text-xs min-h-[46px] touch-manipulation"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-2.5 rounded-xl text-xs shadow-md transition-colors"
+                  className="flex-1 bg-markaz-green hover:bg-markaz-green-dark active:scale-95 text-white font-bold py-3 rounded-xl text-xs shadow-md transition-all min-h-[46px] touch-manipulation"
                 >
                   {submitting ? 'Recording...' : 'Save Record'}
                 </button>

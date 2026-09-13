@@ -4,8 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 @layer base {
-  html {
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100% !important;
+    width: 100%;
+    position: relative;
     scroll-behavior: smooth;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -135,4 +151,27 @@
 
 .animate-shimmer {
   animation: shimmer 2.5s infinite;
+}
+
+/* Mobile Touch & Scroll Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.touch-pan-x {
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation;
 }

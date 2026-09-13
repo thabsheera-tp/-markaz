@@ -9,14 +9,21 @@ export const metadata = {
   }
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0a2e4a',
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth overflow-x-hidden w-full max-w-full">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="bg-slate-50 text-slate-900 antialiased min-h-screen">
+      <body className="bg-slate-50 text-slate-900 antialiased min-h-screen overflow-x-hidden w-full max-w-full">
         {children}
       </body>
     </html>

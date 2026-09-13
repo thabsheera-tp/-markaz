@@ -14,34 +14,34 @@ export default function InstitutionsSection({ institutions = [], onSelectInstitu
     : institutions.filter((i) => i.category === activeCategory);
 
   return (
-    <section id="institutions" className="py-20 sm:py-24 bg-[#f8fafc] border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="institutions" className="py-12 sm:py-20 lg:py-24 bg-[#f8fafc] border-b border-slate-200 w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
         {/* Institutional Section Header (Columbia Model) */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-2 font-sans">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-1.5 font-sans">
             Academic & Welfare Divisions
           </span>
-          <h2 className="text-3xl sm:text-4xl font-serif font-academic font-bold text-[#061726] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-serif font-academic font-bold text-[#061726] tracking-tight">
             Our 9 Institutions & Educational Wings
           </h2>
-          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-4 mb-4" />
-          <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed">
+          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-3 sm:mt-4 mb-3 sm:mb-4" />
+          <p className="text-slate-600 text-xs sm:text-base font-light leading-relaxed">
             Spanning classical higher Islamic jurisprudence, Qur-anic memorization, secondary education, women's advanced academies, and full residential welfare care.
           </p>
         </div>
 
-        {/* Category Filter Tabs */}
+        {/* Category Filter Tabs (Scrollable on mobile) */}
         {categories.length > 1 && (
-          <div className="flex items-center justify-center flex-wrap gap-2 mb-12">
+          <div className="flex items-center sm:justify-center overflow-x-auto no-scrollbar touch-pan-x gap-2 pb-2 mb-8 sm:mb-12 w-full">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-all rounded-xs ${
+                className={`px-4 py-2.5 text-xs font-semibold uppercase tracking-wider transition-all rounded-lg shrink-0 min-h-[40px] ${
                   activeCategory === cat
-                    ? 'bg-[#002B49] text-white shadow-sm'
-                    : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-[#002B49] text-white shadow-sm font-bold'
+                    : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 active:bg-slate-200'
                 }`}
               >
                 {cat}
@@ -51,14 +51,14 @@ export default function InstitutionsSection({ institutions = [], onSelectInstitu
         )}
 
         {/* The Iconic Columbia 3-Column Photo-Card Gateway Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
           {filtered.map((inst) => (
             <div
               key={inst.id}
-              className="bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group overflow-hidden"
+              className="bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group overflow-hidden rounded-xl sm:rounded-none"
             >
               {/* Card Photo Frame */}
-              <div className="relative h-56 sm:h-60 overflow-hidden bg-slate-100">
+              <div className="relative h-52 sm:h-60 overflow-hidden bg-slate-100">
                 <img
                   src={api.getImageUrl(inst.icon_url || '/uploads/full.jpeg')}
                   alt={inst.name}
@@ -71,7 +71,7 @@ export default function InstitutionsSection({ institutions = [], onSelectInstitu
                 
                 {/* Category Tag Overlay */}
                 <div className="absolute top-3 left-3">
-                  <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#061726]/80 backdrop-blur-sm text-white border border-white/20">
+                  <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#061726]/80 backdrop-blur-sm text-white border border-white/20 rounded-xs">
                     {inst.category || 'Academy'}
                   </span>
                 </div>
@@ -84,8 +84,8 @@ export default function InstitutionsSection({ institutions = [], onSelectInstitu
                   </div>
                 )}
 
-                {/* Iconic Anchored Bottom Solid-Blue Title Bar (Matching Reference) */}
-                <div className="absolute bottom-0 inset-x-0 bg-[#002B49] text-white py-2.5 px-4 flex items-center justify-between group-hover:bg-[#004B87] transition-colors">
+                {/* Iconic Anchored Bottom Solid-Blue Title Bar */}
+                <div className="absolute bottom-0 inset-x-0 bg-[#002B49] text-white py-2.5 px-3.5 sm:px-4 flex items-center justify-between group-hover:bg-[#004B87] transition-colors">
                   <span className="text-xs sm:text-sm font-serif font-bold uppercase tracking-wider font-academic truncate">
                     {inst.name}
                   </span>
@@ -94,21 +94,21 @@ export default function InstitutionsSection({ institutions = [], onSelectInstitu
               </div>
 
               {/* Card Body Information */}
-              <div className="p-5 flex-1 flex flex-col justify-between bg-white">
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between bg-white">
                 <p className="text-slate-600 text-xs sm:text-sm font-light leading-relaxed line-clamp-3">
                   {inst.description}
                 </p>
 
-                <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">
+                <div className="mt-4 sm:mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-[11px] text-slate-400 font-medium uppercase tracking-wider truncate mr-2">
                     Koyyam Markaz Campus
                   </span>
                   <button
                     onClick={() => onSelectInstitutionForDonate(inst)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#004B87] hover:text-[#d97706] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#004B87] hover:text-[#d97706] bg-blue-50/70 sm:bg-transparent hover:bg-blue-100 sm:hover:bg-transparent py-1.5 sm:py-0 px-2.5 sm:px-0 rounded-lg sm:rounded-none min-h-[36px] sm:min-h-0 transition-colors shrink-0"
                     title="Sponsor or donate to this specific institution"
                   >
-                    <Heart className="w-3 h-3 text-red-500 fill-red-500" />
+                    <Heart className="w-3.5 h-3.5 text-red-500 fill-red-500" />
                     <span>Sponsor Wing</span>
                   </button>
                 </div>

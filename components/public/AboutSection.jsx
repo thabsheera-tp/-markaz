@@ -18,23 +18,23 @@ export default function AboutSection({ aboutData }) {
   const statIcons = [Award, Users, BookOpen, Building];
 
   return (
-    <section id="about" className="py-20 sm:py-24 bg-white relative border-b border-slate-200">
+    <section id="about" className="w-full max-w-full overflow-hidden py-12 sm:py-20 lg:py-24 bg-white relative border-b border-slate-200">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Columbia Discovery Style Centered Narrative Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-2 font-sans">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#004B87] block mb-1.5 font-sans">
             Institutional Legacy & Mission
           </span>
-          <h2 className="text-3xl sm:text-5xl font-serif font-academic font-bold text-[#061726] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-academic font-bold text-[#061726] tracking-tight leading-tight">
             {aboutData.title || 'Markazu Da-wathil Islamiyya'}
           </h2>
-          <div className="w-20 h-1 bg-[#004B87] mx-auto mt-5 mb-8" />
+          <div className="w-16 h-1 bg-[#004B87] mx-auto mt-4 mb-6" />
         </div>
 
         {/* Narrative Editorial Text */}
         <div className="text-center max-w-3xl mx-auto">
-          <div className={`prose prose-slate max-w-none text-slate-700 leading-relaxed text-base sm:text-lg font-light space-y-4 ${
+          <div className={`prose prose-slate max-w-none text-slate-700 leading-relaxed text-sm sm:text-base lg:text-lg font-light space-y-4 ${
             !expanded ? 'line-clamp-6' : ''
           }`}>
             <p className="whitespace-pre-line">
@@ -44,11 +44,11 @@ Our guiding mission is to harmonize classical theological scholarship with conte
             </p>
           </div>
 
-          {/* Read More Toggle Button */}
-          <div className="mt-8">
+          {/* Read More Toggle Button (Touch Friendly) */}
+          <div className="mt-6 sm:mt-8 flex justify-center">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="inline-flex items-center gap-2 bg-[#002B49] hover:bg-[#004B87] text-white px-8 py-3 text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+              className="inline-flex items-center justify-center gap-2 bg-[#002B49] hover:bg-[#004B87] active:scale-98 text-white px-6 sm:px-8 py-3 text-xs font-bold uppercase tracking-wider transition-all shadow-sm rounded-xl sm:rounded-none min-h-[44px] w-full sm:w-auto"
             >
               <span>{expanded ? 'Show Less' : 'Read Institutional History'}</span>
               <ChevronRight className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-90' : ''}`} />
@@ -56,23 +56,23 @@ Our guiding mission is to harmonize classical theological scholarship with conte
           </div>
         </div>
 
-        {/* Academic Key Statistics Ribbon (Matching Reference Layout) */}
-        <div className="mt-16 pt-12 border-t border-slate-200">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        {/* Academic Key Statistics Ribbon */}
+        <div className="mt-12 sm:mt-16 pt-8 sm:pt-12 border-t border-slate-200">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 text-center">
             {stats.map((stat, idx) => {
               const Icon = statIcons[idx % statIcons.length];
               return (
                 <div
                   key={idx}
-                  className="p-6 bg-[#f8fafc] border border-slate-200 hover:border-[#004B87] transition-all group"
+                  className="p-4 sm:p-6 bg-[#f8fafc] border border-slate-200 hover:border-[#004B87] transition-all group rounded-xl sm:rounded-none"
                 >
-                  <div className="w-10 h-10 rounded bg-[#002B49] text-white flex items-center justify-center mx-auto mb-3 group-hover:bg-[#004B87] transition-colors">
-                    <Icon className="w-5 h-5" />
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded bg-[#002B49] text-white flex items-center justify-center mx-auto mb-2 sm:mb-3 group-hover:bg-[#004B87] transition-colors">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
-                  <div className="text-2xl sm:text-3xl font-serif font-academic font-bold text-[#061726] tracking-tight">
+                  <div className="text-xl sm:text-3xl font-serif font-academic font-bold text-[#061726] tracking-tight">
                     {stat.value}
                   </div>
-                  <div className="text-xs text-slate-500 font-medium uppercase tracking-wider mt-1">
+                  <div className="text-[11px] sm:text-xs text-slate-500 font-medium uppercase tracking-wider mt-1 line-clamp-1">
                     {stat.label}
                   </div>
                 </div>

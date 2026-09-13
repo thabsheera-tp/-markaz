@@ -142,26 +142,35 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
       </aside>
 
       {/* Mobile Top Header */}
-      <div className="lg:hidden bg-slate-950 text-white px-4 py-3 flex items-center justify-between border-b border-white/10">
-        <div className="flex items-center gap-2.5">
+      <div className="lg:hidden bg-slate-950 text-white px-3.5 py-2.5 flex items-center justify-between border-b border-white/10 sticky top-0 z-40">
+        <div className="flex items-center gap-2.5 min-w-0">
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="p-1.5 rounded-lg bg-white/10 text-white"
+            className="w-10 h-10 rounded-lg bg-white/10 active:bg-white/20 text-white flex items-center justify-center shrink-0 touch-manipulation"
+            aria-label="Toggle navigation menu"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
           <img
             src="/markaz-logo.png"
             alt="Logo"
-            className="w-7 h-7 rounded-lg object-contain bg-white p-0.5"
+            className="w-8 h-8 rounded-lg object-contain bg-white p-0.5 shrink-0"
           />
-          <span className="text-sm font-extrabold uppercase">Koyyam Markaz</span>
+          <div className="min-w-0">
+            <span className="text-xs sm:text-sm font-extrabold uppercase truncate block">Koyyam Markaz</span>
+            <span className="text-[9px] text-emerald-400 font-bold uppercase block tracking-wider">Admin Portal</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
           <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${roleColors[user?.role]}`}>
             {user?.role}
           </span>
-          <button onClick={onLogout} className="p-1 text-slate-400 hover:text-rose-400">
+          <button 
+            onClick={onLogout} 
+            className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-400 hover:text-rose-400 active:bg-white/10 touch-manipulation"
+            aria-label="Sign out"
+            title="Sign out"
+          >
             <LogOut className="w-4 h-4" />
           </button>
         </div>
@@ -169,35 +178,60 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
 
       {/* Mobile Menu Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden bg-slate-950 text-white px-4 py-3 space-y-1 border-b border-white/10 animate-in slide-in-from-top duration-200">
-          {navItems.map((item) => {
+        <div className="lg:hidden bg-slate-950/95 backdrop-blur-xl text-white px-3.5 py-3 space-y-1 border-b border-white/10 max-h-[calc(100vh-64px)] overflow-y-auto overscroll-contain touch-pan-y fixed inset-x-0 top-[57px] z-50 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          {/* Mobile User Info Box */}
+          <div className="p-3 mb-2 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-between">
+            <div className="min-w-0 flex-1 mr-2">
+              <div className="text-xs font-bold text-white truncate">{user?.name}</div>
+              <div className="text-[10px] text-slate-400 truncate">{user?.email}</div>
+            </div>
+            <span className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold uppercase tracking-wider border ${roleColors[user?.role] || 'bg-slate-800 text-slate-200'}`}>
+              {user?.role}
+            </span>
+          </div>
+
+          {navItems.map((item, idx) => {
             const Icon = item.icon;
             const active = currentTab === item.id;
+            const showSection = idx === 0 || navItems[idx - 1].section !== item.section;
+
             return (
-              <button
-                key={item.id}
-                onClick={() => handleNav(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium ${
-                  active ? 'bg-markaz-green text-white font-bold' : 'text-slate-300 hover:bg-white/10'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </button>
+              <React.Fragment key={item.id}>
+                {showSection && (
+                  <div className="text-[9px] font-bold text-slate-400 uppercase tracking-widest px-3 pt-2.5 pb-1">
+                    {item.section}
+                  </div>
+                )}
+                <button
+                  onClick={() => handleNav(item.id)}
+                  className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-medium touch-manipulation active:scale-[0.99] transition-all min-h-[44px] ${
+                    active ? 'bg-gradient-to-r from-markaz-green to-emerald-600 text-white font-bold shadow-md' : 'text-slate-300 hover:bg-white/10'
+                  }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+                  <span>{item.label}</span>
+                </button>
+              </React.Fragment>
             );
           })}
-          <div className="pt-2 border-t border-white/10 flex gap-2">
+          
+          <div className="pt-3 pb-6 border-t border-white/10 flex gap-2.5">
             <button
-              onClick={onVisitPublic}
-              className="flex-1 bg-white/10 text-white text-xs py-2 rounded-lg"
+              onClick={() => {
+                setMobileOpen(false);
+                onVisitPublic();
+              }}
+              className="flex-1 bg-white/10 hover:bg-white/20 active:scale-95 text-white text-xs font-medium py-3 rounded-xl flex items-center justify-center gap-2 min-h-[44px] touch-manipulation"
             >
-              Public Site
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Public Site</span>
             </button>
             <button
               onClick={onLogout}
-              className="flex-1 bg-rose-900/40 text-rose-200 text-xs py-2 rounded-lg"
+              className="flex-1 bg-rose-900/50 hover:bg-rose-900/70 text-rose-200 active:scale-95 text-xs font-medium py-3 rounded-xl flex items-center justify-center gap-2 min-h-[44px] touch-manipulation"
             >
-              Sign Out
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Sign Out</span>
             </button>
           </div>
         </div>
@@ -207,30 +241,31 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
       <main className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         
         {/* Top Breadcrumb Bar */}
-        <div className="bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-6 py-4 flex items-center justify-between shadow-subtle">
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-            <span>Admin Portal</span>
-            <span>/</span>
-            <span className="capitalize font-bold text-slate-900">{currentTab.replace('-', ' ')}</span>
+        <div className="bg-white/80 backdrop-blur-md border-b border-slate-200/60 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between shadow-subtle">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs font-medium text-slate-500 min-w-0">
+            <span className="hidden sm:inline">Admin Portal</span>
+            <span className="hidden sm:inline">/</span>
+            <span className="capitalize font-bold text-slate-900 truncate">{currentTab.replace('-', ' ')}</span>
           </div>
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={onVisitPublic}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-markaz-blue px-3.5 py-1.5 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors shadow-subtle"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-markaz-blue px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-50 transition-colors shadow-subtle touch-manipulation"
             >
               <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-              <span>Live Website</span>
+              <span className="hidden xs:inline">Live Website</span>
+              <span className="xs:hidden">Live</span>
             </button>
           </div>
         </div>
 
         {/* Role Notice Banner for Viewer */}
         {user?.role === 'viewer' && (
-          <div className="bg-amber-50 text-amber-900 px-6 py-2.5 text-xs font-semibold flex items-center justify-between border-b border-amber-200/60">
+          <div className="bg-amber-50 text-amber-900 px-4 sm:px-6 py-2.5 text-xs font-semibold flex items-center justify-between border-b border-amber-200/60">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-amber-700 shrink-0" />
-              <span>
-                <strong>TEST VIEWER (Read-Only Mode):</strong> You have inspection access. All publishing, editing, deleting, and system settings are strictly locked.
+              <span className="text-[11px] sm:text-xs">
+                <strong>TEST VIEWER (Read-Only Mode):</strong> All publishing and editing actions are strictly locked.
               </span>
             </div>
             <span className="hidden sm:inline-block bg-amber-200/80 text-amber-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
@@ -240,7 +275,7 @@ export default function AdminLayout({ user, currentTab, setCurrentTab, onLogout,
         )}
 
         {/* Child Views */}
-        <div className="p-6 md:p-8 flex-1 max-w-7xl w-full mx-auto">
+        <div className="p-3.5 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto">
           {children}
         </div>
 

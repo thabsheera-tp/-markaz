@@ -170,18 +170,18 @@ export default function StudentTrackerView({ user }) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
             Institutional & Student Enrollment Tracker
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Track student intake, institutional course distribution, and fee status across 9 departments.
           </p>
         </div>
-        <div>
+        <div className="w-full sm:w-auto">
           {user?.role !== 'viewer' && (
             <button
               onClick={handleOpenAdd}
-              className="inline-flex items-center gap-1.5 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-markaz-green/20 transition-all active:scale-95"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-markaz-green hover:bg-markaz-green-dark active:scale-95 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-md shadow-markaz-green/20 transition-all min-h-[44px] touch-manipulation"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Enroll New Student</span>
@@ -191,61 +191,61 @@ export default function StudentTrackerView({ user }) {
       </div>
 
       {/* KPI Summary Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Enrolled</span>
-          <div className="mt-2 text-2xl font-black text-slate-900">{students.length}</div>
-          <div className="text-[11px] text-slate-500">Across 9 faculties</div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Total Enrolled</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-slate-900">{students.length}</div>
+          <div className="text-[10px] sm:text-[11px] text-slate-500">Across 9 faculties</div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Paid Status</span>
-          <div className="mt-2 text-2xl font-black text-emerald-600">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Paid Status</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-emerald-600">
             {students.filter((s) => s.fee_status === 'Paid').length}
           </div>
-          <div className="text-[11px] text-slate-500">Full clearance</div>
+          <div className="text-[10px] sm:text-[11px] text-slate-500">Full clearance</div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Scholarship / Free</span>
-          <div className="mt-2 text-2xl font-black text-markaz-blue">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Scholarship / Free</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-markaz-blue">
             {students.filter((s) => s.fee_status === 'Scholarship').length}
           </div>
-          <div className="text-[11px] text-slate-500">Destitute & Hafiz support</div>
+          <div className="text-[10px] sm:text-[11px] text-slate-500">Destitute & Hafiz support</div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Pending / Due</span>
-          <div className="mt-2 text-2xl font-black text-rose-600">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+          <span className="text-[11px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Pending / Due</span>
+          <div className="mt-1.5 sm:mt-2 text-xl sm:text-2xl font-black text-rose-600">
             {students.filter((s) => s.fee_status === 'Due' || s.fee_status === 'Partial').length}
           </div>
-          <div className="text-[11px] text-slate-500">Pending review</div>
+          <div className="text-[10px] sm:text-[11px] text-slate-500">Pending review</div>
         </div>
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
         
         {/* Course Enrollment Bar Chart (8 cols) */}
-        <div className="lg:col-span-8 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-8 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">
               Enrollment Distribution by Institution
             </h3>
-            <p className="text-xs text-slate-400 mb-4">Current student numbers across all 9 departments</p>
+            <p className="text-[11px] sm:text-xs text-slate-400 mb-3 sm:mb-4">Current student numbers across all 9 departments</p>
 
-            <div className="h-64 w-full">
+            <div className="h-56 sm:h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 25 }}>
+                <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 25 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                   <XAxis
                     dataKey="name"
-                    tick={{ fontSize: 10, fill: '#64748b' }}
+                    tick={{ fontSize: 9, fill: '#64748b' }}
                     angle={-20}
                     textAnchor="end"
                     interval={0}
                   />
-                  <YAxis tick={{ fontSize: 11, fill: '#64748b' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} />
                   <Tooltip
                     formatter={(val, name, item) => [val, item.payload.fullName]}
                     contentStyle={{ backgroundColor: '#0a2e4a', borderRadius: '12px', color: '#fff', fontSize: '12px', border: 'none' }}
@@ -258,14 +258,14 @@ export default function StudentTrackerView({ user }) {
         </div>
 
         {/* Fee Status Pie Chart (4 cols) */}
-        <div className="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider mb-1">
               Fee Status Profile
             </h3>
-            <p className="text-xs text-slate-400 mb-4">Paid vs Scholarship vs Due</p>
+            <p className="text-[11px] sm:text-xs text-slate-400 mb-3 sm:mb-4">Paid vs Scholarship vs Due</p>
 
-            <div className="h-64 w-full">
+            <div className="h-56 sm:h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -273,7 +273,7 @@ export default function StudentTrackerView({ user }) {
                     dataKey="value"
                     nameKey="name"
                     cx="50%"
-                    cy="50%"
+                    cy="48%"
                     innerRadius={50}
                     outerRadius={75}
                     paddingAngle={4}
@@ -299,16 +299,16 @@ export default function StudentTrackerView({ user }) {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm">
-        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm">
+        <form onSubmit={handleSearchSubmit} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               placeholder="Search student name, phone..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
             />
           </div>
 
@@ -316,7 +316,7 @@ export default function StudentTrackerView({ user }) {
             <select
               value={instFilter}
               onChange={(e) => setInstFilter(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-700 focus:outline-none"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-medium text-slate-700 focus:outline-none min-h-[44px]"
             >
               <option value="all">All Institutions</option>
               {institutions.map((i) => (
@@ -329,7 +329,7 @@ export default function StudentTrackerView({ user }) {
             <select
               value={feeFilter}
               onChange={(e) => setFeeFilter(e.target.value)}
-              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-700 focus:outline-none"
+              className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-medium text-slate-700 focus:outline-none min-h-[44px]"
             >
               <option value="all">All Fee Statuses</option>
               <option value="Paid">Paid</option>
@@ -342,7 +342,7 @@ export default function StudentTrackerView({ user }) {
           <div>
             <button
               type="submit"
-              className="w-full bg-slate-900 hover:bg-black text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
+              className="w-full bg-slate-900 hover:bg-black active:scale-95 text-white text-xs font-bold py-2.5 rounded-xl transition-all min-h-[44px] flex items-center justify-center touch-manipulation"
             >
               Apply Filter
             </button>
@@ -351,14 +351,17 @@ export default function StudentTrackerView({ user }) {
       </div>
 
       {/* Student Records Table */}
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+      <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between">
           <div className="text-xs font-bold text-slate-800 uppercase tracking-wider">
             Showing {students.length} Student Records
           </div>
+          <span className="sm:hidden text-[10px] text-slate-400 font-medium italic">
+            Scroll table horizontally &rarr;
+          </span>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto touch-pan-x overscroll-x-contain">
           <table className="w-full min-w-[700px] text-left text-xs">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase tracking-wider">
               <tr>
@@ -399,8 +402,9 @@ export default function StudentTrackerView({ user }) {
                     {user?.role !== 'viewer' && (
                       <button
                         onClick={() => handleOpenEdit(s)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100"
+                        className="w-8 h-8 rounded-lg inline-flex items-center justify-center text-slate-400 hover:text-slate-800 hover:bg-slate-100 active:scale-95 transition-all touch-manipulation"
                         title="Edit Student"
+                        aria-label="Edit Student"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
@@ -408,8 +412,9 @@ export default function StudentTrackerView({ user }) {
                     {user?.role === 'admin' && (
                       <button
                         onClick={() => handleDelete(s.id)}
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50"
+                        className="w-8 h-8 rounded-lg inline-flex items-center justify-center text-slate-400 hover:text-rose-600 hover:bg-rose-50 active:scale-95 transition-all touch-manipulation"
                         title="Delete Student"
+                        aria-label="Delete Student"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -431,23 +436,24 @@ export default function StudentTrackerView({ user }) {
 
       {/* ================= ENROLL / EDIT STUDENT MODAL ================= */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative my-8 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3.5 sm:p-4 overflow-y-auto">
+          <div className="bg-white rounded-3xl max-w-md w-full p-5 sm:p-8 shadow-2xl relative my-6 animate-in fade-in zoom-in-95 duration-200 max-h-[92vh] overflow-y-auto">
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 flex items-center justify-center touch-manipulation"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <h3 className="text-xl font-bold text-slate-900 mb-1">
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-1 pr-10">
               {editingStudent ? 'Edit Student Record' : 'Enroll New Student'}
             </h3>
-            <p className="text-xs text-slate-500 mb-6">
+            <p className="text-xs text-slate-500 mb-5">
               Enter academic enrollment and contact details.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                   Full Student Name *
@@ -458,7 +464,7 @@ export default function StudentTrackerView({ user }) {
                   placeholder="e.g. Muhammed Bilal K."
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:ring-2 focus:ring-markaz-green focus:outline-none min-h-[44px]"
                 />
               </div>
 
@@ -470,7 +476,7 @@ export default function StudentTrackerView({ user }) {
                   required
                   value={formData.institution_id}
                   onChange={(e) => setFormData({ ...formData, institution_id: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium text-slate-700 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-medium text-slate-700 focus:outline-none min-h-[44px]"
                 >
                   <option value="">Select Department</option>
                   {institutions.map((i) => (
@@ -479,7 +485,7 @@ export default function StudentTrackerView({ user }) {
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Phone Contact
@@ -489,7 +495,7 @@ export default function StudentTrackerView({ user }) {
                     placeholder="+91 9447..."
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:outline-none min-h-[44px]"
                   />
                 </div>
 
@@ -500,7 +506,7 @@ export default function StudentTrackerView({ user }) {
                   <select
                     value={formData.fee_status}
                     onChange={(e) => setFormData({ ...formData, fee_status: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs font-bold text-slate-700 focus:outline-none min-h-[44px]"
                   >
                     <option value="Paid">Paid</option>
                     <option value="Scholarship">Scholarship</option>
@@ -519,7 +525,7 @@ export default function StudentTrackerView({ user }) {
                   placeholder="student@koyyammarkaz.org"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:outline-none min-h-[44px]"
                 />
               </div>
 
@@ -531,22 +537,22 @@ export default function StudentTrackerView({ user }) {
                   type="date"
                   value={formData.enrollment_date}
                   onChange={(e) => setFormData({ ...formData, enrollment_date: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:outline-none min-h-[44px]"
                 />
               </div>
 
-              <div className="pt-4 flex gap-3">
+              <div className="pt-3 flex gap-3">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs"
+                  className="flex-1 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-semibold py-3 rounded-xl text-xs min-h-[46px] touch-manipulation"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="flex-1 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-2.5 rounded-xl text-xs shadow-md transition-colors"
+                  className="flex-1 bg-markaz-green hover:bg-markaz-green-dark active:scale-95 text-white font-bold py-3 rounded-xl text-xs shadow-md transition-all min-h-[46px] touch-manipulation"
                 >
                   {submitting ? 'Saving...' : 'Save Student'}
                 </button>

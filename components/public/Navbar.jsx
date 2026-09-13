@@ -79,44 +79,45 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
   ];
 
   return (
-    <header className="sticky top-0 z-50 shadow-md">
+    <header className="sticky top-0 z-50 shadow-md w-full max-w-full overflow-x-clip">
       {/* 1. Ivy League Top Utility Bar */}
-      <div className="bg-[#061726] text-slate-300 text-[11px] py-1.5 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div className="bg-[#061726] text-slate-300 text-[11px] py-1 px-3 sm:px-6 lg:px-8 border-b border-white/10 w-full max-w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto flex justify-between items-center gap-2 w-full max-w-full">
           {/* Left: Arabic Invocation & Institution Accreditation */}
-          <div className="flex items-center gap-2.5 font-arabic text-xs sm:text-[13px] text-slate-300">
-            <span className="font-arabic tracking-wide">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
+          <div className="flex items-center gap-2 font-arabic text-xs sm:text-[13px] text-slate-300 truncate min-w-0">
+            <span className="font-arabic tracking-wide truncate">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
             <span className="hidden sm:inline font-sans text-xs text-slate-600">|</span>
             <span className="hidden md:inline font-sans text-[11px] text-slate-300 font-light tracking-wide uppercase">
               Registered Islamic Educational & Charitable Complex
             </span>
           </div>
 
-          {/* Right: Quick Contacts, Directions, and Admin Portal */}
-          <div className="flex items-center gap-2 sm:gap-4 text-[11px]">
+          {/* Right: Quick Contacts & Directions */}
+          <div className="flex items-center gap-1.5 sm:gap-4 text-[11px] shrink-0 max-w-full">
             <a
               href={telLink}
-              className="flex items-center gap-1 text-slate-300 hover:text-emerald-400 transition-colors py-0.5 px-1.5 rounded"
+              className="inline-flex items-center gap-1 text-slate-300 hover:text-emerald-400 transition-colors py-0.5 px-2 rounded bg-white/5 sm:bg-transparent min-h-[30px] sm:min-h-0 max-w-full"
               title="Click to call directly"
             >
               <Phone className="w-3 h-3 text-emerald-400 shrink-0" />
-              <span className="hidden xs:inline">{displayPhone}</span>
+              <span className="hidden sm:inline font-medium">{displayPhone}</span>
+              <span className="sm:hidden text-[10px] font-medium">Call Us</span>
             </a>
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1 text-emerald-400 hover:text-white transition-colors py-0.5 px-1.5 rounded"
+              className="hidden sm:inline-flex items-center gap-1 text-emerald-400 hover:text-white transition-colors py-0.5 px-1.5 rounded max-w-full"
               title="Direct WhatsApp Message"
             >
-              <MessageCircle className="w-3 h-3" />
+              <MessageCircle className="w-3 h-3 shrink-0" />
               <span>WhatsApp</span>
             </a>
             <a
               href="https://www.google.com/maps/search/?api=1&query=Markazu Da-wathil Islamiyya Koyyam Kannur Kerala 670142"
               target="_blank"
               rel="noreferrer"
-              className="hidden md:inline-flex items-center gap-1 text-slate-300 hover:text-amber-300 transition-colors py-0.5 px-1.5 rounded"
+              className="hidden md:inline-flex items-center gap-1 text-slate-300 hover:text-amber-300 transition-colors py-0.5 px-1.5 rounded max-w-full"
               title="Google Maps Location"
             >
               <MapPin className="w-3 h-3 text-amber-300 shrink-0" />
@@ -126,60 +127,59 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
         </div>
       </div>
 
-      {/* 2. Main University Brand Header (Deep Columbia Navy Blue) */}
-      <div className="bg-[#0a2e4a] text-white border-b border-[#144c77]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
-          <div className="flex justify-between items-center gap-4">
+      {/* 2. Main University Brand Header */}
+      <div className="bg-[#0a2e4a] text-white border-b border-[#144c77] w-full max-w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-3.5 w-full max-w-full">
+          <div className="flex justify-between items-center gap-2 sm:gap-4 w-full max-w-full min-w-0">
             
             {/* University Crest & Formal Academic Title */}
-            <a href="#hero" className="flex items-center gap-3.5 group shrink-0">
-              <div className="relative">
+            <a href="#hero" className="flex items-center gap-2 sm:gap-3.5 group min-w-0 flex-1 max-w-full">
+              <div className="relative shrink-0">
                 <img
                   src="/markaz-logo.png"
                   alt="Koyyam Markaz Crest"
-                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-contain bg-white/95 shadow-md p-1 border border-white/20 group-hover:scale-102 transition-transform duration-300"
+                  className="w-9 h-9 sm:w-14 sm:h-14 rounded-xl object-contain bg-white/95 shadow-md p-0.5 sm:p-1 border border-white/20 group-hover:scale-102 transition-transform duration-300 shrink-0 max-w-full"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-base sm:text-2xl font-serif tracking-wider text-white font-bold leading-none font-academic uppercase">
-                  Markazu Da-wathil Islamiyya
+              <div className="flex flex-col min-w-0 overflow-hidden max-w-full">
+                <span className="text-sm sm:text-2xl font-serif tracking-wide sm:tracking-wider text-white font-bold leading-tight font-academic uppercase truncate max-w-full">
+                  <span className="sm:hidden">Koyyam Markaz</span>
+                  <span className="hidden sm:inline">Markazu Da-wathil Islamiyya</span>
                 </span>
-                <div className="flex items-center gap-2 mt-1 sm:mt-1.5">
-                  <span className="text-[11px] sm:text-xs font-semibold text-emerald-300 tracking-widest uppercase font-sans">
-                    Koyyam, Kannur, Kerala
-                  </span>
-                  <span className="hidden sm:inline text-[10px] text-slate-400 font-light">
-                    • Est. 1992
+                <div className="flex items-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 max-w-full">
+                  <span className="text-[10px] sm:text-xs font-semibold text-emerald-300 tracking-wider uppercase font-sans truncate max-w-full">
+                    <span className="sm:hidden">Markazu Da-wathil Islamiyya</span>
+                    <span className="hidden sm:inline">Koyyam, Kannur, Kerala • Est. 1992</span>
                   </span>
                 </div>
               </div>
             </a>
 
-            {/* Right Side: University Action (Donate Now) */}
-            <div className="flex items-center gap-2.5">
+            {/* Right Side: Action Buttons & Hamburger (Specifically Donate Area) */}
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 max-w-full">
               <button
                 onClick={onOpenDonate}
-                className="hidden sm:inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white px-5 py-2 rounded font-bold text-xs tracking-wider uppercase shadow-md active:scale-95 transition-all duration-200"
+                className="hidden sm:inline-flex items-center gap-2 bg-[#d97706] hover:bg-[#b45309] text-white px-5 py-2.5 rounded font-bold text-xs tracking-wider uppercase shadow-md active:scale-95 transition-all duration-200 min-h-[44px] max-w-full"
                 title="Support Koyyam Markaz with your Sadaqah and Donations"
               >
-                <Heart className="w-3.5 h-3.5 fill-white" />
-                <span>Support & Donate</span>
-                <ArrowRight className="w-3.5 h-3.5 opacity-80" />
+                <Heart className="w-4 h-4 fill-white shrink-0" />
+                <span className="truncate">Support & Donate</span>
+                <ArrowRight className="w-3.5 h-3.5 opacity-80 shrink-0" />
               </button>
 
-              {/* Mobile-only compact Donate Button */}
+              {/* Mobile-only touch-optimized Donate Button */}
               <button
                 onClick={onOpenDonate}
-                className="sm:hidden inline-flex items-center gap-1.5 bg-[#d97706] hover:bg-[#b45309] text-white px-3 py-1.5 rounded font-bold text-xs uppercase active:scale-95 transition-all"
+                className="sm:hidden inline-flex items-center justify-center gap-1 bg-[#d97706] hover:bg-[#b45309] active:scale-95 text-white px-2.5 py-1.5 rounded-lg font-bold text-[11px] uppercase shadow-sm shrink-0 min-h-[36px] max-w-full touch-manipulation whitespace-nowrap"
               >
-                <Heart className="w-3.5 h-3.5 fill-white" />
-                <span>Donate</span>
+                <Heart className="w-3 h-3 fill-white shrink-0" />
+                <span className="truncate">Donate</span>
               </button>
 
               {/* Mobile Hamburger Toggle */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden p-1.5 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 border border-white/15 transition-colors"
+                className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg text-slate-200 hover:text-white hover:bg-white/10 border border-white/15 transition-all focus:outline-none active:scale-95 shrink-0 touch-manipulation max-w-full"
                 aria-label="Toggle Navigation Menu"
               >
                 {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -220,7 +220,7 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
                 </a>
 
                 {aboutDropdownOpen && (
-                  <div className="absolute top-full left-0 w-72 pt-1 z-50 animate-in fade-in duration-100">
+                  <div className="absolute top-full left-0 w-72 max-w-[calc(100vw-2rem)] pt-1 z-50 animate-in fade-in duration-100">
                     <div className="bg-[#0a2e4a] text-white rounded-b shadow-xl border border-[#144c77] p-2 space-y-1">
                       {aboutSublinks.map((sub) => {
                         const Icon = sub.icon;
@@ -267,7 +267,7 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
                 </a>
 
                 {wingsDropdownOpen && (
-                  <div className="absolute top-full left-0 w-80 pt-1 z-50 animate-in fade-in duration-100">
+                  <div className="absolute top-full left-0 w-80 max-w-[calc(100vw-2rem)] pt-1 z-50 animate-in fade-in duration-100">
                     <div className="bg-[#0a2e4a] text-white rounded-b shadow-xl border border-[#144c77] p-2 space-y-1">
                       {wingsQuickList.map((wing) => (
                         <a
@@ -352,18 +352,18 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
 
       {/* 4. Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#061726] text-white border-b border-[#144c77] px-4 pt-2 pb-6 space-y-3 shadow-2xl animate-in slide-in-from-top duration-200">
+        <div className="lg:hidden bg-[#061726] text-white border-b border-[#144c77] px-4 pt-2 pb-6 space-y-3 shadow-2xl animate-in slide-in-from-top duration-200 max-h-[calc(100vh-68px)] overflow-y-auto overflow-x-hidden overscroll-contain touch-pan-y w-full max-w-full">
           <div className="space-y-1 divide-y divide-white/10">
             <a
               href="#hero"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-2.5 rounded text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
             >
               Home Campus
             </a>
 
             <div className="pt-2 pb-1">
-              <span className="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+              <span className="px-3.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
                 About The Institution
               </span>
               {aboutSublinks.map((sub) => (
@@ -371,11 +371,13 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
                   key={sub.name}
                   href={sub.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2 rounded text-xs text-slate-300 hover:text-white hover:bg-white/5 transition-colors"
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
                 >
-                  <span>{sub.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{sub.name}</span>
+                  </div>
                   {sub.badge && (
-                    <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                    <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
                       {sub.badge}
                     </span>
                   )}
@@ -386,10 +388,10 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
             <a
               href="#institutions"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-between px-3 py-2.5 rounded text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center justify-between px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
             >
               <span>9 Institutions & Wings</span>
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold">
                 9 Wings
               </span>
             </a>
@@ -397,15 +399,23 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
             <a
               href="#events"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-2.5 rounded text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
             >
               Events & Official Circulars
             </a>
 
             <a
+              href="#reel"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
+            >
+              Campus Moments Reel
+            </a>
+
+            <a
               href="#leadership"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-2.5 rounded text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
             >
               Leadership Committee
             </a>
@@ -413,7 +423,7 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
             <a
               href="#location"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-2.5 rounded text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
             >
               Campus Map & Directions
             </a>
@@ -421,23 +431,44 @@ export default function Navbar({ onOpenDonate, footerData, onNavigateToAdmin }) 
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center px-3 py-2.5 rounded text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
+              className="flex items-center px-3.5 py-3 rounded-lg text-sm font-semibold text-slate-200 hover:text-white hover:bg-white/5 active:bg-white/10 transition-colors min-h-[44px]"
             >
               Contact Directory
             </a>
           </div>
 
-          <div className="pt-3 border-t border-white/10">
+          {/* Quick Action Drawer Buttons */}
+          <div className="pt-3 border-t border-white/10 space-y-2.5">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenDonate();
               }}
-              className="w-full bg-[#d97706] hover:bg-[#b45309] text-white py-2.5 px-4 rounded font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md"
+              className="w-full bg-[#d97706] hover:bg-[#b45309] active:scale-98 text-white py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md min-h-[44px] transition-all"
             >
               <Heart className="w-4 h-4 fill-white" />
               <span>Support & Donate (UPI)</span>
             </button>
+
+            <div className="grid grid-cols-2 gap-2">
+              <a
+                href={telLink}
+                className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold min-h-[40px]"
+              >
+                <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Call Campus</span>
+              </a>
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onNavigateToAdmin();
+                }}
+                className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 text-amber-300 text-xs font-semibold min-h-[40px]"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                <span>Admin Portal</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

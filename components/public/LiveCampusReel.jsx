@@ -1,10 +1,11 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { api } from '../../services/api';
 import { Sparkles, ChevronLeft, ChevronRight, Camera } from 'lucide-react';
 
 export default function LiveCampusReel() {
   const scrollRef = useRef(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const photos = [
     {
@@ -56,20 +57,20 @@ export default function LiveCampusReel() {
 
   const scroll = (direction) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'left' ? -350 : 350;
+      const scrollAmount = direction === 'left' ? -280 : 280;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
 
   return (
-    <section id="reel" className="bg-[#072135] py-14 overflow-hidden relative border-y border-[#144c77]">
+    <section id="reel" className="bg-[#072135] py-10 sm:py-14 overflow-hidden relative border-y border-[#144c77] w-full max-w-full">
       {/* Top Section Header (Academic Mosaic Style) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 flex flex-wrap items-end justify-between gap-4 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8 flex flex-wrap items-end justify-between gap-3 sm:gap-4 relative z-10 w-full">
         <div>
           <span className="text-xs font-bold uppercase tracking-widest text-amber-300 block mb-1 font-sans">
             Life At Koyyam Markaz
           </span>
-          <h3 className="text-2xl sm:text-3xl font-serif font-academic font-bold text-white tracking-tight flex items-center gap-3">
+          <h3 className="text-xl sm:text-3xl font-serif font-academic font-bold text-white tracking-tight flex items-center gap-3">
             <span>Campus Moments & Visual Story</span>
           </h3>
           <p className="text-slate-300 text-xs sm:text-sm font-light mt-1">
@@ -77,23 +78,23 @@ export default function LiveCampusReel() {
           </p>
         </div>
 
-        {/* Continuous Reel Badge & Manual Nav */}
-        <div className="flex items-center gap-3">
-          <div className="text-slate-300 text-xs flex items-center gap-1.5 font-medium px-3 py-1 rounded bg-white/10 border border-white/10">
+        {/* Continuous Reel Badge & Responsive Nav */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="text-slate-300 text-xs flex items-center gap-1.5 font-medium px-2.5 py-1 rounded bg-white/10 border border-white/10">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] tracking-wide text-slate-200 uppercase font-semibold">Live Carousel</span>
+            <span className="text-[10px] sm:text-[11px] tracking-wide text-slate-200 uppercase font-semibold">Live Reel</span>
           </div>
-          <div className="hidden sm:flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => scroll('left')}
-              className="w-8 h-8 rounded bg-[#0a2e4a] hover:bg-[#144c77] border border-white/20 text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded bg-[#0a2e4a] hover:bg-[#144c77] active:bg-[#061726] border border-white/20 text-white flex items-center justify-center transition-colors min-h-[36px] min-w-[36px]"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="w-8 h-8 rounded bg-[#0a2e4a] hover:bg-[#144c77] border border-white/20 text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded bg-[#0a2e4a] hover:bg-[#144c77] active:bg-[#061726] border border-white/20 text-white flex items-center justify-center transition-colors min-h-[36px] min-w-[36px]"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-4 h-4" />
@@ -102,16 +103,20 @@ export default function LiveCampusReel() {
         </div>
       </div>
 
-      {/* Infinite Moving Marquee with manual scroll capability */}
+      {/* Infinite Moving Marquee with manual scroll capability & hold to pause */}
       <div 
         ref={scrollRef}
-        className="relative w-full overflow-x-auto no-scrollbar mask-gradient-x select-none"
+        className="relative w-full max-w-full overflow-x-auto no-scrollbar mask-gradient-x select-none touch-pan-x"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onTouchStart={() => setIsPaused(true)}
+        onTouchEnd={() => setIsPaused(false)}
       >
-        <div className="animate-marquee flex gap-4 py-2 px-4">
+        <div className={`flex gap-3 sm:gap-4 py-2 px-4 ${isPaused ? '' : 'animate-marquee'}`}>
           {marqueeItems.map((item, idx) => (
             <div
               key={idx}
-              className="relative w-72 sm:w-80 h-48 sm:h-52 overflow-hidden shrink-0 border border-white/20 shadow-md group select-none cursor-pointer bg-[#061726]"
+              className="relative w-64 sm:w-80 h-44 sm:h-52 overflow-hidden shrink-0 border border-white/20 shadow-md group select-none cursor-pointer bg-[#061726] rounded-lg sm:rounded-none"
             >
               <img
                 src={api.getImageUrl(item.src)}
@@ -126,17 +131,17 @@ export default function LiveCampusReel() {
               
               {/* Category Tag */}
               <div className="absolute top-2.5 left-2.5">
-                <span className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-[#002B49]/90 text-white border border-white/20">
+                <span className="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider bg-[#002B49]/90 text-white border border-white/20 rounded-xs">
                   {item.category}
                 </span>
               </div>
 
               {/* Title and Info Overlay */}
-              <div className="absolute bottom-0 inset-x-0 p-3.5 bg-gradient-to-t from-[#061726]/95 to-transparent">
-                <h4 className="text-white font-serif font-bold text-xs sm:text-sm font-academic leading-tight">
+              <div className="absolute bottom-0 inset-x-0 p-3 sm:p-3.5 bg-gradient-to-t from-[#061726]/95 to-transparent">
+                <h4 className="text-white font-serif font-bold text-xs sm:text-sm font-academic leading-tight truncate">
                   {item.title}
                 </h4>
-                <p className="text-[11px] text-amber-300 font-light mt-0.5 font-sans">
+                <p className="text-[10px] sm:text-[11px] text-amber-300 font-light mt-0.5 font-sans truncate">
                   {item.malayalam}
                 </p>
               </div>

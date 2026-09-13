@@ -183,13 +183,13 @@ export default function CommitteeManager({ user }) {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-markaz-green text-xs font-bold uppercase tracking-wider mb-2">
             <UserCheck className="w-3.5 h-3.5" />
             <span>Executive Governance</span>
           </div>
-          <h1 className="text-2xl font-black text-markaz-blue">Leadership Committee</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-markaz-blue">Leadership Committee</h1>
           <p className="text-xs text-slate-500 mt-1">
             Manage the President, General Secretary, and Finance Secretary displayed on the public website.
           </p>
@@ -198,7 +198,7 @@ export default function CommitteeManager({ user }) {
         {user?.role !== 'viewer' && (
           <button
             onClick={handleOpenAdd}
-            className="flex items-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-markaz-green/20 transition-all self-start sm:self-auto"
+            className="flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark active:scale-95 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-markaz-green/20 transition-all w-full sm:w-auto min-h-[44px] touch-manipulation"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Add Committee Member</span>
