@@ -522,7 +522,7 @@ export default function StudentTrackerView({ user }) {
                 </label>
                 <input
                   type="email"
-                  placeholder="student@koyyammarkaz.org"
+                  placeholder="student@koyyammarkaz.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-xs focus:outline-none min-h-[44px]"

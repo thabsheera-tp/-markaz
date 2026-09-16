@@ -500,7 +500,7 @@ export default function CommitteeManager({ user }) {
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="office@koyyammarkaz.org"
+                    placeholder="office@koyyammarkaz.com"
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-markaz-green"
                   />
                 </div>

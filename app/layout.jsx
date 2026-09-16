@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://koyyammarkaz.org'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://koyyammarkaz.com'),
   title: 'Koyyam Markaz | MARKAZU DA-WATHIL ISLAMIYYA',
   description: 'Premier Islamic Institution in Koyyam providing authentic knowledge, spiritual guidance, and contemporary academic excellence.',
   keywords: ['Koyyam Markaz', 'Islamic Institution', 'Hifz', 'Dawa', 'Education', 'Kerala Islamic Education'],
@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: 'Koyyam Markaz | MARKAZU DA-WATHIL ISLAMIYYA',
     description: 'Premier Islamic Institution in Koyyam providing authentic knowledge, spiritual guidance, and contemporary academic excellence.',
-    url: 'https://koyyammarkaz.org',
+    url: 'https://koyyammarkaz.com',
     siteName: 'Koyyam Markaz',
     images: [
       {

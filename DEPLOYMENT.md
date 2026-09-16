@@ -64,8 +64,8 @@ Access the **Admin Portal** at `/admin` (or click **Admin Portal** in the websit
 
 | Role | Email | Initial Setup | Permissions |
 | :--- | :--- | :--- | :--- |
-| **Super Admin** | `admin@koyyammarkaz.org` | Configured on initial setup/seed | Full access (leadership, donations, settings, user management) |
-| **Content Editor** | `editor@koyyammarkaz.org` | Configured on initial setup/seed | Edit slides, announcements, institutions, about text, etc. |
-| **Read-Only Auditor**| `viewer@koyyammarkaz.org` | Configured on initial setup/seed | View donation logs, financial reports, students (cannot edit) |
+| **Super Admin** | `admin@koyyammarkaz.com` | Configured on initial setup/seed | Full access (leadership, donations, settings, user management) |
+| **Content Editor** | `editor@koyyammarkaz.com` | Configured on initial setup/seed | Edit slides, announcements, institutions, about text, etc. |
+| **Read-Only Auditor**| `viewer@koyyammarkaz.com` | Configured on initial setup/seed | View donation logs, financial reports, students (cannot edit) |
 
 > 💡 *Always change any default passwords immediately via **Admin Portal → User Management** or set strong custom passwords in your initial seed before deployment.*

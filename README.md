@@ -91,9 +91,9 @@ The database comes pre-seeded with 3 administrative tiers:
 
 | Role | Email | Password | Access Rights |
 | :--- | :--- | :--- | :--- |
-| **Super Admin** | `admin@koyyammarkaz.org` | `Admin@123` | Full control, User Management, Danger Zone purge |
-| **Editor** | `editor@koyyammarkaz.org` | `Editor@123` | Content CRUD, recording donations & enrolling students |
-| **Viewer** | `viewer@koyyammarkaz.org` | `Viewer@123` | Read-only analytics & tracker inspection |
+| **Super Admin** | `admin@koyyammarkaz.com` | `Admin@123` | Full control, User Management, Danger Zone purge |
+| **Editor** | `editor@koyyammarkaz.com` | `Editor@123` | Content CRUD, recording donations & enrolling students |
+| **Viewer** | `viewer@koyyammarkaz.com` | `Viewer@123` | Read-only analytics & tracker inspection |
 
 > **Note**: In the Admin Login page, convenient **1-Click Demo Buttons** are provided to test all three roles instantly.
 
@@ -134,7 +134,7 @@ npm run dev
 
 To prepare the application for real live operational deployment:
 
-1. **Login as Super Admin** (`admin@koyyammarkaz.org` / `Admin@123`).
+1. **Login as Super Admin** (`admin@koyyammarkaz.com` / `Admin@123`).
 2. Navigate to the **"Danger Zone"** section on the sidebar.
 3. Click **"Clear All Donations"**:
    - This purges all test donation records from the database.

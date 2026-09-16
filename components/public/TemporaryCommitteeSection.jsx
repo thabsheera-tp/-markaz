@@ -14,7 +14,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
       role_type: 'president',
       photo_url: '/uploads/full.jpeg',
       phone: '',
-      email: 'president@koyyammarkaz.org',
+      email: 'president@koyyammarkaz.com',
       term_period: '2024–Present',
       bio: 'Leading the spiritual, institutional, and humanitarian vision of Markazu Da-wathil Islamiyya Koyyam.'
     },
@@ -25,7 +25,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
       role_type: 'secretary',
       photo_url: '/uploads/dars.jpeg',
       phone: '+91 9400304426',
-      email: 'secretary@koyyammarkaz.org',
+      email: 'secretary@koyyammarkaz.com',
       term_period: '2024–Present',
       bio: 'Directing academic administration, scholarly circles, staff coordination, and operational affairs.'
     },
@@ -36,7 +36,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
       role_type: 'finance_secretary',
       photo_url: '/uploads/markaz.jpeg',
       phone: '+91 9847654321',
-      email: 'finance@koyyammarkaz.org',
+      email: 'finance@koyyammarkaz.com',
       term_period: '2024–Present',
       bio: 'Overseeing transparent financial governance, donor accountability, and student welfare endowments.'
     }

@@ -186,8 +186,8 @@ export default function Footer({ footerData, onNavigateToAdmin }) {
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-blue-300 shrink-0" />
-                <a href={`mailto:${footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}`} className="py-1 hover:text-white transition-colors truncate">
-                  {footerData?.email?.split(',')[0] || 'info@koyyammarkaz.org'}
+                <a href={`mailto:${footerData?.email?.split(',')[0] || 'info@koyyammarkaz.com'}`} className="py-1 hover:text-white transition-colors truncate">
+                  {footerData?.email?.split(',')[0] || 'info@koyyammarkaz.com'}
                 </a>
               </li>
               <li className="pt-2">

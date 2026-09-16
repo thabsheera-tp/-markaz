@@ -88,7 +88,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
                 <input
                   type="email"
                   required
-                  placeholder="admin@koyyammarkaz.org"
+                  placeholder="admin@koyyammarkaz.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 sm:py-3.5 rounded-xl bg-slate-900/80 border border-white/15 focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 focus:outline-none text-base sm:text-sm text-white placeholder-slate-500 transition-all min-h-[46px]"
@@ -144,7 +144,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
             <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
-                onClick={() => handleQuickFill('testadmin@koyyammarkaz.org', 'TestAdmin@123')}
+                onClick={() => handleQuickFill('testadmin@koyyammarkaz.com', 'TestAdmin@123')}
                 className="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/40 active:scale-95 text-left transition-all group touch-manipulation"
               >
                 <div className="text-[11px] font-black text-white group-hover:text-emerald-300">ADMIN</div>
@@ -154,7 +154,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
               
               <button
                 type="button"
-                onClick={() => handleQuickFill('testeditor@koyyammarkaz.org', 'TestEditor@123')}
+                onClick={() => handleQuickFill('testeditor@koyyammarkaz.com', 'TestEditor@123')}
                 className="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] hover:bg-blue-500/10 border border-white/10 hover:border-blue-500/40 active:scale-95 text-left transition-all group touch-manipulation"
               >
                 <div className="text-[11px] font-black text-white group-hover:text-blue-300">EDITOR</div>
@@ -164,7 +164,7 @@ export default function AdminLogin({ onLoginSuccess, onBackToPublic }) {
 
               <button
                 type="button"
-                onClick={() => handleQuickFill('testviewer@koyyammarkaz.org', 'TestViewer@123')}
+                onClick={() => handleQuickFill('testviewer@koyyammarkaz.com', 'TestViewer@123')}
                 className="p-2 sm:p-2.5 rounded-xl bg-white/[0.04] hover:bg-amber-500/10 border border-white/10 hover:border-amber-500/40 active:scale-95 text-left transition-all group touch-manipulation"
               >
                 <div className="text-[11px] font-black text-white group-hover:text-amber-300">VIEWER</div>

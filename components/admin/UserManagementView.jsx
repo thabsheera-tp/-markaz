@@ -248,7 +248,7 @@ export default function UserManagementView({ currentUser }) {
                 <input
                   type="email"
                   required
-                  placeholder="rasheed@koyyammarkaz.org"
+                  placeholder="rasheed@koyyammarkaz.com"
                   value={newUserData.email}
                   onChange={(e) => setNewUserData({ ...newUserData, email: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none"
