@@ -3,13 +3,13 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { query } from '@/lib/db';
 import { JWT_SECRET, logActivity, getClientIp } from '@/lib/auth';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { checkRateLimit, resetRateLimit } from '@/lib/rate-limit';
 
 export async function POST(req) {
   try {
     const ip = getClientIp(req);
-    // Rate limit: 5 login attempts per 15 minutes per IP
-    const rateLimit = await checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
+    // Rate limit: 15 login attempts per 15 minutes per IP
+    const rateLimit = await checkRateLimit(`login:${ip}`, 15, 15 * 60 * 1000);
     if (!rateLimit.success) {
       return NextResponse.json(
         { error: 'Too many failed login attempts. Please try again after 15 minutes.' },
@@ -32,6 +32,9 @@ export async function POST(req) {
     if (!isValid) {
       return NextResponse.json({ error: 'Invalid email or password.' }, { status: 401 });
     }
+
+    // Reset rate limiter on successful authentication
+    await resetRateLimit(`login:${ip}`);
 
     const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
     await query.run('UPDATE users SET last_login = ? WHERE id = ?', [now, user.id]);
