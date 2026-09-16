@@ -24,8 +24,10 @@ data/*.db-wal
 data/*.db-shm
 *.db-journal
 *.db-wal
-*.db-shm
-g
+# Raw image backups
+*-original.*
+public/*-original.*
+
 # Dynamic uploads (exclude runtime uploads, keep static defaults)
 public/uploads/upload-*
 

@@ -1,12 +1,36 @@
 import './globals.css';
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://koyyammarkaz.org'),
   title: 'Koyyam Markaz | MARKAZU DA-WATHIL ISLAMIYYA',
   description: 'Premier Islamic Institution in Koyyam providing authentic knowledge, spiritual guidance, and contemporary academic excellence.',
   keywords: ['Koyyam Markaz', 'Islamic Institution', 'Hifz', 'Dawa', 'Education', 'Kerala Islamic Education'],
   icons: {
-    icon: '/uploads/markaz-logo.png',
-  }
+    icon: '/markaz-logo.png',
+    apple: '/markaz-logo.png',
+  },
+  openGraph: {
+    title: 'Koyyam Markaz | MARKAZU DA-WATHIL ISLAMIYYA',
+    description: 'Premier Islamic Institution in Koyyam providing authentic knowledge, spiritual guidance, and contemporary academic excellence.',
+    url: 'https://koyyammarkaz.org',
+    siteName: 'Koyyam Markaz',
+    images: [
+      {
+        url: '/markaz.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Koyyam Markaz Campus',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Koyyam Markaz | MARKAZU DA-WATHIL ISLAMIYYA',
+    description: 'Premier Islamic Institution in Koyyam providing authentic knowledge, spiritual guidance, and contemporary academic excellence.',
+    images: ['/markaz.jpeg'],
+  },
 };
 
 export const viewport = {

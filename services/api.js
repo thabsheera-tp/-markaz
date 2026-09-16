@@ -43,7 +43,6 @@ export const api = {
     return handleResponse(res);
   },
 
-  // Auth
   async login(email, password) {
     const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: 'POST',
@@ -51,6 +50,14 @@ export const api = {
       body: JSON.stringify({ email, password })
     });
     return handleResponse(res);
+  },
+
+  async logout() {
+    try {
+      await fetch(`${API_BASE}/api/auth/logout`, { method: 'POST' });
+    } catch (e) {
+      // Ignore network errors on logout
+    }
   },
 
   async getMe() {
@@ -143,11 +150,6 @@ export const api = {
       headers: getAuthHeaders()
     });
     return handleResponse(res);
-  },
-
-  getDonationsCsvUrl() {
-    const token = localStorage.getItem('markaz_token');
-    return `${API_BASE}/api/admin/donations/export/csv?token=${token}`;
   },
 
   async exportDonationsCsv() {

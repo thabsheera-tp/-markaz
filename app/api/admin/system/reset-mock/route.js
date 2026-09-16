@@ -10,6 +10,12 @@ export async function POST(req) {
     const roleErr = checkRole(auth.user, ['admin']);
     if (roleErr) return NextResponse.json({ error: roleErr.error }, { status: roleErr.status });
 
+    if (process.env.NODE_ENV === 'production' && req.headers.get('x-confirm-destructive') !== 'CONFIRM_RESET') {
+      return NextResponse.json({
+        error: 'Database mock reset is disabled in production to protect real institutional data.'
+      }, { status: 403 });
+    }
+
     await seedDatabase(true);
 
     const ip = getClientIp(req);

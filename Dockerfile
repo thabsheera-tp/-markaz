@@ -6,13 +6,13 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Install build dependencies for native modules (sqlite3)
-RUN apk add --no-cache python3 make g++ sqlite
+# Install basic build tools if needed
+RUN apk add --no-cache libc6-compat
 
 # Copy dependency manifests
 COPY package.json package-lock.json ./
 
-# Install all dependencies including native build
+# Install dependencies
 RUN npm ci
 
 # Copy project files
@@ -24,7 +24,7 @@ RUN npm run build
 # Expose port
 EXPOSE 3000
 
-# Ensure data and uploads directories exist
-RUN mkdir -p data public/uploads
+# Ensure uploads directory exists
+RUN mkdir -p public/uploads
 
 CMD ["npm", "start"]

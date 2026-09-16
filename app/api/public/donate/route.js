@@ -1,10 +1,19 @@
 import { NextResponse } from 'next/server';
-import { query, initDb } from '@/lib/db';
+import { query } from '@/lib/db';
 import { logActivity, getClientIp } from '@/lib/auth';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 export async function POST(req) {
   try {
-    await initDb();
+    const ip = getClientIp(req);
+    const rateLimit = await checkRateLimit(`donate:${ip}`, 10, 10 * 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: 'Too many donation submissions from this IP. Please try again shortly.' },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const { donor_name, donor_phone, amount, payment_method, upi_transaction_id, prayer_request } = body;
 
@@ -14,7 +23,8 @@ export async function POST(req) {
     }
 
     const method = payment_method || 'UPI';
-    const status = upi_transaction_id ? 'Completed' : 'Pending';
+    // For manual UPI / Bank QR transfers, default to Pending until admin verifies reference in bank account
+    const status = 'Pending';
     const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
 
     const result = await query.run(
@@ -33,7 +43,6 @@ export async function POST(req) {
       ]
     );
 
-    const ip = getClientIp(req);
     await logActivity(
       null,
       donor_name?.trim() || 'Anonymous Donor',

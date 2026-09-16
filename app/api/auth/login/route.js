@@ -1,12 +1,22 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { query, initDb } from '@/lib/db';
+import { query } from '@/lib/db';
 import { JWT_SECRET, logActivity, getClientIp } from '@/lib/auth';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 export async function POST(req) {
   try {
-    await initDb();
+    const ip = getClientIp(req);
+    // Rate limit: 5 login attempts per 15 minutes per IP
+    const rateLimit = await checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        { error: 'Too many failed login attempts. Please try again after 15 minutes.' },
+        { status: 429 }
+      );
+    }
+
     const { email, password } = await req.json();
 
     if (!email || !password) {
@@ -32,10 +42,9 @@ export async function POST(req) {
       { expiresIn: '7d' }
     );
 
-    const ip = getClientIp(req);
     await logActivity(user.id, user.name, 'Admin Login', `Logged in successfully from ${ip}`, ip);
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       token,
       user: {
         id: user.id,
@@ -45,6 +54,17 @@ export async function POST(req) {
         last_login: now
       }
     });
+
+    // Set secure HttpOnly cookie for production session protection
+    response.cookies.set('markaz_token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60, // 7 days
+    });
+
+    return response;
   } catch (err) {
     console.error('Login error:', err);
     return NextResponse.json({ error: 'Server error during authentication.' }, { status: 500 });

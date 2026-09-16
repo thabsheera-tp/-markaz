@@ -714,10 +714,14 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     <span className="text-slate-500">Method:</span>
                     <span className="font-medium text-slate-700">{receipt.payment_method}</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <span className="text-slate-500">Status:</span>
-                    <span className="font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                      {receipt.status}
+                    <span className={`font-bold px-2.5 py-0.5 rounded-full border ${
+                      receipt.status === 'Completed'
+                        ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                        : 'text-amber-700 bg-amber-50 border-amber-200'
+                    }`}>
+                      {receipt.status === 'Completed' ? 'Completed' : 'Pending Verification'}
                     </span>
                   </div>
                   <div className="flex justify-between">

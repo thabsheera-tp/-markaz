@@ -182,6 +182,7 @@ export default function AdminPage() {
   };
 
   const handleLogout = () => {
+    api.logout();
     if (typeof window !== 'undefined') {
       localStorage.removeItem('markaz_token');
       localStorage.removeItem('markaz_user');

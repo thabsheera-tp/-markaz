@@ -30,13 +30,22 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Only image files (JPEG, PNG, WebP, SVG, GIF) are allowed.' }, { status: 400 });
     }
 
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB limit
+    if (file.size && file.size > MAX_FILE_SIZE) {
+      return NextResponse.json({ error: 'Image size exceeds maximum allowed limit (5MB).' }, { status: 400 });
+    }
+
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const filename = `upload-${uniqueSuffix}${ext}`;
     const buffer = Buffer.from(await file.arrayBuffer());
 
+    if (buffer.length > MAX_FILE_SIZE) {
+      return NextResponse.json({ error: 'Image size exceeds maximum allowed limit (5MB).' }, { status: 400 });
+    }
+
     // 1. Try uploading to Supabase Storage (Production / Vercel / Cloud CDN)
-    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qlfaysbmmgspifkovyox.supabase.co';
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZmF5c2JtbWdzcGlma292eW94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NDc3NDIsImV4cCI6MjEwNDQyMzc0Mn0.lYNBpav3HKenOLF3Aah6i8nkxARgUU35Z2wk9xRGNVA';
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
     if (supabaseUrl && supabaseKey) {
       try {

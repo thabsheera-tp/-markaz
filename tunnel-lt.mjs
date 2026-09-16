@@ -3,8 +3,8 @@ import fs from 'fs';
 
 (async () => {
   try {
-    console.log('Connecting localtunnel to port 5173...');
-    const tunnel = await localtunnel({ port: 5173 });
+    console.log('Connecting localtunnel to port 3000...');
+    const tunnel = await localtunnel({ port: 3000 });
     console.log('==============================================');
     console.log('PUBLIC TEMPORARY LINK: ' + tunnel.url);
     console.log('==============================================');

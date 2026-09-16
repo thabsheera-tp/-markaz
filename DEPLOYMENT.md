@@ -27,11 +27,11 @@ In the Vercel project configuration page (under **Environment Variables**), add 
 
 | Key | Value | Description |
 | :--- | :--- | :--- |
-| `DATABASE_URL` | `postgresql://markaz_user.qlfaysbmmgspifkovyox:KoyyamMarkaz2026Secure!@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require` | Connection pooler for Serverless |
-| `DIRECT_URL` | `postgresql://markaz_user:KoyyamMarkaz2026Secure!@db.qlfaysbmmgspifkovyox.supabase.co:5432/postgres?sslmode=require` | Direct connection fallback |
-| `SUPABASE_URL` | `https://qlfaysbmmgspifkovyox.supabase.co` | Supabase project URL |
-| `SUPABASE_ANON_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsZmF5c2JtbWdzcGlma292eW94Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NDc3NDIsImV4cCI6MjEwNDQyMzc0Mn0.lYNBpav3HKenOLF3Aah6i8nkxARgUU35Z2wk9xRGNVA` | Supabase public anon key |
-| `JWT_SECRET` | `koyyam_markaz_super_secret_jwt_key_2026_production_safe` | Secure session secret key |
+| `DATABASE_URL` | `postgresql://<username>:<password>@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres?sslmode=require` | Connection pooler for Serverless |
+| `DIRECT_URL` | `postgresql://<username>:<password>@db.<project-ref>.supabase.co:5432/postgres?sslmode=require` | Direct connection fallback |
+| `SUPABASE_URL` | `https://<project-ref>.supabase.co` | Supabase project URL |
+| `SUPABASE_ANON_KEY` | `<your-supabase-anon-key>` | Supabase public anon key |
+| `JWT_SECRET` | `<generate-a-strong-random-32-char-secret>` | Secure session secret key |
 | `NODE_ENV` | `production` | Production environment |
 
 ### Step 4: Click Deploy
@@ -62,10 +62,10 @@ If you prefer hosting on your own Linux VPS (Hostinger, DigitalOcean, Hetzner, A
 
 Access the **Admin Portal** at `/admin` (or click **Admin Portal** in the website header):
 
-| Role | Email | Password | Permissions |
+| Role | Email | Initial Setup | Permissions |
 | :--- | :--- | :--- | :--- |
-| **Super Admin** | `admin@koyyammarkaz.org` | `Admin@123` | Full access (leadership, donations, settings, user management) |
-| **Content Editor** | `editor@koyyammarkaz.org` | `Editor@123` | Edit slides, announcements, institutions, about text, etc. |
-| **Read-Only Auditor**| `viewer@koyyammarkaz.org` | `Viewer@123` | View donation logs, financial reports, students (cannot edit) |
+| **Super Admin** | `admin@koyyammarkaz.org` | Configured on initial setup/seed | Full access (leadership, donations, settings, user management) |
+| **Content Editor** | `editor@koyyammarkaz.org` | Configured on initial setup/seed | Edit slides, announcements, institutions, about text, etc. |
+| **Read-Only Auditor**| `viewer@koyyammarkaz.org` | Configured on initial setup/seed | View donation logs, financial reports, students (cannot edit) |
 
-> 💡 *You can create additional staff accounts or change any password anytime from inside the Admin Portal under **Admin Portal → User Management**.*
+> 💡 *Always change any default passwords immediately via **Admin Portal → User Management** or set strong custom passwords in your initial seed before deployment.*

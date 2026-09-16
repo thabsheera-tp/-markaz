@@ -10,6 +10,12 @@ export async function POST(req) {
     const roleErr = checkRole(auth.user, ['admin']);
     if (roleErr) return NextResponse.json({ error: roleErr.error }, { status: roleErr.status });
 
+    if (process.env.NODE_ENV === 'production' && req.headers.get('x-confirm-destructive') !== 'CONFIRM_CLEAR') {
+      return NextResponse.json({
+        error: 'Clearing all donations is locked in production. Manual confirmation required.'
+      }, { status: 403 });
+    }
+
     await query.run('DELETE FROM donations');
 
     const ip = getClientIp(req);

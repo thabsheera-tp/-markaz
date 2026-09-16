@@ -1,24 +1,17 @@
 import { NextResponse } from 'next/server';
-import jwt from 'jsonwebtoken';
 import { query } from '@/lib/db';
-import { JWT_SECRET } from '@/lib/auth';
+import { verifyAuth, checkRole } from '@/lib/auth';
 
 export async function GET(req) {
   try {
-    const authHeader = req.headers.get('authorization');
-    const headerToken = authHeader && authHeader.split(' ')[1];
-    const { searchParams } = new URL(req.url);
-    const queryToken = searchParams.get('token');
-    const token = headerToken || queryToken;
-
-    if (!token) {
-      return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
+    const auth = verifyAuth(req);
+    if (auth.error) {
+      return NextResponse.json({ error: auth.error }, { status: auth.status });
     }
 
-    try {
-      jwt.verify(token, JWT_SECRET);
-    } catch {
-      return NextResponse.json({ error: 'Invalid or expired token.' }, { status: 403 });
+    const roleErr = checkRole(auth.user, ['admin', 'editor', 'viewer']);
+    if (roleErr) {
+      return NextResponse.json({ error: roleErr.error }, { status: roleErr.status });
     }
 
     const donations = await query.all('SELECT * FROM donations ORDER BY date DESC');

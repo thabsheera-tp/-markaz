@@ -3,7 +3,7 @@ import fs from 'fs';
 
 async function main() {
   try {
-    console.log('Starting Cloudflare Tunnel via untun for port 5173...');
+    console.log('Starting Cloudflare Tunnel via untun for port 3000...');
     const tunnel = await startTunnel({ port: 3000 });
     const url = await tunnel.getURL();
     console.log('==============================================');

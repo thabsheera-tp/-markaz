@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
-import { query, initDb } from '@/lib/db';
+import { query } from '@/lib/db';
 
 export async function GET() {
   try {
-    await initDb();
 
     const heroSlides = await query.all(
       'SELECT id, image_url, title, subtitle, button_text, button_link, order_num FROM hero_slides WHERE is_active = 1 ORDER BY order_num ASC, id ASC'
