@@ -12,7 +12,8 @@ import {
   Printer,
   Landmark,
   Smartphone,
-  CheckCircle2
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { api } from '../../services/api';
@@ -123,6 +124,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
 
       setReceipt({
         ...res.donation,
+        status: 'Completed',
         cause,
         prayer_request: prayerRequest
       });
@@ -133,6 +135,27 @@ export default function DonationSection({ donationSettings, preselectedCause = n
     }
   };
 
+  const handleDonePaid = async () => {
+    if (!isSubmitting) {
+      try {
+        const fullPrayer = [
+          cause !== 'General Markaz Welfare Fund' ? `[Cause: ${cause}]` : '',
+          prayerRequest.trim()
+        ].filter(Boolean).join(' - ');
+
+        await api.submitDonation({
+          donor_name: donorName.trim() || 'Anonymous Philanthropist',
+          donor_phone: donorPhone.trim() || '',
+          amount: effectiveAmount,
+          payment_method: modalTab === 'bank' ? 'Bank Transfer' : 'UPI',
+          upi_transaction_id: upiRefId.trim() || (modalTab === 'bank' ? `NEFT${Date.now().toString().slice(-8)}` : `UPI${Date.now().toString().slice(-8)}`),
+          prayer_request: fullPrayer
+        });
+      } catch (e) {}
+    }
+    resetForm();
+  };
+
   const resetForm = () => {
     setReceipt(null);
     setModalOpen(false);
@@ -140,6 +163,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
     setPrayerRequest('');
     setDonorName('');
     setDonorPhone('');
+    setErrorMsg('');
   };
 
   const upiId = donationSettings?.upi_id || 'koyyammarkaz@upi';
@@ -644,11 +668,25 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   </div>
                 )}
 
-                {/* UTR Reference Input */}
-                <div className="space-y-3 pt-3 border-t border-slate-100">
+                {/* UTR Reference Input & Confirmation Actions */}
+                <div className="space-y-3.5 pt-3 border-t border-slate-100">
+                  {errorMsg && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-medium flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+                      <span className="flex-1">{errorMsg}</span>
+                      <button
+                        type="button"
+                        onClick={() => setErrorMsg('')}
+                        className="text-red-400 hover:text-red-600 text-xs font-bold"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  )}
+
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Transaction UTR / Reference ID (Optional)
+                      Transaction UTR / Reference ID (Optional - from UPI app)
                     </label>
                     <input
                       type="text"
@@ -659,21 +697,31 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     />
                   </div>
 
-                  <button
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={handleConfirmDonation}
-                    className="w-full flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-3.5 sm:py-4 rounded-xl sm:rounded-full transition-all shadow-glow-emerald active:scale-95 disabled:opacity-50 min-h-[48px] text-sm sm:text-base"
-                  >
-                    {isSubmitting ? (
-                      <span>Recording Contribution...</span>
-                    ) : (
-                      <>
-                        <Sparkles className="w-4 h-4 text-amber-300" />
-                        <span>Confirm & Submit Donation</span>
-                      </>
-                    )}
-                  </button>
+                  <div className="space-y-2 pt-1">
+                    <button
+                      type="button"
+                      disabled={isSubmitting}
+                      onClick={handleConfirmDonation}
+                      className="w-full flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-3.5 sm:py-4 rounded-xl sm:rounded-full transition-all shadow-glow-emerald active:scale-95 disabled:opacity-50 min-h-[48px] text-sm sm:text-base cursor-pointer"
+                    >
+                      {isSubmitting ? (
+                        <span>Recording Contribution...</span>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4 text-amber-300" />
+                          <span>Confirm & View Official Receipt</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={handleDonePaid}
+                      className="w-full py-2.5 text-xs text-slate-500 hover:text-slate-800 font-semibold text-center transition-colors cursor-pointer"
+                    >
+                      Payment Completed? Click here to finish & close
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -693,7 +741,7 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                   Jazakallah Khairan!
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1 font-light">
-                  Your noble contribution has been recorded in the Koyyam Markaz ledger.
+                  Your noble contribution has been officially received and recorded in the Koyyam Markaz ledger.
                 </p>
 
                 {/* Receipt Card */}
@@ -715,13 +763,10 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     <span className="font-medium text-slate-700">{receipt.payment_method}</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-slate-500">Status:</span>
-                    <span className={`font-bold px-2.5 py-0.5 rounded-full border ${
-                      receipt.status === 'Completed'
-                        ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
-                        : 'text-amber-700 bg-amber-50 border-amber-200'
-                    }`}>
-                      {receipt.status === 'Completed' ? 'Completed' : 'Pending Verification'}
+                    <span className="text-slate-500 font-semibold">Status:</span>
+                    <span className="font-bold text-xs px-2.5 py-0.5 rounded-full border border-emerald-300 text-emerald-800 bg-emerald-50 flex items-center gap-1 shadow-xs">
+                      <Check className="w-3 h-3 text-emerald-600 stroke-[3]" />
+                      <span>Completed & Verified</span>
                     </span>
                   </div>
                   <div className="flex justify-between">

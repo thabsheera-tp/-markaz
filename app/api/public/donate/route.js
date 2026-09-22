@@ -23,8 +23,8 @@ export async function POST(req) {
     }
 
     const method = payment_method || 'UPI';
-    // For manual UPI / Bank QR transfers, default to Pending until admin verifies reference in bank account
-    const status = 'Pending';
+    // Contribution is directly confirmed and recorded into the Markaz ledger
+    const status = 'Completed';
     const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
 
     const result = await query.run(

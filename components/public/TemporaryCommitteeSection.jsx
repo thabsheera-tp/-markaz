@@ -65,10 +65,10 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
           {displayMembers.map((member) => (
             <div
               key={member.id}
-              className="bg-white border border-slate-200 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col group rounded-xl sm:rounded-none overflow-hidden"
+              className="bg-white border border-slate-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col group rounded-2xl overflow-hidden"
             >
-              {/* Profile Photo Frame */}
-              <div className="relative h-56 sm:h-64 overflow-hidden bg-slate-100">
+              {/* Profile Photo Frame - 4:5 Portrait Aspect Ratio for balanced, dignified scholar portraits */}
+              <div className="relative aspect-[4/5] overflow-hidden bg-slate-100">
                 <img
                   src={api.getImageUrl(member.photo_url || '/uploads/markaz.jpeg')}
                   alt={member.name}
@@ -76,19 +76,21 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
                   onError={(e) => {
                     e.currentTarget.src = '/uploads/markaz.jpeg';
                   }}
-                  className="w-full h-full object-cover object-top group-hover:scale-103 transition-transform duration-500"
+                  className="w-full h-full object-cover object-top group-hover:scale-104 transition-transform duration-500 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#061726]/80 via-transparent to-transparent" />
+                {/* Gentle bottom-only gradient so faces are never obscured */}
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#061726]/90 via-[#061726]/30 to-transparent pointer-events-none" />
                 
-                <div className="absolute bottom-3 left-3 sm:left-4 right-3 sm:right-4">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-amber-300 bg-[#002B49]/90 px-2.5 py-1 border border-white/20 inline-block rounded-xs">
+                <div className="absolute bottom-3 left-3 sm:left-4 right-3 sm:right-4 pointer-events-none">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-amber-300 bg-[#002B49]/95 px-3 py-1 border border-white/20 inline-flex items-center gap-1.5 rounded-full shadow-md backdrop-blur-xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                     {member.designation?.split('(')[0]?.trim() || 'Executive Member'}
                   </span>
                 </div>
               </div>
 
               {/* Member Details */}
-              <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
+              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 className="text-base sm:text-lg font-serif font-academic font-bold text-[#061726] leading-snug">
                     {member.name}
@@ -105,7 +107,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
                   {member.phone ? (
                     <a
                       href={`tel:${member.phone.replace(/[^0-9+]/g, '')}`}
-                      className="text-[#004B87] hover:text-[#002B49] font-semibold flex items-center gap-1.5 py-1 px-2 rounded-lg bg-blue-50/70 sm:bg-transparent min-h-[36px]"
+                      className="text-[#004B87] hover:text-[#002B49] font-semibold flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-blue-50/70 hover:bg-blue-100/70 transition-colors min-h-[36px]"
                     >
                       <Phone className="w-3.5 h-3.5 shrink-0" />
                       <span className="text-xs">{member.phone}</span>
@@ -128,7 +130,7 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
         {/* Member Bio Modal */}
         {activeModalMember && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white max-w-lg w-full border border-slate-200 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="bg-white max-w-lg w-full rounded-2xl border border-slate-200 shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
               <div className="bg-[#002B49] text-white px-6 py-4 flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-blue-200">
                   Leadership Profile
@@ -142,11 +144,11 @@ export default function TemporaryCommitteeSection({ committee = [] }) {
               </div>
 
               <div className="p-6 sm:p-8 space-y-4 text-center">
-                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto border-2 border-[#004B87] shadow-sm">
+                <div className="w-36 h-44 sm:w-40 sm:h-48 rounded-2xl overflow-hidden mx-auto border-2 border-[#004B87]/30 shadow-md bg-slate-100">
                   <img
                     src={api.getImageUrl(activeModalMember.photo_url || '/uploads/markaz.jpeg')}
                     alt={activeModalMember.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
                 <div>
