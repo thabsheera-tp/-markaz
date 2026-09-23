@@ -13,7 +13,8 @@ import {
   Landmark,
   Smartphone,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Clock
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { api } from '../../services/api';
@@ -94,10 +95,37 @@ export default function DonationSection({ donationSettings, preselectedCause = n
     setTimeout(() => setCopiedField(''), 2500);
   };
 
-  const handleConfirmDonation = async () => {
+  const buildWhatsAppMessage = (refId) => {
+    const trackingId = refId ? `#KM-${refId}` : (receipt?.id ? `#KM-${receipt.id}` : '');
+    return [
+      `Assalamu Alaikum,`,
+      `I have transferred a contribution of ₹${effectiveAmount.toLocaleString('en-IN')} to Markazu Da-wathil Islamiyya, Koyyam via ${modalTab === 'bank' ? 'Federal Bank Transfer' : 'UPI / Google Pay'}.`,
+      ``,
+      `*Contribution Details:*`,
+      `• Donor Name: ${donorName.trim() || 'Anonymous Philanthropist'}`,
+      donorPhone.trim() ? `• Contact Phone: ${donorPhone.trim()}` : null,
+      `• Cause: ${cause}`,
+      upiRefId.trim() ? `• UTR / Transaction ID: ${upiRefId.trim()}` : null,
+      trackingId ? `• Reference ID: ${trackingId}` : null,
+      prayerRequest.trim() ? `• Dua / Niyyah: ${prayerRequest.trim()}` : null,
+      ``,
+      `📎 Please find my payment confirmation screenshot attached for verification and official receipt. Jazakallah Khairan.`
+    ].filter(Boolean).join('\n');
+  };
+
+  const openWhatsAppChat = (refId) => {
+    const rawNum = donationSettings?.google_pay_number || '9400304426';
+    const cleanNum = rawNum.replace(/\D/g, '');
+    const waPhone = cleanNum.length === 10 ? `91${cleanNum}` : (cleanNum || '919400304426');
+    const msg = buildWhatsAppMessage(refId);
+    window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSendWhatsAppProof = async () => {
     setIsSubmitting(true);
     setErrorMsg('');
 
+    let donationId = null;
     try {
       const fullPrayer = [
         cause !== 'General Markaz Welfare Fund' ? `[Cause: ${cause}]` : '',
@@ -109,51 +137,32 @@ export default function DonationSection({ donationSettings, preselectedCause = n
         donor_phone: donorPhone.trim() || '',
         amount: effectiveAmount,
         payment_method: modalTab === 'bank' ? 'Bank Transfer' : 'UPI',
-        upi_transaction_id: upiRefId.trim() || (modalTab === 'bank' ? `NEFT${Date.now().toString().slice(-8)}` : `UPI${Date.now().toString().slice(-8)}`),
+        upi_transaction_id: upiRefId.trim() || null,
         prayer_request: fullPrayer
       });
 
-      // Fire festive celebration confetti
-      try {
-        confetti({
-          particleCount: 120,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      } catch (e) {}
-
-      setReceipt({
-        ...res.donation,
-        status: 'Completed',
-        cause,
-        prayer_request: prayerRequest
-      });
+      if (res?.donation?.id) {
+        donationId = res.donation.id;
+      }
     } catch (err) {
-      setErrorMsg(err.message || 'Failed to submit donation.');
-    } finally {
-      setIsSubmitting(false);
+      console.error('Donation record logging note:', err);
     }
-  };
 
-  const handleDonePaid = async () => {
-    if (!isSubmitting) {
-      try {
-        const fullPrayer = [
-          cause !== 'General Markaz Welfare Fund' ? `[Cause: ${cause}]` : '',
-          prayerRequest.trim()
-        ].filter(Boolean).join(' - ');
+    // Open WhatsApp prefilled with transaction details
+    openWhatsAppChat(donationId);
 
-        await api.submitDonation({
-          donor_name: donorName.trim() || 'Anonymous Philanthropist',
-          donor_phone: donorPhone.trim() || '',
-          amount: effectiveAmount,
-          payment_method: modalTab === 'bank' ? 'Bank Transfer' : 'UPI',
-          upi_transaction_id: upiRefId.trim() || (modalTab === 'bank' ? `NEFT${Date.now().toString().slice(-8)}` : `UPI${Date.now().toString().slice(-8)}`),
-          prayer_request: fullPrayer
-        });
-      } catch (e) {}
-    }
-    resetForm();
+    // Show Acknowledgment (Pending Verification)
+    setReceipt({
+      id: donationId || 'SUBMITTED',
+      donor_name: donorName.trim() || 'Anonymous Philanthropist',
+      amount: effectiveAmount,
+      payment_method: modalTab === 'bank' ? 'Bank Transfer' : 'UPI',
+      upi_transaction_id: upiRefId.trim() || null,
+      status: 'Pending Verification',
+      date: new Date().toISOString().replace('T', ' ').substring(0, 19),
+      cause
+    });
+    setIsSubmitting(false);
   };
 
   const resetForm = () => {
@@ -170,10 +179,6 @@ export default function DonationSection({ donationSettings, preselectedCause = n
   const merchantName = donationSettings?.merchant_name || 'MARKAZU DA-WATHIL ISLAMIYYA KOYYAM';
   const qrUrl = api.getImageUrl(donationSettings?.qr_code_url || '/uploads/koyyam_upi_qr.svg');
   const upiIntentUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${effectiveAmount}&cu=INR&tn=${encodeURIComponent('Donation to Koyyam Markaz')}`;
-
-  const whatsappReceiptUrl = `https://wa.me/919400304426?text=${encodeURIComponent(
-    `Assalamu Alaikum,\n\nI have transferred a contribution of ₹${effectiveAmount || 1000} to Markazu Da-wathil Islamiyya Koyyam via Federal Bank Transfer / Google Pay.\n\nDonor Name: ${donorName || 'Well-wisher'}\nCause: ${cause}\n\nPlease find the transaction confirmation.`
-  )}`;
 
   return (
     <section id="donate" className="w-full max-w-full overflow-hidden py-12 sm:py-20 lg:py-24 bg-[#f8fafc] relative border-b border-slate-200">
@@ -697,35 +702,46 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     />
                   </div>
 
+                  {/* Verification Policy Alert */}
+                  <div className="bg-amber-50/90 border border-amber-200/80 rounded-xl sm:rounded-2xl p-3 sm:p-3.5 text-xs text-amber-900 leading-relaxed flex items-start gap-2.5">
+                    <ShieldCheck className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                    <div className="text-[11px] sm:text-xs">
+                      <span className="font-bold text-amber-950">Verification Policy:</span> To guarantee transparency and avoid unverified records, official stamped receipts are issued once the transaction is matched with the Markaz bank account. Please share your payment screenshot on WhatsApp.
+                    </div>
+                  </div>
+
                   <div className="space-y-2 pt-1">
                     <button
                       type="button"
                       disabled={isSubmitting}
-                      onClick={handleConfirmDonation}
-                      className="w-full flex items-center justify-center gap-2 bg-markaz-green hover:bg-markaz-green-dark text-white font-bold py-3.5 sm:py-4 rounded-xl sm:rounded-full transition-all shadow-glow-emerald active:scale-95 disabled:opacity-50 min-h-[48px] text-sm sm:text-base cursor-pointer"
+                      onClick={handleSendWhatsAppProof}
+                      className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold py-3.5 sm:py-4 rounded-xl sm:rounded-full transition-all shadow-md active:scale-95 disabled:opacity-50 min-h-[48px] text-sm sm:text-base cursor-pointer"
                     >
                       {isSubmitting ? (
-                        <span>Recording Contribution...</span>
+                        <span>Submitting Details...</span>
                       ) : (
                         <>
-                          <Sparkles className="w-4 h-4 text-amber-300" />
-                          <span>Confirm & View Official Receipt</span>
+                          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.952 1.18-.175.2-.351.225-.652.075-.301-.15-1.271-.468-2.42-1.494-.895-.798-1.5-1.784-1.675-2.085-.175-.3-.019-.463.131-.612.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.051-.375-.025-.526-.075-.15-.676-1.63-.927-2.23-.244-.585-.492-.506-.676-.515-.175-.01-.375-.01-.576-.01s-.526.075-.801.375c-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.227 3.109.151.2 2.12 3.237 5.136 4.54.717.311 1.277.496 1.714.635.721.229 1.377.197 1.896.12.578-.087 1.782-.728 2.032-1.431.251-.703.251-1.306.175-1.431-.075-.125-.276-.2-.577-.35z"/>
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.17L2 22l4.985-1.39A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.63 0-3.14-.474-4.417-1.29l-.317-.204-2.964.827.838-2.888-.224-.337A8.156 8.156 0 0 1 3.8 12c0-4.521 3.679-8.2 8.2-8.2 4.521 0 8.2 3.679 8.2 8.2 0 4.521-3.679 8.2-8.2 8.2z"/>
+                          </svg>
+                          <span>Send Payment Proof on WhatsApp</span>
                         </>
                       )}
                     </button>
 
                     <button
                       type="button"
-                      onClick={handleDonePaid}
+                      onClick={resetForm}
                       className="w-full py-2.5 text-xs text-slate-500 hover:text-slate-800 font-semibold text-center transition-colors cursor-pointer"
                     >
-                      Payment Completed? Click here to finish & close
+                      Payment Completed? Close Window
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
-              /* Receipt View */
+              /* Acknowledgment View (Pending Verification) */
               <div className="text-center py-4">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white p-1.5 shadow-md border border-slate-100 mx-auto mb-3">
                   <img
@@ -734,20 +750,20 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-xs">
-                  <Check className="w-6 h-6 stroke-[3]" />
+                <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3 shadow-xs">
+                  <Clock className="w-6 h-6 stroke-[2.5]" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-markaz-blue">
                   Jazakallah Khairan!
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 mt-1 font-light">
-                  Your noble contribution has been officially received and recorded in the Koyyam Markaz ledger.
+                  Your contribution reference has been recorded. Our accounts office will verify the bank transaction and issue your official stamped receipt.
                 </p>
 
-                {/* Receipt Card */}
+                {/* Tracking Card */}
                 <div className="mt-5 sm:mt-6 bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 text-left space-y-2.5 text-xs">
                   <div className="flex justify-between pb-2 border-b border-slate-200">
-                    <span className="text-slate-500 font-semibold">Receipt Number:</span>
+                    <span className="text-slate-500 font-semibold">Reference ID:</span>
                     <span className="font-mono font-bold text-slate-800">#KM-{receipt.id}</span>
                   </div>
                   <div className="flex justify-between">
@@ -762,11 +778,17 @@ export default function DonationSection({ donationSettings, preselectedCause = n
                     <span className="text-slate-500">Method:</span>
                     <span className="font-medium text-slate-700">{receipt.payment_method}</span>
                   </div>
+                  {receipt.upi_transaction_id && (
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">UTR / Ref:</span>
+                      <span className="font-mono font-bold text-slate-700">{receipt.upi_transaction_id}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center">
                     <span className="text-slate-500 font-semibold">Status:</span>
-                    <span className="font-bold text-xs px-2.5 py-0.5 rounded-full border border-emerald-300 text-emerald-800 bg-emerald-50 flex items-center gap-1 shadow-xs">
-                      <Check className="w-3 h-3 text-emerald-600 stroke-[3]" />
-                      <span>Completed & Verified</span>
+                    <span className="font-bold text-xs px-2.5 py-0.5 rounded-full border border-amber-300 text-amber-800 bg-amber-50 flex items-center gap-1 shadow-xs">
+                      <Clock className="w-3 h-3 text-amber-600 stroke-[2.5]" />
+                      <span>Pending Bank Verification</span>
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -777,17 +799,20 @@ export default function DonationSection({ donationSettings, preselectedCause = n
 
                 <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
                   <button
-                    onClick={() => window.print()}
-                    className="flex-1 flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 font-semibold py-3.5 rounded-xl sm:rounded-full text-xs transition-colors min-h-[44px]"
+                    onClick={() => openWhatsAppChat(receipt.id)}
+                    className="flex-1 flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20ba5a] active:scale-95 text-white font-bold py-3.5 rounded-xl sm:rounded-full text-xs transition-colors min-h-[44px]"
                   >
-                    <Printer className="w-3.5 h-3.5" />
-                    <span>Print Receipt</span>
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.952 1.18-.175.2-.351.225-.652.075-.301-.15-1.271-.468-2.42-1.494-.895-.798-1.5-1.784-1.675-2.085-.175-.3-.019-.463.131-.612.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.051-.375-.025-.526-.075-.15-.676-1.63-.927-2.23-.244-.585-.492-.506-.676-.515-.175-.01-.375-.01-.576-.01s-.526.075-.801.375c-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.227 3.109.151.2 2.12 3.237 5.136 4.54.717.311 1.277.496 1.714.635.721.229 1.377.197 1.896.12.578-.087 1.782-.728 2.032-1.431.251-.703.251-1.306.175-1.431-.075-.125-.276-.2-.577-.35z"/>
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.17L2 22l4.985-1.39A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.63 0-3.14-.474-4.417-1.29l-.317-.204-2.964.827.838-2.888-.224-.337A8.156 8.156 0 0 1 3.8 12c0-4.521 3.679-8.2 8.2-8.2 4.521 0 8.2 3.679 8.2 8.2 0 4.521-3.679 8.2-8.2 8.2z"/>
+                    </svg>
+                    <span>Send Screenshot on WhatsApp</span>
                   </button>
                   <button
                     onClick={resetForm}
                     className="flex-1 bg-markaz-blue hover:bg-markaz-blue-light active:scale-98 text-white font-semibold py-3.5 rounded-xl sm:rounded-full text-xs transition-colors shadow-sm min-h-[44px]"
                   >
-                    Close
+                    Done & Close
                   </button>
                 </div>
               </div>

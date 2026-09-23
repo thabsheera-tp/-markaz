@@ -23,8 +23,8 @@ export async function POST(req) {
     }
 
     const method = payment_method || 'UPI';
-    // Contribution is directly confirmed and recorded into the Markaz ledger
-    const status = 'Completed';
+    // Public contribution submissions are recorded as Pending until bank verification
+    const status = 'Pending';
     const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
 
     const result = await query.run(
@@ -46,13 +46,13 @@ export async function POST(req) {
     await logActivity(
       null,
       donor_name?.trim() || 'Anonymous Donor',
-      'Donation Received',
-      `Received ₹${numAmount.toLocaleString('en-IN')} via ${method} (${status})`,
+      'Donation Submitted',
+      `Submitted ₹${numAmount.toLocaleString('en-IN')} via ${method} (Pending Bank Verification)`,
       ip
     );
 
     return NextResponse.json({
-      message: 'Thank you for your noble contribution to Koyyam Markaz!',
+      message: 'Thank you! Your donation details have been submitted for verification.',
       donation: {
         id: result.lastID,
         donor_name: donor_name || 'Anonymous Philanthropist',
