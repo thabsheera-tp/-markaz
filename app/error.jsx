@@ -7,6 +7,12 @@ export default function GlobalError({ error, reset }) {
     console.error('Unhandled Application Error:', error);
   }, [error]);
 
+  const handleHardRefresh = () => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/?_reload=' + Date.now();
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 text-center">
       <div className="w-16 h-16 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center mb-6">
@@ -17,18 +23,29 @@ export default function GlobalError({ error, reset }) {
       <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 tracking-tight mb-2">
         Something went wrong
       </h1>
-      <p className="text-slate-600 max-w-md text-sm mb-6">
-        An unexpected error occurred while processing your request. Please try refreshing or reloading the portal.
+      <p className="text-slate-600 max-w-md text-sm mb-4">
+        A temporary network or deployment update occurred. Please reload to load the latest version of the portal.
       </p>
+
+      {error?.message && (
+        <div className="bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-xl max-w-md mb-6 font-mono break-words text-left">
+          {error.message}
+        </div>
+      )}
+
       <div className="flex gap-3">
         <button
-          onClick={() => reset()}
+          onClick={handleHardRefresh}
           className="px-5 py-2.5 rounded-full bg-[#004B87] hover:bg-[#003865] text-white font-semibold text-xs sm:text-sm transition-all shadow-sm active:scale-95"
         >
-          Try Again
+          Reload Portal
         </button>
         <button
-          onClick={() => window.location.href = '/'}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.location.href = '/';
+            }
+          }}
           className="px-5 py-2.5 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold text-xs sm:text-sm transition-all"
         >
           Home
