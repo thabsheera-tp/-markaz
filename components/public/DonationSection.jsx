@@ -9,14 +9,11 @@ import {
   ArrowRight,
   X,
   Sparkles,
-  Printer,
   Landmark,
   Smartphone,
   CheckCircle2,
-  AlertCircle,
-  Clock
+  AlertCircle
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { api } from '../../services/api';
 
 export default function DonationSection({ donationSettings, preselectedCause = null }) {
@@ -36,9 +33,6 @@ export default function DonationSection({ donationSettings, preselectedCause = n
   const [modalTab, setModalTab] = useState('upi'); // 'upi' | 'bank'
   const [copiedUpi, setCopiedUpi] = useState(false);
   const [copiedField, setCopiedField] = useState('');
-  const [upiRefId, setUpiRefId] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [receipt, setReceipt] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
   const effectiveAmount = isCustom ? parseFloat(customAmount) || 0 : selectedAmount;
@@ -95,83 +89,8 @@ export default function DonationSection({ donationSettings, preselectedCause = n
     setTimeout(() => setCopiedField(''), 2500);
   };
 
-  const buildWhatsAppMessage = (refId) => {
-    const trackingId = refId ? `#KM-${refId}` : (receipt?.id ? `#KM-${receipt.id}` : '');
-    return [
-      `Assalamu Alaikum,`,
-      `I have transferred a contribution of ₹${effectiveAmount.toLocaleString('en-IN')} to Markazu Da-wathil Islamiyya, Koyyam via ${modalTab === 'bank' ? 'Federal Bank Transfer' : 'UPI / Google Pay'}.`,
-      ``,
-      `*Contribution Details:*`,
-      `• Donor Name: ${donorName.trim() || 'Anonymous Philanthropist'}`,
-      donorPhone.trim() ? `• Contact Phone: ${donorPhone.trim()}` : null,
-      `• Cause: ${cause}`,
-      upiRefId.trim() ? `• UTR / Transaction ID: ${upiRefId.trim()}` : null,
-      trackingId ? `• Reference ID: ${trackingId}` : null,
-      prayerRequest.trim() ? `• Dua / Niyyah: ${prayerRequest.trim()}` : null,
-      ``,
-      `📎 Please find my payment confirmation screenshot attached for verification and official receipt. Jazakallah Khairan.`
-    ].filter(Boolean).join('\n');
-  };
-
-  const openWhatsAppChat = (refId) => {
-    const rawNum = donationSettings?.google_pay_number || '9400304426';
-    const cleanNum = rawNum.replace(/\D/g, '');
-    const waPhone = cleanNum.length === 10 ? `91${cleanNum}` : (cleanNum || '919400304426');
-    const msg = buildWhatsAppMessage(refId);
-    window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
-  };
-
-  const handleSendWhatsAppProof = async () => {
-    setIsSubmitting(true);
-    setErrorMsg('');
-
-    let donationId = null;
-    try {
-      const fullPrayer = [
-        cause !== 'General Markaz Welfare Fund' ? `[Cause: ${cause}]` : '',
-        prayerRequest.trim()
-      ].filter(Boolean).join(' - ');
-
-      const res = await api.submitDonation({
-        donor_name: donorName.trim() || 'Anonymous Philanthropist',
-        donor_phone: donorPhone.trim() || '',
-        amount: effectiveAmount,
-        payment_method: modalTab === 'bank' ? 'Bank Transfer' : 'UPI',
-        upi_transaction_id: upiRefId.trim() || null,
-        prayer_request: fullPrayer
-      });
-
-      if (res?.donation?.id) {
-        donationId = res.donation.id;
-      }
-    } catch (err) {
-      console.error('Donation record logging note:', err);
-    }
-
-    // Open WhatsApp prefilled with transaction details
-    openWhatsAppChat(donationId);
-
-    // Show Acknowledgment (Pending Verification)
-    setReceipt({
-      id: donationId || 'SUBMITTED',
-      donor_name: donorName.trim() || 'Anonymous Philanthropist',
-      amount: effectiveAmount,
-      payment_method: modalTab === 'bank' ? 'Bank Transfer' : 'UPI',
-      upi_transaction_id: upiRefId.trim() || null,
-      status: 'Pending Verification',
-      date: new Date().toISOString().replace('T', ' ').substring(0, 19),
-      cause
-    });
-    setIsSubmitting(false);
-  };
-
   const resetForm = () => {
-    setReceipt(null);
     setModalOpen(false);
-    setUpiRefId('');
-    setPrayerRequest('');
-    setDonorName('');
-    setDonorPhone('');
     setErrorMsg('');
   };
 
@@ -535,288 +454,154 @@ export default function DonationSection({ donationSettings, preselectedCause = n
               <X className="w-5 h-5" />
             </button>
 
-            {!receipt ? (
-              <div>
-                {/* Modal Title */}
-                <div className="text-center mb-4 sm:mb-5">
-                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white p-1.5 shadow-sm border border-slate-100 mb-1.5">
-                    <img
-                      src="/markaz-logo.png"
-                      alt="Koyyam Markaz Logo"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-black text-markaz-blue">
-                    Confirm Contribution
-                  </h3>
-                  <div className="mt-0.5 text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                    {merchantName}
-                  </div>
-                  <div className="mt-1.5 text-2xl sm:text-3xl font-black text-markaz-green">
-                    ₹{effectiveAmount.toLocaleString('en-IN')}
-                  </div>
-                </div>
-
-                {/* Tab Switcher: QR vs Bank Transfer */}
-                <div className="flex bg-slate-100 p-1 rounded-xl sm:rounded-2xl mb-4 sm:mb-5">
-                  <button
-                    type="button"
-                    onClick={() => setModalTab('upi')}
-                    className={`flex-1 py-2.5 text-xs font-bold rounded-lg sm:rounded-xl transition-all min-h-[38px] ${
-                      modalTab === 'upi' ? 'bg-white text-markaz-blue shadow-sm' : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                  >
-                    Scan UPI QR
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setModalTab('bank')}
-                    className={`flex-1 py-2.5 text-xs font-bold rounded-lg sm:rounded-xl transition-all min-h-[38px] ${
-                      modalTab === 'bank' ? 'bg-white text-markaz-blue shadow-sm' : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                  >
-                    Federal Bank Details
-                  </button>
-                </div>
-
-                {modalTab === 'upi' ? (
-                  <>
-                    {/* QR Code Container */}
-                    <div className="flex flex-col items-center justify-center bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 mb-4 sm:mb-5">
-                      <img
-                        src={qrUrl}
-                        alt="UPI QR Code"
-                        onError={(e) => {
-                          e.currentTarget.src = '/uploads/koyyam_upi_qr.svg';
-                        }}
-                        className="w-44 h-44 sm:w-52 sm:h-52 object-contain rounded-2xl bg-white p-2 shadow-sm border border-slate-100"
-                      />
-                      <p className="text-xs text-slate-500 mt-2 text-center font-light">
-                        Scan with Google Pay, PhonePe, Paytm, or BHIM
-                      </p>
-                    </div>
-
-                    {/* UPI ID Copy Bar */}
-                    <div className="flex items-center justify-between bg-slate-100 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-xs font-mono text-slate-800 mb-3">
-                      <span className="truncate mr-2">{upiId}</span>
-                      <button
-                        type="button"
-                        onClick={copyUpiId}
-                        className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg sm:rounded-xl border border-slate-200 text-[11px] font-sans font-semibold transition-all active:scale-95 shadow-xs min-h-[32px] shrink-0"
-                      >
-                        {copiedUpi ? (
-                          <>
-                            <Check className="w-3.5 h-3.5 text-emerald-600" />
-                            <span className="text-emerald-600">Copied!</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3.5 h-3.5" />
-                            <span>Copy ID</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-
-                    {/* Open in UPI App button (Super prominent on mobile) */}
-                    <div className="mb-4">
-                      <a
-                        href={upiIntentUrl}
-                        className="w-full flex items-center justify-center gap-2 bg-[#004B87] hover:bg-[#003865] text-white py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold transition-all active:scale-98 shadow-sm min-h-[44px]"
-                      >
-                        <Smartphone className="w-4 h-4" />
-                        <span>Open in Installed UPI App</span>
-                      </a>
-                    </div>
-                  </>
-                ) : (
-                  /* Bank Details View inside Modal */
-                  <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 mb-5 space-y-3.5 text-xs">
-                    <div>
-                      <span className="text-slate-400 font-bold block text-[10px] uppercase">Beneficiary</span>
-                      <span className="font-extrabold text-slate-800">{bankDetails.accountName}</span>
-                    </div>
-                    <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200">
-                      <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">Account Number</span>
-                        <span className="font-mono font-black text-sm text-slate-900">{bankDetails.accountNumber}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => copyText(bankDetails.accountNumber, 'acc')}
-                        className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 text-xs font-semibold"
-                      >
-                        {copiedField === 'acc' ? 'Copied!' : 'Copy'}
-                      </button>
-                    </div>
-                    <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200">
-                      <div>
-                        <span className="text-slate-400 block text-[10px] uppercase font-bold">IFSC Code</span>
-                        <span className="font-mono font-bold text-slate-900">{bankDetails.ifscCode}</span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => copyText(bankDetails.ifscCode, 'ifsc')}
-                        className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 text-xs font-semibold"
-                      >
-                        {copiedField === 'ifsc' ? 'Copied!' : 'Copy'}
-                      </button>
-                    </div>
-                    <div>
-                      <span className="text-slate-400 font-bold block text-[10px] uppercase">Bank & Branch</span>
-                      <span className="font-bold text-slate-800">{bankDetails.bankName}, {bankDetails.branchName}</span>
-                    </div>
-                    <div className="pt-2 border-t border-slate-200 flex justify-between items-center">
-                      <span className="font-bold text-blue-700">Google Pay / PhonePe:</span>
-                      <span className="font-mono font-bold text-slate-900">{bankDetails.googlePayNumber}</span>
-                    </div>
-                  </div>
-                )}
-
-                {/* UTR Reference Input & Confirmation Actions */}
-                <div className="space-y-3.5 pt-3 border-t border-slate-100">
-                  {errorMsg && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 font-medium flex items-center gap-2">
-                      <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
-                      <span className="flex-1">{errorMsg}</span>
-                      <button
-                        type="button"
-                        onClick={() => setErrorMsg('')}
-                        className="text-red-400 hover:text-red-600 text-xs font-bold"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  )}
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
-                      Transaction UTR / Reference ID (Optional - from UPI app)
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. 423874928174 or leave blank"
-                      value={upiRefId}
-                      onChange={(e) => setUpiRefId(e.target.value)}
-                      className="w-full px-4 py-3 text-base sm:text-sm rounded-xl sm:rounded-2xl border border-slate-200 focus:ring-2 focus:ring-markaz-green/30 focus:border-markaz-green focus:outline-none min-h-[44px]"
-                    />
-                  </div>
-
-                  {/* Verification Policy Alert */}
-                  <div className="bg-amber-50/90 border border-amber-200/80 rounded-xl sm:rounded-2xl p-3 sm:p-3.5 text-xs text-amber-900 leading-relaxed flex items-start gap-2.5">
-                    <ShieldCheck className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                    <div className="text-[11px] sm:text-xs">
-                      <span className="font-bold text-amber-950">Verification Policy:</span> To guarantee transparency and avoid unverified records, official stamped receipts are issued once the transaction is matched with the Markaz bank account. Please share your payment screenshot on WhatsApp.
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 pt-1">
-                    <button
-                      type="button"
-                      disabled={isSubmitting}
-                      onClick={handleSendWhatsAppProof}
-                      className="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold py-3.5 sm:py-4 rounded-xl sm:rounded-full transition-all shadow-md active:scale-95 disabled:opacity-50 min-h-[48px] text-sm sm:text-base cursor-pointer"
-                    >
-                      {isSubmitting ? (
-                        <span>Submitting Details...</span>
-                      ) : (
-                        <>
-                          <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                            <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.952 1.18-.175.2-.351.225-.652.075-.301-.15-1.271-.468-2.42-1.494-.895-.798-1.5-1.784-1.675-2.085-.175-.3-.019-.463.131-.612.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.051-.375-.025-.526-.075-.15-.676-1.63-.927-2.23-.244-.585-.492-.506-.676-.515-.175-.01-.375-.01-.576-.01s-.526.075-.801.375c-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.227 3.109.151.2 2.12 3.237 5.136 4.54.717.311 1.277.496 1.714.635.721.229 1.377.197 1.896.12.578-.087 1.782-.728 2.032-1.431.251-.703.251-1.306.175-1.431-.075-.125-.276-.2-.577-.35z"/>
-                            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.17L2 22l4.985-1.39A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.63 0-3.14-.474-4.417-1.29l-.317-.204-2.964.827.838-2.888-.224-.337A8.156 8.156 0 0 1 3.8 12c0-4.521 3.679-8.2 8.2-8.2 4.521 0 8.2 3.679 8.2 8.2 0 4.521-3.679 8.2-8.2 8.2z"/>
-                          </svg>
-                          <span>Send Payment Proof on WhatsApp</span>
-                        </>
-                      )}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={resetForm}
-                      className="w-full py-2.5 text-xs text-slate-500 hover:text-slate-800 font-semibold text-center transition-colors cursor-pointer"
-                    >
-                      Payment Completed? Close Window
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              /* Acknowledgment View (Pending Verification) */
-              <div className="text-center py-4">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white p-1.5 shadow-md border border-slate-100 mx-auto mb-3">
+            <div>
+              {/* Modal Title */}
+              <div className="text-center mb-4 sm:mb-5">
+                <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white p-1.5 shadow-sm border border-slate-100 mb-1.5">
                   <img
                     src="/markaz-logo.png"
-                    alt="Koyyam Markaz"
+                    alt="Koyyam Markaz Logo"
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div className="w-12 h-12 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3 shadow-xs">
-                  <Clock className="w-6 h-6 stroke-[2.5]" />
-                </div>
                 <h3 className="text-xl sm:text-2xl font-black text-markaz-blue">
-                  Jazakallah Khairan!
+                  Confirm Contribution
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 font-light">
-                  Your contribution reference has been recorded. Our accounts office will verify the bank transaction and issue your official stamped receipt.
-                </p>
-
-                {/* Tracking Card */}
-                <div className="mt-5 sm:mt-6 bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 text-left space-y-2.5 text-xs">
-                  <div className="flex justify-between pb-2 border-b border-slate-200">
-                    <span className="text-slate-500 font-semibold">Reference ID:</span>
-                    <span className="font-mono font-bold text-slate-800">#KM-{receipt.id}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Donor:</span>
-                    <span className="font-bold text-slate-800">{receipt.donor_name}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Amount:</span>
-                    <span className="font-bold text-markaz-green text-sm">₹{receipt.amount.toLocaleString('en-IN')}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Method:</span>
-                    <span className="font-medium text-slate-700">{receipt.payment_method}</span>
-                  </div>
-                  {receipt.upi_transaction_id && (
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">UTR / Ref:</span>
-                      <span className="font-mono font-bold text-slate-700">{receipt.upi_transaction_id}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-500 font-semibold">Status:</span>
-                    <span className="font-bold text-xs px-2.5 py-0.5 rounded-full border border-amber-300 text-amber-800 bg-amber-50 flex items-center gap-1 shadow-xs">
-                      <Clock className="w-3 h-3 text-amber-600 stroke-[2.5]" />
-                      <span>Pending Bank Verification</span>
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Date:</span>
-                    <span className="text-slate-700">{receipt.date}</span>
-                  </div>
+                <div className="mt-0.5 text-[11px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  {merchantName}
                 </div>
-
-                <div className="mt-5 sm:mt-6 flex flex-col sm:flex-row gap-2.5 sm:gap-3">
-                  <button
-                    onClick={() => openWhatsAppChat(receipt.id)}
-                    className="flex-1 flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#20ba5a] active:scale-95 text-white font-bold py-3.5 rounded-xl sm:rounded-full text-xs transition-colors min-h-[44px]"
-                  >
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                      <path d="M17.472 14.382c-.301-.15-1.782-.879-2.057-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.952 1.18-.175.2-.351.225-.652.075-.301-.15-1.271-.468-2.42-1.494-.895-.798-1.5-1.784-1.675-2.085-.175-.3-.019-.463.131-.612.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.051-.375-.025-.526-.075-.15-.676-1.63-.927-2.23-.244-.585-.492-.506-.676-.515-.175-.01-.375-.01-.576-.01s-.526.075-.801.375c-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.909 1.227 3.109.151.2 2.12 3.237 5.136 4.54.717.311 1.277.496 1.714.635.721.229 1.377.197 1.896.12.578-.087 1.782-.728 2.032-1.431.251-.703.251-1.306.175-1.431-.075-.125-.276-.2-.577-.35z"/>
-                      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.17L2 22l4.985-1.39A9.957 9.957 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.63 0-3.14-.474-4.417-1.29l-.317-.204-2.964.827.838-2.888-.224-.337A8.156 8.156 0 0 1 3.8 12c0-4.521 3.679-8.2 8.2-8.2 4.521 0 8.2 3.679 8.2 8.2 0 4.521-3.679 8.2-8.2 8.2z"/>
-                    </svg>
-                    <span>Send Screenshot on WhatsApp</span>
-                  </button>
-                  <button
-                    onClick={resetForm}
-                    className="flex-1 bg-markaz-blue hover:bg-markaz-blue-light active:scale-98 text-white font-semibold py-3.5 rounded-xl sm:rounded-full text-xs transition-colors shadow-sm min-h-[44px]"
-                  >
-                    Done & Close
-                  </button>
+                <div className="mt-1.5 text-2xl sm:text-3xl font-black text-markaz-green">
+                  ₹{effectiveAmount.toLocaleString('en-IN')}
                 </div>
               </div>
-            )}
+
+              {/* Tab Switcher: QR vs Bank Transfer */}
+              <div className="flex bg-slate-100 p-1 rounded-xl sm:rounded-2xl mb-4 sm:mb-5">
+                <button
+                  type="button"
+                  onClick={() => setModalTab('upi')}
+                  className={`flex-1 py-2.5 text-xs font-bold rounded-lg sm:rounded-xl transition-all min-h-[38px] ${
+                    modalTab === 'upi' ? 'bg-white text-markaz-blue shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  Scan UPI QR
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModalTab('bank')}
+                  className={`flex-1 py-2.5 text-xs font-bold rounded-lg sm:rounded-xl transition-all min-h-[38px] ${
+                    modalTab === 'bank' ? 'bg-white text-markaz-blue shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  Federal Bank Details
+                </button>
+              </div>
+
+              {modalTab === 'upi' ? (
+                <>
+                  {/* QR Code Container */}
+                  <div className="flex flex-col items-center justify-center bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 mb-4 sm:mb-5">
+                    <img
+                      src={qrUrl}
+                      alt="UPI QR Code"
+                      onError={(e) => {
+                        e.currentTarget.src = '/uploads/koyyam_upi_qr.svg';
+                      }}
+                      className="w-44 h-44 sm:w-52 sm:h-52 object-contain rounded-2xl bg-white p-2 shadow-sm border border-slate-100"
+                    />
+                    <p className="text-xs text-slate-500 mt-2 text-center font-light">
+                      Scan with Google Pay, PhonePe, Paytm, or BHIM
+                    </p>
+                  </div>
+
+                  {/* UPI ID Copy Bar */}
+                  <div className="flex items-center justify-between bg-slate-100 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl text-xs font-mono text-slate-800 mb-3">
+                    <span className="truncate mr-2">{upiId}</span>
+                    <button
+                      type="button"
+                      onClick={copyUpiId}
+                      className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg sm:rounded-xl border border-slate-200 text-[11px] font-sans font-semibold transition-all active:scale-95 shadow-xs min-h-[32px] shrink-0"
+                    >
+                      {copiedUpi ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-600" />
+                          <span className="text-emerald-600">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copy ID</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Open in UPI App button (Super prominent on mobile) */}
+                  <div className="mb-4">
+                    <a
+                      href={upiIntentUrl}
+                      className="w-full flex items-center justify-center gap-2 bg-[#004B87] hover:bg-[#003865] text-white py-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold transition-all active:scale-98 shadow-sm min-h-[44px]"
+                    >
+                      <Smartphone className="w-4 h-4" />
+                      <span>Open in Installed UPI App</span>
+                    </a>
+                  </div>
+                </>
+              ) : (
+                /* Bank Details View inside Modal */
+                <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 mb-5 space-y-3.5 text-xs">
+                  <div>
+                    <span className="text-slate-400 font-bold block text-[10px] uppercase">Beneficiary</span>
+                    <span className="font-extrabold text-slate-800">{bankDetails.accountName}</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200">
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Account Number</span>
+                      <span className="font-mono font-black text-sm text-slate-900">{bankDetails.accountNumber}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => copyText(bankDetails.accountNumber, 'acc')}
+                      className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 text-xs font-semibold"
+                    >
+                      {copiedField === 'acc' ? 'Copied!' : 'Copy'}
+                    </button>
+                  </div>
+                  <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-200">
+                    <div>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">IFSC Code</span>
+                      <span className="font-mono font-bold text-slate-900">{bankDetails.ifscCode}</span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => copyText(bankDetails.ifscCode, 'ifsc')}
+                      className="p-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-slate-700 text-xs font-semibold"
+                    >
+                      {copiedField === 'ifsc' ? 'Copied!' : 'Copy'}
+                    </button>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 font-bold block text-[10px] uppercase">Bank & Branch</span>
+                    <span className="font-bold text-slate-800">{bankDetails.bankName}, {bankDetails.branchName}</span>
+                  </div>
+                  <div className="pt-2 border-t border-slate-200 flex justify-between items-center">
+                    <span className="font-bold text-blue-700">Google Pay / PhonePe:</span>
+                    <span className="font-mono font-bold text-slate-900">{bankDetails.googlePayNumber}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Modal Footer Action */}
+              <div className="pt-3 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl sm:rounded-full text-xs sm:text-sm transition-colors shadow-sm min-h-[44px] cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
 
           </div>
         </div>
