@@ -99,6 +99,13 @@ export default function DonationSection({ donationSettings, preselectedCause = n
   const qrUrl = api.getImageUrl(donationSettings?.qr_code_url || '/uploads/koyyam_upi_qr.svg');
   const upiIntentUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(merchantName)}&am=${effectiveAmount}&cu=INR&tn=${encodeURIComponent('Donation to Koyyam Markaz')}`;
 
+  const rawWaNum = donationSettings?.google_pay_number || '9400304426';
+  const cleanWaNum = rawWaNum.replace(/\D/g, '');
+  const waPhone = cleanWaNum.length === 10 ? `91${cleanWaNum}` : (cleanWaNum || '919400304426');
+  const whatsappReceiptUrl = `https://wa.me/${waPhone}?text=${encodeURIComponent(
+    `Assalamu Alaikum,\n\nI have transferred a contribution of ₹${effectiveAmount ? effectiveAmount.toLocaleString('en-IN') : '1,000'} to Markazu Da-wathil Islamiyya Koyyam via Federal Bank Transfer / Google Pay.\n\nDonor Name: ${donorName || 'Well-wisher'}\nCause: ${cause}\n\nPlease find the transaction screenshot attached.`
+  )}`;
+
   return (
     <section id="donate" className="w-full max-w-full overflow-hidden py-12 sm:py-20 lg:py-24 bg-[#f8fafc] relative border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
